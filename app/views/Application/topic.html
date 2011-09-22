@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+#{set title:'Cron Creator' /}
+
+<div class="page-header">
+    <h1>Topic Details</h1>
+</div>
+
+<ul>
+<li><b>Name : </b>${topic.name}</li>
+<li><b>NS : </b>${topic.ns} </li>
+<li><b>Prefix : </b> ${topic.prefix}</li>
+</ul>
+
+<h2>Add Metadata</h2>
+#{form @Application.addMeta()}
+		<fieldset>
+				<div class="clearfix">
+        			<label for="mname">Key</label>
+        			<div class="input">
+        				<input type="text" name="mname" id="mname" class="xlarge" size="30"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="mvalue">Value</label>
+        			<div class="input">
+        				<input type="text" name="mvalue" id="mvalue" class="xlarge" size="30"/>
+        			</div>
+        		</div>
+   				<input type="hidden" name="name" id="name" value="${topic.name}"/>
+   				<input type="hidden" name="ns" id="ns" value="${topic.ns}"/>
+   				<input type="hidden" name="prefix" id="prefix" value="${topic.prefix}"/>
+         		
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Create" />
+        		</div>
+        </fieldset>
+#{/form}
+
+<h2>Metadata</h2>
+#{if meta}
+	<table class="zebra-striped">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+        #{list meta, as : 'm'}
+          <tr>
+            <td>${m.name}</td>
+            <td>${m.value}</td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}

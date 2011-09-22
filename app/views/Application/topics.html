@@ -1,0 +1,56 @@
+#{extends 'main.html' /}
+#{set title:'Cron Creator' /}
+
+<div class="page-header">
+    <h1>Topics</h1>
+</div>
+
+#{form @Application.createTopic()}
+		<fieldset>
+				<div class="clearfix">
+        			<label for="name">Topic Name</label>
+        			<div class="input">
+        				<input type="text" name="name" id="name" class="xlarge" size="30"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="prefix">Topic Prefix</label>
+        			<div class="input">
+        				<input type="text" name="prefix" id="prefix" class="xlarge" size="30"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="ns">Topic NS</label>
+        			<div class="input">
+        				<input type="text" name="ns" id="ns" class="xlarge" size="30"/>
+        			</div>
+        		</div>
+         		
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Create" />
+        		</div>
+        </fieldset>
+#{/form}
+
+#{if topics}
+	<table class="zebra-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Prefix</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        #{list topics, as : 't'}
+          <tr>
+            <td>${t.name}</td>
+            <td>${t.ns}</td>
+            <td>${t.prefix}</td>
+            <td><a href="@{Application.topic(t.name, t.ns, t.prefix)}">Details</a></td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}
