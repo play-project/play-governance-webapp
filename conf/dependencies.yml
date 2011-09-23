@@ -7,6 +7,9 @@ require:
     - org.petalslink.dsb -> dsb-cxfutils 1.0-SNAPSHOT:
         exclude:
             - org.slf4j -> *
+    - org.petalslink.dsb -> dsb-kernel-wsapi 1.0-SNAPSHOT:
+        exclude:
+            - org.slf4j -> *
     - eu.play-project.governance -> governance-api 1.0-SNAPSHOT:
         exclude:
             - org.slf4j -> *

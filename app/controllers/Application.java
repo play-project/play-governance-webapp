@@ -5,11 +5,12 @@ import java.util.List;
 import models.Node;
 
 import org.petalslink.dsb.cxf.CXFHelper;
+import org.petalslink.dsb.jaxws.JAXWSHelper;
 
 import play.mvc.Before;
 import play.mvc.Controller;
+import utils.Locator;
 import eu.playproject.governance.api.EventGovernance;
-import eu.playproject.governance.api.GovernanceExeption;
 import eu.playproject.governance.api.TopicMetadataService;
 import eu.playproject.governance.api.bean.Metadata;
 import eu.playproject.governance.api.bean.Topic;
@@ -54,14 +55,30 @@ public class Application extends Controller {
 		}
 		return n.baseURL;
 	}
+	
+	private static Node getNode() {
+		Node n = Node.getCurrentNode();
+		if (n == null) {
+			flash.success("Please connect!");
+			connect();
+		}
+		return n;
+	}
 
 	public static void index() {
-		topics();
+		render();
 	}
 
 	public static void topics() {
-		EventGovernance client = CXFHelper.getClient(getURL(),
+		String serviceName = JAXWSHelper.getWebServiceName(EventGovernance.class);
+		String url = Locator.getBusinessService(serviceName, getNode());
+		if (url == null) {
+			flash.error("Can not find the service");
+			index();
+		}
+		EventGovernance client = CXFHelper.getClientFromFinalURL(url,
 				EventGovernance.class);
+		
 		List<Topic> topics = null;
 		try {
 			topics = client.getTopics();
@@ -76,8 +93,15 @@ public class Application extends Controller {
 		topic.setName(name);
 		topic.setNs(ns);
 		topic.setPrefix(prefix);
+		
+		String serviceName = JAXWSHelper.getWebServiceName(TopicMetadataService.class);
+		String url = Locator.getBusinessService(serviceName, getNode());
+		if (url == null) {
+			flash.error("Can not find the service");
+			index();
+		}
 
-		TopicMetadataService client = CXFHelper.getClient(getURL(),
+		TopicMetadataService client = CXFHelper.getClientFromFinalURL(url,
 				TopicMetadataService.class);
 		List<Metadata> meta = null;
 		try {
@@ -89,8 +113,15 @@ public class Application extends Controller {
 	}
 
 	public static void createTopic(String name, String ns, String prefix) {
-		EventGovernance client = CXFHelper.getClient(getURL(),
+		String serviceName = JAXWSHelper.getWebServiceName(EventGovernance.class);
+		String url = Locator.getBusinessService(serviceName, getNode());
+		if (url == null) {
+			flash.error("Can not find the service");
+			index();
+		}
+		EventGovernance client = CXFHelper.getClientFromFinalURL(url,
 				EventGovernance.class);
+		
 		Topic topic = new Topic();
 		topic.setName(name);
 		topic.setNs(ns);
@@ -105,8 +136,17 @@ public class Application extends Controller {
 
 	public static void addMeta(String name, String ns, String prefix,
 			String mname, String mvalue) {
-		TopicMetadataService client = CXFHelper.getClient(getURL(),
+		
+		String serviceName = JAXWSHelper.getWebServiceName(TopicMetadataService.class);
+		String url = Locator.getBusinessService(serviceName, getNode());
+		if (url == null) {
+			flash.error("Can not find the service");
+			index();
+		}
+		
+		TopicMetadataService client = CXFHelper.getClientFromFinalURL(url,
 				TopicMetadataService.class);
+		
 		Topic topic = new Topic();
 		topic.setName(name);
 		topic.setNs(ns);
