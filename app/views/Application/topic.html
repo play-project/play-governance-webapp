@@ -2,16 +2,50 @@
 #{set title:'Topic details' /}
 
 <div class="page-header">
-    <h1>Topic Details</h1>
+    <h1>Topic Details &nbsp;<small>{${topic.ns}}${topic.prefix}:${topic.name}</small></h1>
 </div>
 
-<ul>
-<li><b>Name : </b>${topic.name}</li>
-<li><b>NS : </b>${topic.ns} </li>
-<li><b>Prefix : </b> ${topic.prefix}</li>
-</ul>
+<table class="zebra-striped">
+	<thead>
+        <tr>
+          <th>Name</th>
+          <th>Namespace</th>
+          <th>Prefix</th>
+        </tr>
+      </thead>
+      <tbody>
+		<tr>
+   			<td><b>${topic.name}</b></td>
+   			<td><a href="${topic.ns}" target="_blank">${topic.ns}</a></td>
+   			<td>${topic.prefix}</td>
+		</tr>
+	</tbody>
+</table>
+
+#{if meta}
+<h2>Metadata</h2>
+	<table class="zebra-striped">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        #{list meta, as : 'm'}
+          <tr>
+            <td>${m.name}</td>
+            <td>${m.value}</td>
+			<td><a href="@{Application.removeMeta(topic.name, topic.ns, topic.prefix, m.name, m.value)}">Remove</a></td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}
 
 <h2>Add Metadata</h2>
+<div class="well">
 #{form @Application.addMeta()}
 		<fieldset>
 				<div class="clearfix">
@@ -35,23 +69,4 @@
         		</div>
         </fieldset>
 #{/form}
-
-<h2>Metadata</h2>
-#{if meta}
-	<table class="zebra-striped">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-        #{list meta, as : 'm'}
-          <tr>
-            <td>${m.name}</td>
-            <td>${m.value}</td>
-          </tr>
-        #{/list}
-        </tbody>
-      </table>
-#{/if}
+</div>

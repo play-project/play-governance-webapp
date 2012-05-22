@@ -15,22 +15,28 @@ require:
             - org.slf4j -> *
 
 repositories:
+    - petalslinkrelease:
+        type: iBiblio
+        root: "http://maven.petalslink.com/public/"
+        contains:
+            - org.petalslink.* -> * 1.0.0
+        
     - petalslink:
         type: iBiblio
         root: "http://maven.petalslink.com/public-snapshot/"
         contains:
-            - eu.playproject.servicebus -> *
-            - eu.play-project -> *
-            - eu.play-project.governance -> *
             - org.petalslink.dsb -> *
-
-    - petalslinkrelease:
-        type: iBiblio
-        root: "http://maven.petalslink.com/public/"
+            - eu.play-project.governance -> *
+            - eu.play-project -> play-governance
 
     - petalslinkothers:
         type: iBiblio
         root: "http://maven.petalslink.com/others/"
+        
+    - play-private.snapshot:
+        type: iBiblio
+        root: "http://maven.petalslink.com/private-play-snapshot/"
         contains:
-            - org.apache.cxf -> *
-            
+            - eu.playproject.servicebus -> *
+            - eu.play-project -> *
+            #- eu.play-project.governance -> *            

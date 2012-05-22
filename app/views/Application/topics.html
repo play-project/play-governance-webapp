@@ -5,6 +5,7 @@
     <h1>Topics</h1>
 </div>
 
+<!--
 #{form @Application.createTopic()}
 		<fieldset>
 				<div class="clearfix">
@@ -31,13 +32,14 @@
         		</div>
         </fieldset>
 #{/form}
+-->
 
 #{if topics}
 	<table class="zebra-striped">
         <thead>
           <tr>
             <th>Name</th>
-            <th>URL</th>
+            <th>Namespace</th>
             <th>Prefix</th>
             <th>Actions</th>
           </tr>
@@ -45,8 +47,8 @@
         <tbody>
         #{list topics, as : 't'}
           <tr>
-            <td>${t.name}</td>
-            <td>${t.ns}</td>
+            <td><b>${t.name}</b></td>
+            <td><a href="${t.ns}" target="_blank">${t.ns}</a></td>
             <td>${t.prefix}</td>
             <td><a href="@{Application.topic(t.name, t.ns, t.prefix)}">Details</a></td>
           </tr>

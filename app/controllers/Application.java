@@ -162,4 +162,34 @@ public class Application extends Controller {
 		}
 		topic(name, ns, prefix);
 	}
+	
+	public static void removeMeta(String name, String ns, String prefix,
+			String mname, String mvalue) {
+		
+		String serviceName = JAXWSHelper.getWebServiceName(TopicMetadataService.class);
+		String url = Locator.getBusinessService(serviceName, getNode());
+		if (url == null) {
+			flash.error("Can not find the service");
+			index();
+		}
+		
+		TopicMetadataService client = CXFHelper.getClientFromFinalURL(url,
+				TopicMetadataService.class);
+		
+		Topic topic = new Topic();
+		topic.setName(name);
+		topic.setNs(ns);
+		topic.setPrefix(prefix);
+
+		Metadata meta = new Metadata();
+		meta.setName(mname);
+		meta.setValue(mvalue);
+
+		try {
+			client.removeMetadata(topic, meta);
+		} catch (Exception e) {
+			flash.error("Unable to remove metadata for topic %s", e.getMessage());
+		}
+		topic(name, ns, prefix);
+	}
 }

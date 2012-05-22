@@ -12,6 +12,8 @@ import org.petalslink.dsb.cxf.CXFHelper;
 import org.petalslink.dsb.ws.api.ServiceInformation;
 
 /**
+ * Deprecated...
+ * 
  * @author chamerling
  * 
  */
@@ -27,6 +29,8 @@ public class Locator {
 	 * @return
 	 */
 	public static String getBusinessService(String pattern, Node node) {
+		return node.baseURL + "/" + pattern;
+		/*
 		String result = null;
 		if (node == null || pattern == null) {
 			return null;
@@ -50,7 +54,7 @@ public class Locator {
 		}
 
 		return result;
-
+		*/
 	}
 
 }

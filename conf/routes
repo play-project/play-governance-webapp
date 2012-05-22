@@ -11,6 +11,7 @@ GET     /topic/all                              Application.topics
 GET     /topic/                                 Application.topic
 POST    /topic/create                           Application.createTopic
 POST    /topic/meta/create                      Application.addMeta
+GET    /topic/meta/remove                      Application.removeMeta
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
