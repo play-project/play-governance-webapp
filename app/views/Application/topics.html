@@ -38,6 +38,7 @@
 	<table class="zebra-striped">
         <thead>
           <tr>
+          	<th>#</th>
             <th>Name</th>
             <th>Namespace</th>
             <th>Prefix</th>
@@ -45,8 +46,10 @@
           </tr>
         </thead>
         <tbody>
+        %{int i = 0}%
         #{list topics, as : 't'}
           <tr>
+          <td align="left">${i++}</td>
             <td><b>${t.name}</b></td>
             <td><a href="${t.ns}" target="_blank">${t.ns}</a></td>
             <td>${t.prefix}</td>
