@@ -3,13 +3,15 @@
  */
 package utils;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import models.Node;
 
-import org.petalslink.dsb.cxf.CXFHelper;
-import org.petalslink.dsb.ws.api.ServiceInformation;
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.ow2.play.metadata.api.service.MetadataBootstrap;
+import org.ow2.play.metadata.api.service.MetadataService;
+import org.ow2.play.service.registry.api.Constants;
+import org.ow2.play.service.registry.api.Registry;
+
+import eu.playproject.governance.api.EventGovernance;
 
 /**
  * Deprecated...
@@ -19,42 +21,64 @@ import org.petalslink.dsb.ws.api.ServiceInformation;
  */
 public class Locator {
 
-	/**
-	 * Try to find a business service which endpoint contains the given input
-	 * string. Dummy way to lookup service until we have a reall governance
-	 * tool...
-	 * 
-	 * @param pattern
-	 * @param node
-	 * @return
-	 */
-	public static String getBusinessService(String pattern, Node node) {
-		return node.baseURL + "/" + pattern;
-		/*
-		String result = null;
-		if (node == null || pattern == null) {
-			return null;
+	public static MetadataService getMetaService(Node node) throws Exception {
+
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.METADATA);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the metadata endpoint in the registry");
 		}
 
-		ServiceInformation information = CXFHelper.getClient(node.baseURL,
-				ServiceInformation.class);
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(MetadataService.class);
+		Object o = factory.create();
+		return MetadataService.class.cast(o);
+	}
 
-		try {
-			Set<String> businessServices = information.getExposedWebServices();
-			Iterator<String> iter = businessServices.iterator();
-			boolean found = false;
-			while (iter.hasNext() && !found) {
-				String url = iter.next();
-				if (url != null && url.contains(pattern)) {
-					found = true;
-					result = url;
-				}
-			}
-		} catch (Exception e) {
+	public static MetadataBootstrap getMetaBootstrap(Node node)
+			throws Exception {
+
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.METADATA + ".boot");
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the metadata endpoint in the registry");
 		}
 
-		return result;
-		*/
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(MetadataBootstrap.class);
+		Object o = factory.create();
+		return MetadataBootstrap.class.cast(o);
+	}
+
+	public static Registry getServiceRegistry(Node node) {
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(node.baseURL);
+		factory.setServiceClass(Registry.class);
+		Object o = factory.create();
+		return Registry.class.cast(o);
+	}
+
+	public static EventGovernance getEventGovernance(Node node)
+			throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.TOPIC);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the topic endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(EventGovernance.class);
+		Object o = factory.create();
+		return EventGovernance.class.cast(o);
 	}
 
 }

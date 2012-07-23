@@ -23,24 +23,28 @@
               <li class="menu">
                 <a href="#" class="menu">Topics</a>
                 <ul class="menu-dropdown">
-                  <li><a href="@{Application.topics()}">All</a></li>
-                </ul>
-              </li>
-              <!--
-              <li class="menu">
-                <a href="#" class="menu">Menu B</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{Application.index()}">Three</a></li>
+                  <li><a href="@{TopicsController.topics()}">All</a></li>
                 </ul>
               </li>
               
               <li class="menu">
-                <a href="#" class="menu">Menu C</a>
+                <a href="#" class="menu">Registry</a>
                 <ul class="menu-dropdown">
-                  <li><a href="@{Application.index()}">Four</a></li>
+                  <li><a href="@{RegistryController.services()}">Services</a></li>
+                  <li><a href="@{RegistryController.load()}">Load</a></li>
                 </ul>
               </li>
-              -->
+              
+ 			  <li class="menu">
+                <a href="#" class="menu">Resources</a>
+                <ul class="menu-dropdown">
+                  <li><a href="@{MetadataController.list()}">List</a></li>
+                  <li><a href="@{MetadataController.create()}">Create</a></li>
+                  <li><a href="@{MetadataController.load()}">Load</a></li>
+                  <li><a href="@{MetadataController.download()}" target="_blank">Download</a></li>
+                </ul>
+              </li>
+              
               
             </ul>
           </ul>

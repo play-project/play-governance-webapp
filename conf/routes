@@ -7,11 +7,24 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /topic/all                              Application.topics
-GET     /topic/                                 Application.topic
-POST    /topic/create                           Application.createTopic
-POST    /topic/meta/create                      Application.addMeta
-GET    /topic/meta/remove                      Application.removeMeta
+GET     /topic/all                              TopicsController.topics
+
+GET    /registry/all                            RegistryController.services
+GET    /registry/init                           RegistryController.initData
+POST   /registry/loadresources		            RegistryController.loadResources
+GET    /registry/loadresources		            RegistryController.loadResources
+GET    /registry/load		                  	RegistryController.load
+GET    /registry/service                        RegistryController.service
+POST   /registry/update                         RegistryController.update
+
+GET     /resource/all                           MetadataController.list
+GET     /resource/                              MetadataController.resource
+POST    /resource/create                        MetadataController.createResource
+POST    /resource/meta/add                  	MetadataController.addMeta
+GET     /resource/meta/rm		                MetadataController.removeMeta
+POST    /resource/loadresources		            MetadataController.loadResources
+GET     /resource/loadresources		            MetadataController.loadResources
+GET     /resource/load		                  	MetadataController.load
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

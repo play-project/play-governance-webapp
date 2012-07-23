@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Resource details' /}
+
+<div class="page-header">
+    <h1>Service Details &nbsp;<small>${name}</small></h1>
+</div>
+
+<h2>Edit</h2>
+<div class="well">
+#{form @RegistryController.update()}
+		<fieldset>
+        		<div class="clearfix">
+        			<label for="mvalue">URL</label>
+        			<div class="input">
+        				<input type="text" name="url" id="url" class="xlarge" size="30"/>
+        			</div>
+        		</div>
+   				<input type="hidden" name="name" id="name" value="${name}"/>
+         		
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Update" />
+        		</div>
+        </fieldset>
+#{/form}
+</div>

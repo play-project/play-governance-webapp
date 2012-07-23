@@ -1,0 +1,41 @@
+#{extends 'main.html' /} #{set title:'Load Resources' /}
+
+<div class="page-header">
+	<h1>Load Resources</h1>
+</div>
+
+<div class="well">
+	#{form @MetadataController.loadResources()}
+	<fieldset>
+		<div class="clearfix">
+			<label for="mname"><b>Store URL</b></label>
+			<div class="input">
+				<input type="text" name="store" id="store" class="xlarge" size="30" />&nbsp;&nbsp;<input
+					class="btn primary" type="submit" value="Load" />
+			</div>
+		</div>
+	</fieldset>
+	#{/form}
+</div>
+
+<h2>Available stores</h2>
+<table class="zebra-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	%{int i = 0}%
+	#{list jsonconfig, as : 'json'}
+		<tr>
+			<td align="left">${i++}</td>
+			<td><a href="${json.url}" target="_blank">${json.url}</a></td>
+			<td><a
+				href="@{MetadataController.loadResources(json.url)}" class="btn">Load</a></td>
+		</tr>
+	#{/list}
+	</tbody>
+</table>

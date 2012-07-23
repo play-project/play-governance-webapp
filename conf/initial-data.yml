@@ -1,7 +1,28 @@
-Node(Local1):
-    name: GovernanceNode1
-    baseURL: http://localhost:8080/governance-war
+Node(LocalRegistry):
+    name: LocalRegistry
+    baseURL: http://localhost:8080/registry/RegistryService
     
-Node(Local2):
-    name: LocalNode2
-    baseURL: http://localhost:7601/petals/ws
+Node(RemoteRegistry):
+    name: RemoteRegistry
+    baseURL: http://play.eu/registry/RegistryService
+    
+Node(StableRegistry):
+    name: StableRegistry
+    baseURL: http://46.105.181.221:8080/registry/RegistryService
+    
+RegistryConfiguration(LocalPlayConfiguration):
+    name: Local Play Configuration
+    url: http://localhost:9000/public/resources/localregistry.properties
+
+RegistryConfiguration(LocalGithubConfiguration):
+    name: Local Github Configuration
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/local.properties
+    
+JSONConfiguration(Github):
+    name: github
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/governancemetadata/metadata.rdf.json
+
+JSONConfiguration(LocalPlay):
+    name: Local play!
+    url: http://localhost:9000/public/resources/metadata.rdf.json
+    
