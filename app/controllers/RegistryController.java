@@ -32,6 +32,7 @@ import org.ow2.play.service.registry.api.Registry;
 import org.ow2.play.service.registry.api.RegistryException;
 
 import play.data.validation.Required;
+import play.jobs.Job;
 
 import utils.Locator;
 
@@ -87,12 +88,13 @@ public class RegistryController extends PlayController {
 			url = client.get(name);
 		} catch (RegistryException e) {
 			e.printStackTrace();
-			flash.error("Unable to load service %s : '%s'", name, e.getMessage());
+			flash.error("Unable to load service %s : '%s'", name,
+					e.getMessage());
 			services();
 		}
 		render(name, url);
 	}
-	
+
 	public static void update(String name, String url) {
 		Registry client = null;
 		try {
@@ -103,9 +105,11 @@ public class RegistryController extends PlayController {
 
 		try {
 			client.put(name, url);
+			flash.success("Service %s updated", name);
 		} catch (RegistryException e) {
 			e.printStackTrace();
-			flash.error("Unable to update service %s : '%s'", name, e.getMessage());
+			flash.error("Unable to update service %s : '%s'", name,
+					e.getMessage());
 			services();
 		}
 		service(name);
@@ -116,7 +120,7 @@ public class RegistryController extends PlayController {
 	 * 
 	 * @param store
 	 */
-	public static void loadServices(@Required String store) {
+	public static void loadServices(final @Required String store) {
 		Registry client = null;
 		try {
 			client = Locator.getServiceRegistry(getNode());
@@ -125,13 +129,21 @@ public class RegistryController extends PlayController {
 		}
 
 		try {
-			// TODO : let's do it asynchronously...
-			client.load(store);
-			flash.success("Data loaded");
+			final Registry c = client;
+			new Job() {
+				@Override
+				public void doJob() throws Exception {
+					c.load(store);
+				}
+
+			}.now();
 		} catch (Exception e) {
 			e.printStackTrace();
 			flash.error("Unable to load services '%s'", e.getMessage());
 		}
+		
+		// client.load(store);
+		flash.success("Data is loading in the background from '%s'", store);
 		load();
 	}
 

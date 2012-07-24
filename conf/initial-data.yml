@@ -14,10 +14,22 @@ RegistryConfiguration(LocalPlayConfiguration):
     name: Local Play Configuration
     url: http://localhost:9000/public/resources/localregistry.properties
 
+RegistryConfiguration(LocalRemotePlayConfiguration):
+    name: Local Play Configuration
+    url: http://localhost:9000/public/resources/localregistryremoteservices.properties
+
 RegistryConfiguration(LocalGithubConfiguration):
     name: Local Github Configuration
     url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/local.properties
+
+RegistryConfiguration(StableConfiguration):
+    name: Local Github Configuration
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/stable.properties
     
+RegistryConfiguration(UnstableConfiguration):
+    name: Local Github Configuration
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/unstable.properties
+
 JSONConfiguration(Github):
     name: github
     url: https://raw.github.com/play-project/play-configfiles/master/platformservices/governancemetadata/metadata.rdf.json

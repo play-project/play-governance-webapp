@@ -32,8 +32,10 @@ import org.ow2.play.metadata.api.MetadataException;
 import org.ow2.play.metadata.api.Resource;
 import org.ow2.play.metadata.api.service.MetadataBootstrap;
 import org.ow2.play.metadata.api.service.MetadataService;
+import org.ow2.play.service.registry.api.Registry;
 
 import play.data.validation.Required;
+import play.jobs.Job;
 import utils.Locator;
 
 /**
@@ -68,7 +70,7 @@ public class MetadataController extends PlayController {
 	 * 
 	 * @param store
 	 */
-	public static void loadResources(@Required String store) {
+	public static void loadResources(final @Required String store) {
 		MetadataBootstrap client = null;
 		try {
 			client = Locator.getMetaBootstrap(getNode());
@@ -76,16 +78,25 @@ public class MetadataController extends PlayController {
 			handleException("Locator error", e);
 		}
 
-		List<String> l = new ArrayList<String>();
+		final MetadataBootstrap c = client;
+		final List<String> l = new ArrayList<String>();
 		l.add(store);
+		
 		try {
-			// TODO : let's do it asynchronously...
-			client.init(l);
-			flash.success("Data loaded");
+			new Job() {
+				@Override
+				public void doJob() throws Exception {
+					c.init(l);
+				}
+
+			}.now();
 		} catch (Exception e) {
-			flash.error("Unable to get metadata list '%s'", e.getMessage());
+			e.printStackTrace();
+			flash.error("Unable to load metadata '%s'", e.getMessage());
 		}
-		list();
+		
+		flash.success("Data is loading in the background ('%s')", store);
+		load();
 	}
 
 	/**

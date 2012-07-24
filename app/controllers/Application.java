@@ -1,18 +1,14 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Node;
 
-import org.petalslink.dsb.cxf.CXFHelper;
-import org.petalslink.dsb.jaxws.JAXWSHelper;
+import org.ow2.play.service.registry.api.Registry;
+import org.ow2.play.service.registry.api.RegistryException;
 
-import play.mvc.Before;
-import play.mvc.Controller;
 import utils.Locator;
-import eu.playproject.governance.api.EventGovernance;
-import eu.playproject.governance.api.bean.Metadata;
-import eu.playproject.governance.api.bean.Topic;
 
 public class Application extends PlayController {
 
@@ -29,13 +25,13 @@ public class Application extends PlayController {
 		} else {
 			flash.error("No such node");
 		}
-		connect();
+		Application.index();
 	}
 
 	public static void nodeDisconnect(Long id) {
 		session.remove("node");
 		flash.success("Disconnected...");
-		connect();
+		Application.index();
 	}
 
 	private static String getURL() {
@@ -48,7 +44,22 @@ public class Application extends PlayController {
 	}
 	
 	public static void index() {
-		render();
+		Registry registry = Locator.getServiceRegistry(getNode());
+		List<Node> services = new ArrayList<Node>();
+
+		try {
+			List<String> keys = registry.keys();
+			for (String key : keys) {
+				Node n = new Node();
+				n.name = key;
+				n.baseURL = registry.get(key);
+				registry.get(key);
+				services.add(n);
+			}
+		} catch (Exception e) {
+			flash.error("Got error while getting services");
+		}
+		render(services);
 	}
 
 

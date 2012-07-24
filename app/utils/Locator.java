@@ -67,7 +67,7 @@ public class Locator {
 	public static EventGovernance getEventGovernance(Node node)
 			throws Exception {
 		Registry registry = getServiceRegistry(node);
-		String url = registry.get(Constants.TOPIC);
+		String url = registry.get(Constants.GOVERNANCE);
 
 		if (url == null) {
 			throw new Exception(

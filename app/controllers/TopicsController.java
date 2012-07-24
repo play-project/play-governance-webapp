@@ -50,5 +50,9 @@ public class TopicsController extends PlayController {
 		}
 		render(topics);
 	}
+	
+	public static void topic(String name, String ns, String prefix) {
+		render(name, ns, prefix);
+	}
 
 }
