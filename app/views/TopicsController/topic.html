@@ -2,7 +2,7 @@
 #{set title:'Topic details' /}
 
 <div class="page-header">
-    <h1>Topic Details &nbsp;<small>{${topic.ns}}${topic.prefix}:${topic.name}</small></h1>
+    <h1>Topic Details &nbsp;<small>{${ns}}${prefix}:${name}</small></h1>
 </div>
 
 <table class="zebra-striped">
@@ -15,9 +15,9 @@
       </thead>
       <tbody>
 		<tr>
-   			<td><b>${topic.name}</b></td>
-   			<td><a href="${topic.ns}" target="_blank">${topic.ns}</a></td>
-   			<td>${topic.prefix}</td>
+   			<td><b>${name}</b></td>
+   			<td><a href="${ns}" target="_blank">${ns}</a></td>
+   			<td>${prefix}</td>
 		</tr>
 	</tbody>
 </table>
