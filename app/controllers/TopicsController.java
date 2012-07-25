@@ -21,12 +21,10 @@ package controllers;
 
 import java.util.List;
 
-import org.petalslink.dsb.cxf.CXFHelper;
-import org.petalslink.dsb.jaxws.JAXWSHelper;
+import org.ow2.play.governance.api.EventGovernance;
+import org.ow2.play.governance.api.bean.Topic;
 
 import utils.Locator;
-import eu.playproject.governance.api.EventGovernance;
-import eu.playproject.governance.api.bean.Topic;
 
 /**
  * @author chamerling

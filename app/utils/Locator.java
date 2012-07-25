@@ -6,12 +6,11 @@ package utils;
 import models.Node;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.ow2.play.governance.api.EventGovernance;
 import org.ow2.play.metadata.api.service.MetadataBootstrap;
 import org.ow2.play.metadata.api.service.MetadataService;
 import org.ow2.play.service.registry.api.Constants;
 import org.ow2.play.service.registry.api.Registry;
-
-import eu.playproject.governance.api.EventGovernance;
 
 /**
  * Deprecated...
