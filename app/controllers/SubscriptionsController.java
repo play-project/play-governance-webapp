@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.ow2.play.governance.api.GovernanceExeption;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.bean.Subscription;
 import org.ow2.play.governance.api.bean.Topic;
@@ -47,7 +48,12 @@ public class SubscriptionsController extends PlayController {
 			handleException("Locator error", e);
 		}
 		
-		List<Subscription> subscriptions = registry.getSubscriptions();
+		List<Subscription> subscriptions = null;
+		try {
+			subscriptions = registry.getSubscriptions();
+		} catch (GovernanceExeption e) {
+			e.printStackTrace();
+		}
 		render(subscriptions);
 	}
 	
@@ -63,7 +69,12 @@ public class SubscriptionsController extends PlayController {
 		
 		Subscription filter = new Subscription();
 		filter.setId(id);
-		List<Subscription> subscriptions = registry.getSubscriptions(filter);
+		List<Subscription> subscriptions = null;
+		try {
+			subscriptions = registry.getSubscriptions(filter);
+		} catch (GovernanceExeption e) {
+			e.printStackTrace();
+		}
 		
 		Subscription subscription = null;
 		if (subscriptions != null && subscriptions.size() > 0) {
