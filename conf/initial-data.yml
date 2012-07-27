@@ -18,6 +18,10 @@ RegistryConfiguration(LocalRemotePlayConfiguration):
     name: Local Play Configuration
     url: http://localhost:9000/public/resources/localregistryremoteservices.properties
 
+RegistryConfiguration(LocalMocksPlayConfiguration):
+    name: Local Mocks Configuration
+    url: http://localhost:9000/public/resources/localregistrymocks.properties
+
 RegistryConfiguration(LocalGithubConfiguration):
     name: Local Github Configuration
     url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/local.properties
