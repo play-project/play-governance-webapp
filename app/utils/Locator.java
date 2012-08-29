@@ -8,6 +8,7 @@ import models.Node;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.ow2.play.governance.api.EventGovernance;
 import org.ow2.play.governance.api.SubscriptionRegistry;
+import org.ow2.play.governance.api.SubscriptionService;
 import org.ow2.play.metadata.api.service.MetadataBootstrap;
 import org.ow2.play.metadata.api.service.MetadataService;
 import org.ow2.play.service.registry.api.Constants;
@@ -96,6 +97,22 @@ public class Locator {
 		factory.setServiceClass(SubscriptionRegistry.class);
 		Object o = factory.create();
 		return SubscriptionRegistry.class.cast(o);
+	}
+	
+	public static SubscriptionService getSubscriptionService(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.GOVERNANCE_SUBSCRIPTION_SERVICE);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the subscription service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(SubscriptionService.class);
+		Object o = factory.create();
+		return SubscriptionService.class.cast(o);
 	}
 
 }

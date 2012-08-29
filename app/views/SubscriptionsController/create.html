@@ -1,0 +1,51 @@
+#{extends 'main.html' /}
+#{set title:'Create resource' /}
+
+<div class="page-header">
+	<h1>New subscription</h1>
+</div>
+<div class="well">
+#{form @SubscriptionsController.createNew()}
+		<fieldset>
+				<div class="clearfix">
+        			<label for="consumer">Subscriber</label>
+        			<div class="input">
+        				<input type="text" name="consumer" id="consumer" class="xlarge" size="50"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="provider">Producer</label>
+        			<div class="input">
+        				<input type="text" name="provider" id="provider" class="xlarge" size="50"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="producer">Topic Name</label>
+        			<div class="input">
+        				<input type="text" name="topicname" id="topicname" class="xlarge" size="50"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="topicprefix">Topic Prefix</label>
+        			<div class="input">
+        				<input type="text" name="topicprefix" id="topicprefix" class="xlarge" size="50"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="topicns">Topic NS</label>
+        			<div class="input">
+        				<input type="text" name="topicns" id="topicns" class="xlarge" size="50"/>
+        			</div>
+        		</div>
+	    		<div class="clearfix">
+        			<label for="topicns">Save to registry</label>
+        			<div class="input">
+        				<input type="checkbox" name="save" id="save" class="xlarge"/>
+        			</div>
+        		</div>
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Create" />
+        		</div>
+        </fieldset>
+#{/form}
+</div>

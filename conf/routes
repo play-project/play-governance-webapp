@@ -27,6 +27,8 @@ GET     /resource/loadresources		            MetadataController.loadResources
 GET     /resource/load		                  	MetadataController.load
 
 GET     /subscription/all                       SubscriptionsController.subscriptions
+GET     /subscription/create                    SubscriptionsController.create
+POST    /subscription/new                    	SubscriptionsController.new
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
