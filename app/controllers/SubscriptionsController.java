@@ -98,11 +98,17 @@ public class SubscriptionsController extends PlayController {
 	 */
 	public static void createNew(String consumer, String provider,
 			String topicname, String topicns, String topicprefix, boolean save) {
+		
+		validation.url(consumer);
+		validation.url(provider);
+		validation.required(topicname);
+		validation.url(topicns);
+		validation.required(topicprefix);
 
-		if (consumer == null || provider == null || topicname == null
-				|| topicns == null || topicprefix == null) {
-			handleException("Null information not allowed", new Exception(
-					"Null information not allowed"));
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			create();
 		}
 
 		try {

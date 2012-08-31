@@ -4,37 +4,45 @@
 <div class="page-header">
 	<h1>New subscription</h1>
 </div>
+
+#{ifErrors}
+	<div class="alert-message error">
+        <a class="close" href="#">&times;</a>
+        <p><strong>Some values are invalid, please fix them...</strong></p>
+      </div>
+#{/ifErrors}
+
 <div class="well">
 #{form @SubscriptionsController.createNew()}
 		<fieldset>
 				<div class="clearfix">
-        			<label for="consumer">Subscriber</label>
+        			<label for="consumer">Subscriber endpoint</label>
         			<div class="input">
-        				<input type="text" name="consumer" id="consumer" class="xlarge" size="50"/>
+        				<input type="text" name="consumer" id="consumer" class="xlarge" size="50" value="${flash.consumer}"/>
         			</div>
         		</div>
         		<div class="clearfix">
-        			<label for="provider">Producer</label>
+        			<label for="provider">Producer endpoint</label>
         			<div class="input">
-        				<input type="text" name="provider" id="provider" class="xlarge" size="50"/>
+        				<input type="text" name="provider" id="provider" class="xlarge" size="50" value="${flash.provider}"/>
         			</div>
         		</div>
         		<div class="clearfix">
         			<label for="producer">Topic Name</label>
         			<div class="input">
-        				<input type="text" name="topicname" id="topicname" class="xlarge" size="50"/>
+        				<input type="text" name="topicname" id="topicname" class="xlarge" size="50" value="${flash.topicname}"/>
         			</div>
         		</div>
         		<div class="clearfix">
         			<label for="topicprefix">Topic Prefix</label>
         			<div class="input">
-        				<input type="text" name="topicprefix" id="topicprefix" class="xlarge" size="50"/>
+        				<input type="text" name="topicprefix" id="topicprefix" class="xlarge" size="50" value="${flash.topicprefix}"/>
         			</div>
         		</div>
         		<div class="clearfix">
-        			<label for="topicns">Topic NS</label>
+        			<label for="topicns">Topic Namespace</label>
         			<div class="input">
-        				<input type="text" name="topicns" id="topicns" class="xlarge" size="50"/>
+        				<input type="text" name="topicns" id="topicns" class="xlarge" size="50" value="${flash.topicns}"/>
         			</div>
         		</div>
 	    		<div class="clearfix">
