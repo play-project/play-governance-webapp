@@ -82,9 +82,29 @@ public class SubscriptionsController extends PlayController {
 		}
 		render(subscription);
 	}
-
+	
+	/**
+	 * Create page from null args
+	 * 
+	 */
 	public static void create() {
-		render();
+		createFrom("", "", "");
+	}
+
+	/**
+	 * GET
+	 * 
+	 * Create page from args
+	 * 
+	 * @param topicname
+	 * @param topicns
+	 * @param topicprefix
+	 */
+	public static void createFrom(String topicname, String topicns, String topicprefix) {
+		// flash parameters to inject them in the template (this flash stuff is also used when validating form data
+		params.flash();
+		
+		renderTemplate("SubscriptionsController/create.html");
 	}
 
 	/**
@@ -108,7 +128,7 @@ public class SubscriptionsController extends PlayController {
 		if (validation.hasErrors()) {
 			params.flash();
 			validation.keep();
-			create();
+			createFrom(topicname, topicns, topicprefix);
 		}
 
 		try {
