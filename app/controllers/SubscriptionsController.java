@@ -98,7 +98,7 @@ public class SubscriptionsController extends PlayController {
 	 */
 	public static void createNew(String consumer, String provider,
 			String topicname, String topicns, String topicprefix, boolean save) {
-		
+
 		validation.url(consumer);
 		validation.url(provider);
 		validation.required(topicname);
@@ -132,9 +132,8 @@ public class SubscriptionsController extends PlayController {
 				registry.addSubscription(subscription);
 			}
 
-			flash.success("Subscription has been created %s",
-					result.toString());
-			
+			flash.success("Subscription has been created %s", result.toString());
+
 		} catch (GovernanceExeption ge) {
 			handleException("Can not subscribe", ge);
 		} catch (Exception e) {
@@ -143,5 +142,25 @@ public class SubscriptionsController extends PlayController {
 
 		// Forward to subscription service
 		create();
+	}
+
+	/**
+	 * GET
+	 * 
+	 * Remove all the subscriptions from the registry. This does not means that
+	 * we unregister, we just delete from storage, that's all...
+	 */
+	public static void removeAll() {
+		try {
+			SubscriptionRegistry client = Locator
+					.getSubscriptionRegistry(getNode());
+			
+			client.removeAll();
+			flash.success("Subscriptions have been removed");
+			
+		} catch (Exception e) {
+			handleException("Problem while getting client", e);
+		}
+		subscriptions();
 	}
 }
