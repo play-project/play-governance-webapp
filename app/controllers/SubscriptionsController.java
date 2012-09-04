@@ -118,9 +118,14 @@ public class SubscriptionsController extends PlayController {
 	 */
 	public static void createNew(String consumer, String provider,
 			String topicname, String topicns, String topicprefix, boolean save) {
-
-		validation.url(consumer);
-		validation.url(provider);
+		
+		validation.required(consumer);
+		validation.required(provider);
+		
+		// validation url does not allow IP address...
+		validation.isTrue(consumer != null && (consumer.startsWith("http://") || consumer.startsWith("https://")));
+		validation.isTrue(provider != null && (provider.startsWith("http://") || provider.startsWith("https://")));
+		
 		validation.required(topicname);
 		validation.url(topicns);
 		validation.required(topicprefix);
@@ -130,7 +135,7 @@ public class SubscriptionsController extends PlayController {
 			validation.keep();
 			createFrom(topicname, topicns, topicprefix);
 		}
-
+		
 		try {
 			SubscriptionService client = Locator
 					.getSubscriptionService(getNode());
@@ -145,14 +150,17 @@ public class SubscriptionsController extends PlayController {
 			subscription.setTopic(topic);
 
 			Subscription result = client.subscribe(subscription);
+
+			if (result != null) {
+				flash.success("Subscription has been created %s", result.toString());
+			}
+			
 			if (result != null && save) {
 				// register
 				SubscriptionRegistry registry = Locator
 						.getSubscriptionRegistry(getNode());
-				registry.addSubscription(subscription);
+				registry.addSubscription(result);
 			}
-
-			flash.success("Subscription has been created %s", result.toString());
 
 		} catch (GovernanceExeption ge) {
 			handleException("Can not subscribe", ge);
