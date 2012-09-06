@@ -34,6 +34,7 @@ POST    /subscription/new                    	SubscriptionsController.new
 GET     /subscription/clear                     SubscriptionsController.removeAll
 
 GET     /bootsubscription/all                   SubscriptionsController.bootSubscriptions
+GET     /bootsubscription/create                SubscriptionsController.createNewBoot
 
 
 # Ignore favicon requests

@@ -6,6 +6,7 @@ package utils;
 import models.Node;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.ow2.play.governance.api.BootSubscriptionService;
 import org.ow2.play.governance.api.EventGovernance;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
@@ -113,6 +114,22 @@ public class Locator {
 		factory.setServiceClass(SubscriptionService.class);
 		Object o = factory.create();
 		return SubscriptionService.class.cast(o);
+	}
+	
+	public static BootSubscriptionService getBootSubscriptionService(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.GOVERNANCE_BOOTSUBSCRIPTION_REGISTRY);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the boot subscription service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(BootSubscriptionService.class);
+		Object o = factory.create();
+		return BootSubscriptionService.class.cast(o);
 	}
 
 }

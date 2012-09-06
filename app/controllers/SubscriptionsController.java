@@ -21,6 +21,7 @@ package controllers;
 
 import java.util.List;
 
+import org.ow2.play.governance.api.BootSubscriptionService;
 import org.ow2.play.governance.api.GovernanceExeption;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
@@ -190,5 +191,86 @@ public class SubscriptionsController extends PlayController {
 			handleException("Problem while getting client", e);
 		}
 		subscriptions();
+	}
+	
+	 
+	/**
+	 * Create a new boot subscription. The subscription is just registered in
+	 * the database and is intented to be used at boot time...
+	 * 
+	 * @param consumer
+	 * @param provider
+	 * @param topicname
+	 * @param topicns
+	 * @param topicprefix
+	 * @param save
+	 */
+	public static void createNewBoot(String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		
+		validation.required(consumer);
+		validation.required(provider);
+		
+		// validation url does not allow IP address...
+		validation.isTrue(consumer != null && (consumer.startsWith("http://") || consumer.startsWith("https://")));
+		validation.isTrue(provider != null && (provider.startsWith("http://") || provider.startsWith("https://")));
+		
+		validation.required(topicname);
+		validation.url(topicns);
+		validation.required(topicprefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			createFrom(topicname, topicns, topicprefix);
+		}
+		
+		try {
+			BootSubscriptionService client = Locator
+					.getBootSubscriptionService(getNode());
+
+			Subscription subscription = new Subscription();
+			subscription.setProvider(provider);
+			subscription.setSubscriber(consumer);
+			
+			Topic topic = new Topic();
+			topic.setName(topicname);
+			topic.setNs(topicns);
+			topic.setPrefix(topicprefix);
+			
+			subscription.setTopic(topic);
+			subscription.setDate(System.currentTimeMillis());
+
+			client.add(subscription);
+
+			flash.success("Subscription has been created");
+			
+		} catch (GovernanceExeption ge) {
+			handleException("Can not create boot subscription", ge);
+		} catch (Exception e) {
+			handleException("Locator error", e);
+		}
+
+		bootSubscriptions();
+	}
+	
+	/**
+	 * List the boot subscriptions
+	 */
+	public static void bootSubscriptions() {
+		BootSubscriptionService client = null;
+		try {
+			client = Locator.getBootSubscriptionService(getNode());
+		} catch (Exception e) {
+			handleException("Locator error", e);
+		}
+
+		List<Subscription> subscriptions = null;
+		try {
+			subscriptions = client.all();
+		} catch (GovernanceExeption e) {
+			e.printStackTrace();
+		}
+		render(subscriptions);
 	}
 }
