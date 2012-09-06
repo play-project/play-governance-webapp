@@ -15,6 +15,7 @@ POST   /registry/loadresources		            RegistryController.loadResources
 GET    /registry/loadresources		            RegistryController.loadResources
 GET    /registry/load		                  	RegistryController.load
 GET    /registry/service                        RegistryController.service
+PORT   /registry/service/create                 RegistryController.create
 POST   /registry/update                         RegistryController.update
 
 GET     /resource/all                           MetadataController.list
@@ -31,6 +32,9 @@ GET     /subscription/create                    SubscriptionsController.create
 GET     /subscription/createfrom                SubscriptionsController.createFrom
 POST    /subscription/new                    	SubscriptionsController.new
 GET     /subscription/clear                     SubscriptionsController.removeAll
+
+GET     /bootsubscription/all                   SubscriptionsController.bootSubscriptions
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

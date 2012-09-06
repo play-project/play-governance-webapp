@@ -146,6 +146,45 @@ public class RegistryController extends PlayController {
 		flash.success("Data is loading in the background from '%s'", store);
 		load();
 	}
+	
+	/**
+	 * POST
+	 * 
+	 * @param name
+	 * @param url
+	 */
+	public static void create(String name, String url) {
+		
+		validation.required(name);
+		validation.required(url);
+		
+		// validation url does not allow IP address...
+		validation.isTrue(url != null && (url.startsWith("http://") || url.startsWith("https://")));
+		
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			services();
+		}
+		
+		Registry client = null;
+		try {
+			client = Locator.getServiceRegistry(getNode());
+		} catch (Exception e) {
+			handleException("Locator error", e);
+		}
+
+		try {
+			client.put(name, url);
+			flash.success("Service %s created", name);
+		} catch (RegistryException e) {
+			e.printStackTrace();
+			flash.error("Unable to create service %s : '%s'", name,
+					e.getMessage());
+			services();
+		}
+		service(name);
+	}
 
 	/**
 	 * @GET
