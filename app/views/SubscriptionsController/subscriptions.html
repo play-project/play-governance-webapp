@@ -24,7 +24,7 @@
 	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
 	        
 	        <br><br>
-	        <a href="@{SubscriptionsController.bootSubscriptions('', s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Save for Boot</a>
+	        <a href="@{BootstrapController.create('', s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Save for Boot</a>
         </div>
 		#{/list}
 #{/if}

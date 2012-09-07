@@ -1,8 +1,8 @@
 #{extends 'main.html' /}
-#{set title:'Boot Subscriptions' /}
+#{set title:'Subscriptions' /}
 
 <div class="page-header">
-    <h1>Boot Subscriptions</h1>
+    <h1>Create Boot Subscriptions</h1>
 </div>
 
 #{ifErrors}
@@ -18,7 +18,7 @@
 #{/ifErrors}
 
 <div class="well">
-#{form @SubscriptionsController.createNewBoot()}
+#{form @BootstrapController.createNewBoot()}
 		<fieldset>
 			<div class="clearfix">
         			<label for="name">Name</label>
@@ -62,25 +62,3 @@
         </fieldset>
 #{/form}
 </div>
-
-#{if subscriptions}
-        #{list subscriptions, as : 's'}
-        <div class="well">
-	        <h4>Boot Subscription # '${s.id}' &nbsp;<small>Created on ${s.date.asdate('dd MMMM yyyy hh:mm:ss')}</small></h4>
-	        <h5>Subscriber</h5>
-	        <a target="_blank" href="${s.subscriber}">${s.subscriber}</a>
-	        
-	        <h5>Provider</h5>
-	        <a target="_blank" href="${s.provider}">${s.provider}</a>
-	
-	        <h5>Topic</h5>
-	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
-	        
-	        <br><br>
-	        <a href="@{SubscriptionsController.deleteBoot(s.id, s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn danger">Delete</a>
-        </div>
-		#{/list}
-#{/if}
-#{else}
-	<h3>No subscriptions</h3>
-#{/else}

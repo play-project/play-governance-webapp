@@ -26,6 +26,7 @@ import org.ow2.play.governance.api.GovernanceExeption;
 import org.ow2.play.governance.api.SubscriptionManagement;
 import org.ow2.play.governance.api.SubscriptionService;
 import org.ow2.play.governance.api.bean.Subscription;
+import org.ow2.play.governance.api.bean.Topic;
 
 import utils.Locator;
 
@@ -34,6 +35,24 @@ import utils.Locator;
  * 
  */
 public class BootstrapController extends PlayController {
+	
+	/**
+	 * GET
+	 * 
+	 * Form display 
+	 * 
+	 * @param name
+	 * @param consumer
+	 * @param provider
+	 * @param topicname
+	 * @param topicns
+	 * @param topicprefix
+	 */
+	public static void create(String name, String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		params.flash();
+		render();
+	}
 
 	/**
 	 * List subscriptions which will be replayed...
@@ -103,6 +122,132 @@ public class BootstrapController extends PlayController {
 			List<Subscription> subscriptions) {
 		renderTemplate("BootstrapController/subscriptionsresult.html",
 				subscriptions);
+	}
+	
+	/**
+	 * POST
+	 * Create a new boot subscription. The subscription is just registered in
+	 * the database and is intented to be used at boot time...
+	 * 
+	 * @param consumer
+	 * @param provider
+	 * @param topicname
+	 * @param topicns
+	 * @param topicprefix
+	 * @param save
+	 */
+	public static void createNewBoot(String name, String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		
+		validation.required(name);
+		validation.required(consumer);
+		validation.required(provider);
+		
+		// validation url does not allow IP address...
+		validation.isTrue(consumer != null && (consumer.startsWith("http://") || consumer.startsWith("https://")));
+		validation.isTrue(provider != null && (provider.startsWith("http://") || provider.startsWith("https://")));
+		
+		validation.required(topicname);
+		validation.url(topicns);
+		validation.required(topicprefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			create(name, consumer, provider, topicname, topicns, topicprefix);
+		}
+		
+		try {
+			BootSubscriptionService client = Locator
+					.getBootSubscriptionService(getNode());
+
+			Subscription subscription = new Subscription();
+			subscription.setId(name);
+			subscription.setProvider(provider);
+			subscription.setSubscriber(consumer);
+			
+			Topic topic = new Topic();
+			topic.setName(topicname);
+			topic.setNs(topicns);
+			topic.setPrefix(topicprefix);
+			
+			subscription.setTopic(topic);
+			subscription.setDate(System.currentTimeMillis());
+
+			client.add(subscription);
+
+			flash.success("Subscription has been created");
+			
+		} catch (GovernanceExeption ge) {
+			handleException("Can not create boot subscription", ge);
+		} catch (Exception e) {
+			handleException("Locator error", e);
+		}
+
+		subscriptions();
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @param consumer
+	 * @param provider
+	 * @param topicname
+	 * @param topicns
+	 * @param topicprefix
+	 */
+	public static void deleteBoot(String name, String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		
+		flash.error("Delete is not implemented");
+		subscriptions();
+		
+		validation.required(name);
+		validation.required(consumer);
+		validation.required(provider);
+		
+		// validation url does not allow IP address...
+		validation.isTrue(consumer != null && (consumer.startsWith("http://") || consumer.startsWith("https://")));
+		validation.isTrue(provider != null && (provider.startsWith("http://") || provider.startsWith("https://")));
+		
+		validation.required(topicname);
+		validation.url(topicns);
+		validation.required(topicprefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			create(name, consumer, provider, topicname, topicns, topicprefix);
+		}
+		
+		try {
+			BootSubscriptionService client = Locator
+					.getBootSubscriptionService(getNode());
+
+			Subscription subscription = new Subscription();
+			subscription.setId(name);
+			subscription.setProvider(provider);
+			subscription.setSubscriber(consumer);
+			
+			Topic topic = new Topic();
+			topic.setName(topicname);
+			topic.setNs(topicns);
+			topic.setPrefix(topicprefix);
+			
+			subscription.setTopic(topic);
+			subscription.setDate(System.currentTimeMillis());
+
+			client.remove(subscription);
+
+			flash.success("Subscription has been removed");
+			
+		} catch (GovernanceExeption ge) {
+			handleException("Can not delete boot subscription", ge);
+		} catch (Exception e) {
+			handleException("Locator error", e);
+		}
+
+		subscriptions();
 	}
 
 }

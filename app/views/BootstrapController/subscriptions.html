@@ -6,7 +6,7 @@
 </div>
 
 <div class="well">
-	<a class="btn" href="@{BootstrapController.launchBootSubscriptions()}">Launch all</a>
+	<a class="btn" href="@{BootstrapController.create()}">Create</a>&nbsp;<a class="btn" href="@{BootstrapController.launchBootSubscriptions()}">Launch all</a>
 </div>
 
 #{if subscriptions}
@@ -21,6 +21,8 @@
 	
 	        <h5>Topic</h5>
 	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
+	        <br><br>
+	        <a href="@{BootstrapController.deleteBoot(s.id, s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Delete</a>
         </div>
 		#{/list}
 #{/if}

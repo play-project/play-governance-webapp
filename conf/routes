@@ -33,14 +33,15 @@ GET     /subscription/createfrom                SubscriptionsController.createFr
 POST    /subscription/new                    	SubscriptionsController.new
 GET     /subscription/clear                     SubscriptionsController.removeAll
 
-GET     /bootsubscription/all                   SubscriptionsController.bootSubscriptions
 GET     /bootsubscription/new                   SubscriptionsController.createBootSubscriptions
-POST    /bootsubscription/create                SubscriptionsController.createNewBoot
 GET     /bootsubscription/delete                SubscriptionsController.deleteBoot
 
 GET     /bootstrap/list                         BootstrapController.subscriptions
 GET     /bootstrap/launch                       BootstrapController.launchBootSubscriptions
 GET     /bootstrap/result                       BootstrapController.subscriptionsResult
+GET     /bootstrap/create                       BootstrapController.create
+POST    /bootstrap/createNew                    BootstrapController.createNewBoot
+
 
 
 # Ignore favicon requests
