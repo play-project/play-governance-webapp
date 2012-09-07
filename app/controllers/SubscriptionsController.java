@@ -337,6 +337,7 @@ public class SubscriptionsController extends PlayController {
 		} catch (GovernanceExeption e) {
 			e.printStackTrace();
 		}
-		render(subscriptions);
+		
+		renderTemplate("SubscriptionsController/bootSubscriptions.html", subscriptions);
 	}
 }
