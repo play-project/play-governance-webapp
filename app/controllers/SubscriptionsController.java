@@ -338,6 +338,6 @@ public class SubscriptionsController extends PlayController {
 			e.printStackTrace();
 		}
 		
-		renderTemplate("SubscriptionsController/bootSubscriptions.html", subscriptions);
+		renderTemplate("SubscriptionsController/bootsubscriptions.html", subscriptions);
 	}
 }
