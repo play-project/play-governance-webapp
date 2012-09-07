@@ -5,10 +5,68 @@
     <h1>Boot Subscriptions</h1>
 </div>
 
+#{ifErrors}
+	<div class="alert-message error">
+        <a class="close" href="#">&times;</a>
+        <p><strong>Some values are invalid, please fix them...</strong></p>
+        <ul>
+         #{errors}
+       		<li>${error}</li>
+   		#{/errors}
+   		</ul>
+      </div>
+#{/ifErrors}
+
+<div class="well">
+#{form @SubscriptionsController.createNewBoot()}
+		<fieldset>
+			<div class="clearfix">
+        			<label for="name">Name</label>
+        			<div class="input">
+        				<input type="text" name="name" id="name" class="xlarge" size="50" value="${flash.name}"/>
+        			</div>
+        		</div>
+				<div class="clearfix">
+        			<label for="consumer">Subscriber endpoint</label>
+        			<div class="input">
+        				<input type="text" name="consumer" id="consumer" class="xlarge" size="50" value="${flash.consumer}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="provider">Producer endpoint</label>
+        			<div class="input">
+        				<input type="text" name="provider" id="provider" class="xlarge" size="50" value="${flash.provider}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="producer">Topic Name</label>
+        			<div class="input">
+        				<input type="text" name="topicname" id="topicname" class="xlarge" size="50" value="${flash.topicname}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="topicprefix">Topic Prefix</label>
+        			<div class="input">
+        				<input type="text" name="topicprefix" id="topicprefix" class="xlarge" size="50" value="${flash.topicprefix}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="topicns">Topic Namespace</label>
+        			<div class="input">
+        				<input type="text" name="topicns" id="topicns" class="xlarge" size="50" value="${flash.topicns}"/>
+        			</div>
+        		</div>
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Create" />
+        		</div>
+        </fieldset>
+#{/form}
+</div>
+
 #{if subscriptions}
         #{list subscriptions, as : 's'}
         <div class="well">
-	        <h4>Subscription # '${s.id}' &nbsp;<small>Created on ${s.date.asdate('dd MMMM yyyy hh:mm:ss')}</small></h4>
+	        <h4>Boot Subscription # '${s.id}' &nbsp;<small>Created on ${s.date.asdate('dd MMMM yyyy hh:mm:ss')}</small></h4>
 	        <h5>Subscriber</h5>
 	        <a target="_blank" href="${s.subscriber}">${s.subscriber}</a>
 	        
@@ -19,7 +77,7 @@
 	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
 	        
 	        <br><br>
-	        <a href="@{SubscriptionsController.createNewBoot(s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Save for Boot</a>
+	        <a href="@{SubscriptionsController.deleteBoot(s.id, s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn danger">Delete</a>
         </div>
 		#{/list}
 #{/if}

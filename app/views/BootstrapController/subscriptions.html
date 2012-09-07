@@ -2,15 +2,14 @@
 #{set title:'Subscriptions' /}
 
 <div class="page-header">
-    <h1>Subscriptions</h1>
+    <h1>Boot Subscriptions</h1>
 </div>
 
 <div class="well">
-	<a class="btn" href="@{SubscriptionsController.create()}">Create</a>&nbsp;<a class="btn danger" href="@{SubscriptionsController.removeAll()}">Remove All</a>
+	<a class="btn" href="@{BootstrapController.launchBootSubscriptions()}">Launch all</a>
 </div>
 
 #{if subscriptions}
-
         #{list subscriptions, as : 's'}
         <div class="well">
 	        <h4>Subscription # '${s.id}' &nbsp;<small>Created on ${s.date.asdate('dd MMMM yyyy hh:mm:ss')}</small></h4>
@@ -22,9 +21,6 @@
 	
 	        <h5>Topic</h5>
 	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
-	        
-	        <br><br>
-	        <a href="@{SubscriptionsController.bootSubscriptions('', s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Save for Boot</a>
         </div>
 		#{/list}
 #{/if}

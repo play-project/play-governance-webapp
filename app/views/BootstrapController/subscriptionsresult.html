@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Subscriptions Result' /}
+
+<div class="page-header">
+    <h1>Boot Subscriptions Result</h1>
+</div>
+
+#{if subscriptions}
+        #{list subscriptions, as : 's'}
+        <div class="well">
+	        <h4>Subscription # '${s.id}' '${s.status}' &nbsp;<small>Created on ${s.date.asdate('dd MMMM yyyy hh:mm:ss')}</small></h4>
+	        <h5>Subscriber</h5>
+	        <a target="_blank" href="${s.subscriber}">${s.subscriber}</a>
+	        
+	        <h5>Provider</h5>
+	        <a target="_blank" href="${s.provider}">${s.provider}</a>
+	
+	        <h5>Topic</h5>
+	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
+        </div>
+		#{/list}
+#{/if}
+#{else}
+	<h3>No subscriptions</h3>
+#{/else}

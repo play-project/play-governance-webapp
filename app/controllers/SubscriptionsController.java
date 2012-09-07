@@ -193,8 +193,8 @@ public class SubscriptionsController extends PlayController {
 		subscriptions();
 	}
 	
-	 
 	/**
+	 * POST
 	 * Create a new boot subscription. The subscription is just registered in
 	 * the database and is intented to be used at boot time...
 	 * 
@@ -205,9 +205,10 @@ public class SubscriptionsController extends PlayController {
 	 * @param topicprefix
 	 * @param save
 	 */
-	public static void createNewBoot(String consumer, String provider,
+	public static void createNewBoot(String name, String consumer, String provider,
 			String topicname, String topicns, String topicprefix) {
 		
+		validation.required(name);
 		validation.required(consumer);
 		validation.required(provider);
 		
@@ -222,7 +223,7 @@ public class SubscriptionsController extends PlayController {
 		if (validation.hasErrors()) {
 			params.flash();
 			validation.keep();
-			createFrom(topicname, topicns, topicprefix);
+			bootSubscriptions(name, consumer, provider, topicname, topicns, topicprefix);
 		}
 		
 		try {
@@ -230,6 +231,7 @@ public class SubscriptionsController extends PlayController {
 					.getBootSubscriptionService(getNode());
 
 			Subscription subscription = new Subscription();
+			subscription.setId(name);
 			subscription.setProvider(provider);
 			subscription.setSubscriber(consumer);
 			
@@ -251,13 +253,77 @@ public class SubscriptionsController extends PlayController {
 			handleException("Locator error", e);
 		}
 
-		bootSubscriptions();
+		bootSubscriptions(null, null, null, null, null, null);
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @param consumer
+	 * @param provider
+	 * @param topicname
+	 * @param topicns
+	 * @param topicprefix
+	 */
+	public static void deleteBoot(String name, String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		
+		validation.required(name);
+		validation.required(consumer);
+		validation.required(provider);
+		
+		// validation url does not allow IP address...
+		validation.isTrue(consumer != null && (consumer.startsWith("http://") || consumer.startsWith("https://")));
+		validation.isTrue(provider != null && (provider.startsWith("http://") || provider.startsWith("https://")));
+		
+		validation.required(topicname);
+		validation.url(topicns);
+		validation.required(topicprefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			bootSubscriptions(name, consumer, provider, topicname, topicns, topicprefix);
+		}
+		
+		try {
+			BootSubscriptionService client = Locator
+					.getBootSubscriptionService(getNode());
+
+			Subscription subscription = new Subscription();
+			subscription.setId(name);
+			subscription.setProvider(provider);
+			subscription.setSubscriber(consumer);
+			
+			Topic topic = new Topic();
+			topic.setName(topicname);
+			topic.setNs(topicns);
+			topic.setPrefix(topicprefix);
+			
+			subscription.setTopic(topic);
+			subscription.setDate(System.currentTimeMillis());
+
+			client.remove(subscription);
+
+			flash.success("Subscription has been removed");
+			
+		} catch (GovernanceExeption ge) {
+			handleException("Can not delete boot subscription", ge);
+		} catch (Exception e) {
+			handleException("Locator error", e);
+		}
+
+		bootSubscriptions(null, null, null, null, null, null);
 	}
 	
 	/**
 	 * List the boot subscriptions
 	 */
-	public static void bootSubscriptions() {
+	public static void bootSubscriptions(String name, String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		
+		params.flash();
+
 		BootSubscriptionService client = null;
 		try {
 			client = Locator.getBootSubscriptionService(getNode());
