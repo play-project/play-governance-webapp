@@ -150,12 +150,12 @@ public class TopicsController extends PlayController {
 	 * Create a subscriber topic in the platform
 	 * 
 	 */
-	public static void subscriber() {
+	public static void consumer() {
 		render();
 	}
 	
-	public static void createSubscriber() {
-		subscriber();
+	public static void createConsumer() {
+		consumer();
 	}
 	
 	/**
