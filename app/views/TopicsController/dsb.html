@@ -64,7 +64,7 @@
             <td><b>${t.name}</b></td>
             <td><a href="${t.ns}" target="_blank">${t.ns}</a></td>
             <td>${t.prefix}</td>
-            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a>&nbsp;<a href="@{TopicsController.deleteDSB(t.name, t.ns, t.prefix)}">Delete</a></a></td>
+            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a>&nbsp;<a class="btn danger" href="@{TopicsController.deleteDSB(t.name, t.ns, t.prefix)}">Delete</a></a></td>
           </tr>
         #{/list}
         </tbody>
