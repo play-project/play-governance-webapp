@@ -5,6 +5,18 @@
     <h1>DSB Topics</h1>
 </div>
 
+#{ifErrors}
+	<div class="alert-message error">
+        <a class="close" href="#">&times;</a>
+        <p><strong>Some values are invalid, please fix them...</strong></p>
+        <ul>
+         #{errors}
+       		<li>${error}</li>
+   		#{/errors}
+   		</ul>
+      </div>
+#{/ifErrors}
+
 <div class="well">
 #{form @TopicsController.createDSB()}
 		<fieldset>
@@ -52,7 +64,7 @@
             <td><b>${t.name}</b></td>
             <td><a href="${t.ns}" target="_blank">${t.ns}</a></td>
             <td>${t.prefix}</td>
-            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a></td>
+            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a>&nbsp;<a href="@{TopicsController.deleteDSB(t.name, t.ns, t.prefix)}">Delete</a></a></td>
           </tr>
         #{/list}
         </tbody>

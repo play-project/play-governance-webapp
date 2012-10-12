@@ -103,7 +103,41 @@ public class TopicsController extends PlayController {
 					topic.toString());
 
 		} catch (Exception e) {
-			handleException("Can not subscribe", e);
+			handleException("Can not create topic", e);
+		}
+		dsb();
+	}
+	
+	public static void deleteDSB(String name, String ns, String prefix) {
+		validation.required(name);
+		validation.required(prefix);
+
+		// validation url does not allow IP address...
+		validation.isTrue(ns != null
+				&& (ns.startsWith("http://") || ns.startsWith("https://")));
+
+		validation.required(name);
+		validation.url(ns);
+		validation.required(prefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			dsb();
+		}
+
+		try {
+			TopicAware ta = Locator.getDSBTopicManagement(getNode());
+			Topic topic = new Topic();
+			topic.setName(name);
+			topic.setNs(ns);
+			topic.setPrefix(prefix);
+			ta.delete(topic);
+			flash.success("Topic has been deleted from the DSB %s",
+					topic.toString());
+
+		} catch (Exception e) {
+			handleException("Can not delete topic", e);
 		}
 		dsb();
 	}
