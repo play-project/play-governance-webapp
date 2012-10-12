@@ -11,6 +11,10 @@ GET     /topic/all                              TopicsController.topics
 GET     /topic/dsb                              TopicsController.dsb
 POST    /topic/dsb/create                       TopicsController.createDSB
 GET     /topic/dsb/delete                       TopicsController.deleteDSB
+GET     /topic/platform/producer                TopicsController.producer
+POST    /topic/platform/producer/create         TopicsController.createProducer
+GET     /topic/platform/consumer                TopicsController.consumer
+GET     /topic/platform/consumer/create         TopicsController.createConsumer
 
 GET    /registry/all                            RegistryController.services
 GET    /registry/init                           RegistryController.initData

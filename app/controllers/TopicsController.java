@@ -145,5 +145,29 @@ public class TopicsController extends PlayController {
 	public static void topic(String name, String ns, String prefix) {
 		render(name, ns, prefix);
 	}
+	
+	/**
+	 * Create a subscriber topic in the platform
+	 * 
+	 */
+	public static void subscriber() {
+		render();
+	}
+	
+	public static void createSubscriber() {
+		subscriber();
+	}
+	
+	/**
+	 * Create a producer topic in the platform
+	 * 
+	 */
+	public static void producer() {
+		render();
+	}
+	
+	public static void createProducer() {
+		producer();
+	}
 
 }
