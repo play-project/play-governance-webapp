@@ -8,6 +8,8 @@
 # Home page
 GET     /                                       Application.index
 GET     /topic/all                              TopicsController.topics
+GET     /topic/dsb                              TopicsController.dsb
+POST    /topic/dsb/create                       TopicsController.createDSB
 
 GET    /registry/all                            RegistryController.services
 GET    /registry/init                           RegistryController.initData

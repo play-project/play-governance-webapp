@@ -22,6 +22,7 @@ package controllers;
 import java.util.List;
 
 import org.ow2.play.governance.api.EventGovernance;
+import org.ow2.play.governance.api.TopicAware;
 import org.ow2.play.governance.api.bean.Topic;
 
 import utils.Locator;
@@ -31,7 +32,7 @@ import utils.Locator;
  * 
  */
 public class TopicsController extends PlayController {
-	
+
 	public static void topics() {
 		EventGovernance client = null;
 		try {
@@ -48,7 +49,65 @@ public class TopicsController extends PlayController {
 		}
 		render(topics);
 	}
-	
+
+	/**
+	 * Get all the DSB topics GET
+	 */
+	public static void dsb() {
+		List<Topic> topics = null;
+		try {
+			TopicAware ta = Locator.getDSBTopicManagement(getNode());
+			topics = ta.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		render(topics);
+	}
+
+	/**
+	 * Create a new DSB topic. Does not register it anywhere in registry, just
+	 * add it on the engine.
+	 * 
+	 * POST
+	 * 
+	 * @param name
+	 * @param ns
+	 * @param prefix
+	 */
+	public static void createDSB(String name, String ns, String prefix) {
+		validation.required(name);
+		validation.required(prefix);
+
+		// validation url does not allow IP address...
+		validation.isTrue(ns != null
+				&& (ns.startsWith("http://") || ns.startsWith("https://")));
+
+		validation.required(name);
+		validation.url(ns);
+		validation.required(prefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			dsb();
+		}
+
+		try {
+			TopicAware ta = Locator.getDSBTopicManagement(getNode());
+			Topic topic = new Topic();
+			topic.setName(name);
+			topic.setNs(ns);
+			topic.setPrefix(prefix);
+			ta.add(topic);
+			flash.success("Topic has been created on the DSB %s",
+					topic.toString());
+
+		} catch (Exception e) {
+			handleException("Can not subscribe", e);
+		}
+		dsb();
+	}
+
 	public static void topic(String name, String ns, String prefix) {
 		render(name, ns, prefix);
 	}

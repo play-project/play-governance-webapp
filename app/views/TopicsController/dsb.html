@@ -1,0 +1,63 @@
+#{extends 'main.html' /}
+#{set title:'Topics' /}
+
+<div class="page-header">
+    <h1>DSB Topics</h1>
+</div>
+
+<div class="well">
+#{form @TopicsController.createDSB()}
+		<fieldset>
+				<div class="clearfix">
+        			<label for="name">Topic Name</label>
+        			<div class="input">
+        				<input type="text" name="name" id="name" class="xlarge" size="50" value="${flash.name}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="ns">Topic NS</label>
+        			<div class="input">
+        				<input type="text" name="ns" id="ns" class="xlarge" size="50" value="${flash.ns}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="prefix">Topic Prefix</label>
+        			<div class="input">
+        				<input type="text" name="prefix" id="prefix" class="xlarge" size="50" value="${flash.prefix}"/>
+        			</div>
+        		</div>
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Create" />
+        		</div>
+        </fieldset>
+#{/form}
+</div>
+
+#{if topics}
+	<table class="zebra-striped">
+        <thead>
+          <tr>
+          	<th>#</th>
+            <th>Name</th>
+            <th>Namespace</th>
+            <th>Prefix</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        %{int i = 0}%
+        #{list topics, as : 't'}
+          <tr>
+          <td align="left">${i++}</td>
+            <td><b>${t.name}</b></td>
+            <td><a href="${t.ns}" target="_blank">${t.ns}</a></td>
+            <td>${t.prefix}</td>
+            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a></td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}
+#{else}
+	<h3>No topics</h3>
+#{/else}

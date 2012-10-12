@@ -11,6 +11,7 @@ import org.ow2.play.governance.api.EventGovernance;
 import org.ow2.play.governance.api.SubscriptionManagement;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
+import org.ow2.play.governance.api.TopicAware;
 import org.ow2.play.metadata.api.service.MetadataBootstrap;
 import org.ow2.play.metadata.api.service.MetadataService;
 import org.ow2.play.service.registry.api.Constants;
@@ -147,6 +148,22 @@ public class Locator {
 		factory.setServiceClass(SubscriptionManagement.class);
 		Object o = factory.create();
 		return SubscriptionManagement.class.cast(o);
+	}
+	
+	public static TopicAware getDSBTopicManagement(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.DSB_BUSINESS_TOPIC_MANAGEMENT);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the DSB Topic Management service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(TopicAware.class);
+		Object o = factory.create();
+		return TopicAware.class.cast(o);
 	}
 
 }
