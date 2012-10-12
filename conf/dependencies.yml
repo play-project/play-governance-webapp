@@ -4,10 +4,10 @@ require:
     - play
     - play -> crud
     - play -> secure
-    - org.petalslink.dsb -> dsb-cxfutils 1.0-SNAPSHOT:
+    - org.ow2.petals.dsb -> dsb-cxfutils 1.0.0:
         exclude:
             - org.slf4j -> *
-    - org.petalslink.dsb -> dsb-kernel-wsapi 1.0-SNAPSHOT:
+    - org.ow2.petals.dsb -> dsb-kernel-wsapi 1.0.0:
         exclude:
             - org.slf4j -> *
     - org.ow2.play -> governance-api 1.0-SNAPSHOT:
