@@ -2,7 +2,7 @@
 #{set title:'Producer Topics' /}
 
 <div class="page-header">
-    <h1>Producer Topic</h1>
+    <h1>Publisher Topic</h1>
 </div>
 
 #{ifErrors}
@@ -18,7 +18,7 @@
 #{/ifErrors}
 
 <div class="well">
-	<b>A producer topic is defined as:</b>
+	<b>A publisher topic is defined as:</b>
 	<ul>
 		<li>A new topic on the DSB</li>
 		<li>A new Event Cloud instance</li>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="well">
-#{form @TopicsController.createProducer()}
+#{form @TopicsController.createPublisher()}
 		<fieldset>
 				<div class="clearfix">
         			<label for="name">Topic Name</label>

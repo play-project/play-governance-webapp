@@ -22,6 +22,7 @@ package controllers;
 import java.util.List;
 
 import org.ow2.play.governance.api.EventGovernance;
+import org.ow2.play.governance.api.GovernanceExeption;
 import org.ow2.play.governance.api.TopicAware;
 import org.ow2.play.governance.api.bean.Topic;
 
@@ -150,24 +151,87 @@ public class TopicsController extends PlayController {
 	 * Create a subscriber topic in the platform
 	 * 
 	 */
-	public static void consumer() {
+	public static void subscriber() {
 		render();
 	}
 	
-	public static void createConsumer() {
-		consumer();
+	public static void createSubscriber(String name, String ns, String prefix) {
+		validation.required(name);
+		validation.required(prefix);
+
+		// validation url does not allow IP address...
+		validation.isTrue(ns != null
+				&& (ns.startsWith("http://") || ns.startsWith("https://")));
+
+		validation.required(name);
+		validation.url(ns);
+		validation.required(prefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			subscriber();
+		}
+		
+		// create the topic...
+		Topic topic = new Topic();
+		topic.setName(name);
+		topic.setNs(ns);
+		topic.setPrefix(prefix);
+		
+		try {
+			EventGovernance client = Locator.getEventGovernance(getNode());
+			String result = client.createSubscriberTopic(topic);
+			flash.success("Subscriber creation success : %s", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			handleException("Problem while creating subscriber topic", e);
+		}
+		subscriber();
 	}
 	
 	/**
-	 * Create a producer topic in the platform
+	 * Create a publisher topic in the platform
 	 * 
 	 */
-	public static void producer() {
+	public static void publisher() {
 		render();
 	}
 	
-	public static void createProducer() {
-		producer();
+	public static void createPublisher(String name, String ns, String prefix) {
+		validation.required(name);
+		validation.required(prefix);
+
+		// validation url does not allow IP address...
+		validation.isTrue(ns != null
+				&& (ns.startsWith("http://") || ns.startsWith("https://")));
+
+		validation.required(name);
+		validation.url(ns);
+		validation.required(prefix);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			publisher();
+		}
+		
+		// create the topic...
+		// create the topic...
+		Topic topic = new Topic();
+		topic.setName(name);
+		topic.setNs(ns);
+		topic.setPrefix(prefix);
+		
+		try {
+			EventGovernance client = Locator.getEventGovernance(getNode());
+			String result = client.createPublisherTopic(topic);
+			flash.success("Producer creation success : %s", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			handleException("Problem while creating publisher topic", e);
+		}
+		publisher();
 	}
 
 }

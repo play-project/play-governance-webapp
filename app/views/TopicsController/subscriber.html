@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Producer Topics' /}
+#{set title:'Subscriber Topics' /}
 
 <div class="page-header">
     <h1>Subscriber Topic</h1>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="well">
-#{form @TopicsController.createProducer()}
+#{form @TopicsController.createSubscriber()}
 		<fieldset>
 				<div class="clearfix">
         			<label for="name">Topic Name</label>
