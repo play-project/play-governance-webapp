@@ -138,6 +138,7 @@ public class TopicsController extends PlayController {
 					topic.toString());
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			handleException("Can not delete topic", e);
 		}
 		dsb();
