@@ -22,6 +22,10 @@ RegistryConfiguration(LocalMocksPlayConfiguration):
     name: Local Mocks Configuration
     url: http://localhost:9000/public/resources/localregistrymocks.properties
 
+RegistryConfiguration(LocalhostGithubConfiguration):
+    name: Local Github Configuration
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/localhost.properties
+
 RegistryConfiguration(LocalGithubConfiguration):
     name: Local Github Configuration
     url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/local.properties
