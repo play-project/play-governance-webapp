@@ -16,6 +16,7 @@ import org.ow2.play.metadata.api.service.MetadataBootstrap;
 import org.ow2.play.metadata.api.service.MetadataService;
 import org.ow2.play.service.registry.api.Constants;
 import org.ow2.play.service.registry.api.Registry;
+import org.petalslink.dsb.jbi.se.wsn.api.StatsService;
 
 /**
  * Deprecated...
@@ -165,5 +166,22 @@ public class Locator {
 		Object o = factory.create();
 		return TopicAware.class.cast(o);
 	}
+	
+	public static StatsService getDSBStatsService(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.DSB_BUSINESS_TOPIC_STATS);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the DSB Topic Stats service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(StatsService.class);
+		Object o = factory.create();
+		return StatsService.class.cast(o);
+	}
+	
 
 }

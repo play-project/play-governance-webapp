@@ -49,6 +49,7 @@ GET     /bootstrap/result                       BootstrapController.subscription
 GET     /bootstrap/create                       BootstrapController.create
 POST    /bootstrap/createNew                    BootstrapController.createNewBoot
 
+GET    /monitoring/dsb                         MonitoringController.dsb
 
 
 # Ignore favicon requests

@@ -21,6 +21,7 @@ require:
     - org.ow2.play -> play-serviceregistry-api 1.0-SNAPSHOT:
         exclude:
             - org.slf4j -> *
+    - org.ow2.petals.dsb -> dsb-wsn-jbise-wsapi 1.1-SNAPSHOT
 
 repositories:
     - petalslinkrelease:
@@ -45,3 +46,9 @@ repositories:
         contains:
             - org.ow2.play -> *
             - eu.play-project -> *
+
+    - ow2.snapshot:
+        type: iBiblio
+        root: "http://repository.ow2.org/nexus/content/repositories/snapshots/"
+        contains:
+            - org.ow2.petals.dsb -> *  1.1-SNAPSHOT          
