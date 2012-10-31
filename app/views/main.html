@@ -4,7 +4,20 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap-1.2.0.css'}">
+		<link rel="stylesheet" href="@{'/public/assets/css/bootstrap.css'}">
+		<style type="text/css">
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		
+		.sidebar-nav {
+			padding: 9px 0;
+		}
+		</style>
+		<link href="@{'/public/assets/css/bootstrap-responsive.css'}"
+			rel="stylesheet">
+
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
@@ -12,76 +25,81 @@
         #{get 'moreScripts' /}
     </head>
     <body>
-    
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
-          <h3><a href="@{Application.index()}">Governance</a></h3>
-          <ul>
-            <!--- browse -->
-            <ul class="nav secondary-nav">
-              <li class="menu">
-                <a href="#" class="menu">Topics</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{TopicsController.topics()}">All</a></li>
-                  <li><a href="@{TopicsController.dsb()}">DSB</a></li>
-                  <li><a href="@{TopicsController.subscriber()}">Platform Subscriber</a></li>
-                  <li><a href="@{TopicsController.publisher()}">Platform Publisher</a></li>                  
-                </ul>
-              </li>
-              
-              <li class="menu">
-                <a href="#" class="menu">Registry</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{RegistryController.services()}">Services</a></li>
-                  <li><a href="@{RegistryController.load()}">Load</a></li>
-                </ul>
-              </li>
-              
- 			  <li class="menu">
-                <a href="#" class="menu">Resources</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{MetadataController.list()}">List</a></li>
-                  <li><a href="@{MetadataController.create()}">Create</a></li>
-                  <li><a href="@{MetadataController.load()}">Load</a></li>
-                  <li><a href="@{MetadataController.download()}" target="_blank">Download</a></li>
-                </ul>
-              </li>
-              
-               <li class="menu">
-                <a href="#" class="menu">Subscriptions</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{SubscriptionsController.create()}">Create</a></li>
-                  <li><a href="@{SubscriptionsController.subscriptions()}">List</a></li>
-                  <li><a href="@{BootstrapController.create()}">Create Boot</a></li>
-                  <li><a href="@{BootstrapController.subscriptions()}">Boot List</a></li>
-                </ul>
-              </li>
-              
-              <li class="menu">
-                <a href="#" class="menu">Monitoring</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{MonitoringController.dsb()}">DSB</a></li>
-                </ul>
-              </li>
 
-              <li class="menu">
-                <a href="#" class="menu">Patterns</a>
-                <ul class="menu-dropdown">
-                  <li><a href="@{PatternsController.list()}">List</a></li>
-                </ul>
-              </li>
-               
-            </ul>
-          </ul>
-          <ul class="nav secondary-nav">
-          	<li>#{if currentNode}<a href="@{Application.connect()}">Connected to <b>${currentNode?.name}</b></a>#{/if}#{else}<a href="@{Application.connect()}"><b>Connect...</b></a>#{/else}</li>
-          </ul>
-        </div>
-      </div> <!-- /fill -->
-    </div>
-    
-  <div class="container">
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="@{Application.index()}">PLAY.gov</a>
+				<div class="nav-collapse" id="main-menu">
+					<ul class="nav" id="main-menu-left">
+						<!-- <li><a id="swatch-link" href="">Cr&eacute;er</a></li>-->
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Topics <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+			                  <li><a href="@{TopicsController.topics()}">List</a></li>
+			                  <li><a href="@{TopicsController.dsb()}">DSB</a></li>
+			                  <li><a href="@{TopicsController.subscriber()}">Platform Subscriber</a></li>
+			                  <li><a href="@{TopicsController.publisher()}">Platform Publisher</a></li>  
+							</ul>
+						</li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Services <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+				                  <li><a href="@{RegistryController.services()}">List</a></li>
+				                  <li><a href="@{RegistryController.load()}">Load</a></li>
+							</ul>
+						</li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Resources <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+			                  <li><a href="@{MetadataController.list()}">List</a></li>
+			                  <li><a href="@{MetadataController.create()}">Create</a></li>
+			                  <li><a href="@{MetadataController.load()}">Load</a></li>
+			                  <li><a href="@{MetadataController.download()}" target="_blank">Download</a></li>
+							</ul>
+						</li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Subscriptions <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+			                  <li><a href="@{SubscriptionsController.subscriptions()}">List</a></li>
+			                  <li><a href="@{SubscriptionsController.create()}">Create</a></li>
+			                  <li><a href="@{BootstrapController.create()}">Create Boot</a></li>
+			                  <li><a href="@{BootstrapController.subscriptions()}">Boot List</a></li>
+							</ul>
+						</li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Monitoring <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+			                	<li><a href="@{MonitoringController.dsb()}">DSB</a></li>
+							</ul>
+						</li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Patterns <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+                  				<li><a href="@{PatternsController.list()}">List</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav pull-right" id="main-menu-right">
+						<li class="dropdown" id="preview-menu">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+							   	<li>#{if currentNode}<a href="@{Application.connect()}">Connected to <b>${currentNode?.name}</b></a>#{/if}#{else}<a href="@{Application.connect()}"><b>Connect...</b></a>#{/else}</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
   
   #{if flash.success}
 	<div class="alert-message success">
@@ -98,5 +116,19 @@
 
      #{doLayout /}
   </div>
+  
+  	<script src="@{'/public/assets/js/jquery.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-transition.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-alert.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-modal.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-dropdown.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-scrollspy.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-tab.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-tooltip.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-popover.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-button.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-collapse.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-carousel.js'}"></script>
+	<script src="@{'/public/assets/js/bootstrap-typeahead.js'}"></script>
   </body>
 </html>
