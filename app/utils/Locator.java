@@ -8,6 +8,7 @@ import models.Node;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.ow2.play.governance.api.BootSubscriptionService;
 import org.ow2.play.governance.api.EventGovernance;
+import org.ow2.play.governance.api.PatternRegistry;
 import org.ow2.play.governance.api.SubscriptionManagement;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
@@ -25,6 +26,22 @@ import org.petalslink.dsb.jbi.se.wsn.api.StatsService;
  * 
  */
 public class Locator {
+	
+	public static PatternRegistry getPatternRegistry(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.GOVERNANCE_PATTERN_REGISTRY);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the pattern endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(PatternRegistry.class);
+		Object o = factory.create();
+		return PatternRegistry.class.cast(o);
+	}
 
 	public static MetadataService getMetaService(Node node) throws Exception {
 

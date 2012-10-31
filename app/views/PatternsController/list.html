@@ -1,0 +1,28 @@
+#{extends 'main.html' /} #{set title:'Patterns' /}
+
+<div class="page-header">
+	<h1>Registered Patterns</h1>
+</div>
+
+#{if list}
+<table class="zebra-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Created at</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		#{list list, as : 'p'}
+		<tr>
+			<td align="left">${p.id}</td>
+			<td>${p.name}</td>
+			<td>${Long.parseLong(p.recordDate).asdate('dd MMMM yyyy hh:mm:ss')}</td>
+			<td><a href="#" class="btn">Details</a></td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>
+#{/if}
