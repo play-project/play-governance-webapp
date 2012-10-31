@@ -4,25 +4,26 @@
 	<h1>Registered Patterns</h1>
 </div>
 
-#{if list}
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>Name</th>
-			<th>Created at</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		#{list list, as : 'p'}
-		<tr>
-			<td align="left">${p.id}</td>
-			<td>${p.name}</td>
-			<td>${Long.parseLong(p.recordDate).asdate('dd MMMM yyyy hh:mm:ss')}</td>
-			<td><a href="#" class="btn">Details</a></td>
-		</tr>
-		#{/list}
-	</tbody>
-</table>
-#{/if}
+<div class="accordion" id="accordion2">
+  %{int i = 0}%
+  #{list list, as : 'p'}
+  %{i++}%
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_${i}">
+        ${p.name} - Created on ${Long.parseLong(p.recordDate).asdate('dd MMMM yyyy hh:mm:ss')}
+      </a>
+    </div>
+    <div id="collapse_${i}" class="accordion-body collapse">
+      <div class="accordion-inner">
+      	<p>
+        <a class="btn">Download</a>&nbsp;<a class="btn">Remove</a><br>
+        </p>
+        <p>
+        <pre class=".pre-scrollable">${p.content}</pre>
+        </p>
+      </div>
+    </div>
+  </div>
+  #{/list}
+</div>
