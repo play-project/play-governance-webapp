@@ -7,6 +7,7 @@ import models.Node;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.ow2.play.governance.api.BootSubscriptionService;
+import org.ow2.play.governance.api.EventCloudManagementService;
 import org.ow2.play.governance.api.EventGovernance;
 import org.ow2.play.governance.api.PatternRegistry;
 import org.ow2.play.governance.api.SubscriptionManagement;
@@ -20,12 +21,27 @@ import org.ow2.play.service.registry.api.Registry;
 import org.petalslink.dsb.jbi.se.wsn.api.StatsService;
 
 /**
- * Deprecated...
  * 
  * @author chamerling
  * 
  */
 public class Locator {
+	
+	public static EventCloudManagementService getEventCloudManagementService(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.GOVERNANCE_EC_SERVICE);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the EventCloudManagementService endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(EventCloudManagementService.class);
+		Object o = factory.create();
+		return EventCloudManagementService.class.cast(o);
+	}
 	
 	public static PatternRegistry getPatternRegistry(Node node) throws Exception {
 		Registry registry = getServiceRegistry(node);

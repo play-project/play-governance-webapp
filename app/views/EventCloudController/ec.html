@@ -1,0 +1,69 @@
+#{extends 'main.html' /}
+#{set title:'EventCloud details' /}
+
+<div class="page-header">
+    <h3>${ec.stream}</h3>
+</div>
+
+<h3>Subscribe Proxies</h3>
+<table class="table table-striped">
+	<thead>
+        <tr>
+          <th>#</th>
+          <th>Endpoint</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        %{int i=0;}%
+        #{list ec.subscribe, as : 'endpoint'}
+		<tr>
+   			<td><b>${i++}</b></td>
+   			<td><a href="${endpoint}" target="_blank">${endpoint}</a></td>
+   			<td><a class="btn danger"href="#">Delete</a></td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>
+
+<h3>Publish Proxies</h3>
+<table class="table table-striped">
+	<thead>
+        <tr>
+          <th>#</th>
+          <th>Endpoint</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        %{i=0;}%
+        #{list ec.publish, as : 'endpoint'}
+		<tr>
+   			<td><b>${i++}</b></td>
+   			<td><a href="${endpoint}" target="_blank">${endpoint}</a></td>
+   			<td><a class="btn danger"href="#">Delete</a></td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>
+
+<h3>PutGet Proxies</h3>
+<table class="table table-striped">
+	<thead>
+        <tr>
+          <th>#</th>
+          <th>Endpoint</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        %{i=0;}%
+        #{list ec.putget, as : 'endpoint'}
+		<tr>
+   			<td><b>${i++}</b></td>
+   			<td><a href="${endpoint}" target="_blank">${endpoint}</a></td>
+   			<td><a class="btn danger"href="#">Delete</a></td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>

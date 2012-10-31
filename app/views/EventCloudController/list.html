@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{set title:'Topics' /}
+
+<div class="page-header">
+    <h1>Event Clouds</h1>
+</div>
+
+#{if list}
+	<table class="table table-striped">
+        <thead>
+          <tr>
+          	<th>#</th>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        %{int i = 0}%
+        #{list list, as : 'e'}
+          <tr>
+          <td align="left">${i++}</td>
+            <td><a href="${e}">${e}</a></td>
+            <td><a href="@{EventCloudController.ec(e)}" class="btn">Details</a></td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}
+#{else}
+	<h3>No topics</h3>
+#{/else}

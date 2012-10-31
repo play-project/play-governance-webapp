@@ -53,6 +53,8 @@ GET     /monitoring/dsb                          MonitoringController.dsb
 
 GET     /pattern/list                           PatternsController.list
 
+GET     /ec/list                                EventCloudController.list
+GET     /ec/info                                EventCloudController.ec
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
