@@ -5,6 +5,11 @@
 	<h1>New subscription</h1>
 </div>
 
+<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Create a new subscription : Subscribe to provider and save in the governance registry (if selected)</strong>
+</div>
+
 #{ifErrors}
 	<div class="alert-message error">
         <a class="close" href="#">&times;</a>
@@ -21,13 +26,17 @@
 #{form @SubscriptionsController.createNew()}
 		<fieldset>
 				<div class="clearfix">
-        			<label for="consumer">Subscriber endpoint</label>
+        			<label for="consumer">
+        				<a href="#" id="tooltip_consumer" rel="tooltip" data-original-title="Who will receive notifications">Subscriber endpoint</a>
+     				</label>
         			<div class="input">
         				<input type="text" name="consumer" id="consumer" class="xlarge" size="50" value="${flash.consumer}"/>
         			</div>
         		</div>
         		<div class="clearfix">
-        			<label for="provider">Producer endpoint</label>
+        			<label for="provider">
+        				<a href="#" id="tooltip_producer" rel="tooltip" data-original-title="Where to send subscription">Producer endpoint</a>
+        			</label>
         			<div class="input">
         				<input type="text" name="provider" id="provider" class="xlarge" size="50" value="${flash.provider}"/>
         			</div>
@@ -62,3 +71,10 @@
         </fieldset>
 #{/form}
 </div>
+
+#{set 'lastScripts'}
+	<script>
+	$('#tooltip_consumer').tooltip({placement : 'right'});
+	$('#tooltip_producer').tooltip({placement : 'right'});
+	</script>
+#{/set}
