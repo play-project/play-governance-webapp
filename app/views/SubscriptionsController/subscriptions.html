@@ -2,18 +2,64 @@
 #{set title:'Subscriptions' /}
 
 <div class="page-header">
-    <h1>Subscriptions</h1>
+    <h1>Subscriptions&nbsp;<small>registered in the governance registry</small></h1>
 </div>
 
-<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-	<strong>Subscriptions registered in the governance registry</strong>
+	<!-- Create comment section, put before button -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none; ">
+	#{form @SubscriptionsController.search()}
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+       	<h3 id="myModalLabel">Search Subscriptions in Registry</h3>
+    </div>
+    <div class="modal-body">
+		<div class="clearfix">
+			<label for="consumer">
+  				<a href="#" id="tooltip_consumer" rel="tooltip" data-original-title="Who will receive notifications">Subscriber endpoint</a>
+			</label>
+   			<div class="input">
+   				<input type="text" name="consumer" id="consumer" class="xlarge" size="50" value="${flash.consumer}"/>
+   			</div>
+   		</div>
+   		<div class="clearfix">
+   			<label for="provider">
+   				<a href="#" id="tooltip_producer" rel="tooltip" data-original-title="Where to send subscription">Provider endpoint</a>
+   			</label>
+   			<div class="input">
+   				<input type="text" name="provider" id="provider" class="xlarge" size="50" value="${flash.provider}"/>
+   			</div>
+   		</div>
+   		<div class="clearfix">
+   			<label for="producer">Topic Name</label>
+   			<div class="input">
+   				<input type="text" name="topicname" id="topicname" class="xlarge" size="50" value="${flash.topicname}"/>
+   			</div>
+   		</div>
+   		<div class="clearfix">
+   			<label for="topicprefix">Topic Prefix</label>
+   			<div class="input">
+   				<input type="text" name="topicprefix" id="topicprefix" class="xlarge" size="50" value="${flash.topicprefix}"/>
+   			</div>
+   		</div>
+   		<div class="clearfix">
+   			<label for="topicns">Topic Namespace</label>
+   			<div class="input">
+   				<input type="text" name="topicns" id="topicns" class="xlarge" size="50" value="${flash.topicns}"/>
+   			</div>
+   		</div>
+	</div>
+	<div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+       	<input class="btn primary" type="submit" value="Search" />
+    </div>
+	#{/form}
 </div>
 
 <div class="well">
-	<a class="btn" href="@{SubscriptionsController.create()}">Create</a>&nbsp;<a class="btn danger" href="@{SubscriptionsController.removeAll()}">Remove All</a>
+	<a class="btn" data-toggle="modal" data-target="#myModal" href="#">Search</a>&nbsp;<a class="btn" href="@{SubscriptionsController.create()}">Create</a>&nbsp;<a class="btn btn-danger" href="@{SubscriptionsController.removeAll()}">Remove All</a>
 </div>
 
+%{ int i = 0 }%
 #{if subscriptions}
 
         #{list subscriptions, as : 's'}
@@ -29,10 +75,26 @@
 	        {<a href="">${s.topic.ns}</a>} ${s.topic.prefix}:<b>${s.topic.name}</b>
 	        
 	        <br><br>
-	        <a href="@{BootstrapController.create('', s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Save for Boot</a>
+	        <a href="@{SubscriptionsController.unsubscribeFromUUID(s.id)}" class="btn" id="tooltip_unsubscribe_${i}" rel="tooltip" data-original-title="This will unsubscribe from the runtime">Unsubscribe</a>
+	        &nbsp;<a href="@{BootstrapController.create('', s.subscriber, s.provider, s.topic.name, s.topic.ns, s.topic.prefix)}" class="btn">Save for Boot</a>
+	        &nbsp;<a href="#" class="btn btn-danger" id="tooltip_remove_${i}" rel="tooltip" data-original-title="This will remove entry from registry">Remove</a>
         </div>
+        %{ i ++ }%
 		#{/list}
 #{/if}
 #{else}
 	<h3>No subscriptions</h3>
 #{/else}
+
+#{set 'lastScripts'}
+	<script>
+	$('#tooltip_consumer').tooltip({placement : 'right'});
+	$('#tooltip_producer').tooltip({placement : 'right'});
+	
+	#{list items:0..i, as:'j'}
+		$('#tooltip_unsubscribe_${j}').tooltip({placement : 'bottom'});
+		$('#tooltip_remove_${j}').tooltip({placement : 'bottom'});
+	#{/list}
+	
+	</script>
+#{/set}

@@ -39,6 +39,9 @@ GET     /subscription/create                    SubscriptionsController.create
 GET     /subscription/createfrom                SubscriptionsController.createFrom
 POST    /subscription/new                    	SubscriptionsController.new
 GET     /subscription/clear                     SubscriptionsController.removeAll
+GET     /subscription/manage                    SubscriptionsController.manage
+POST    /subscription/search                    SubscriptionsController.search
+GET     /subscription/unsubscribe/{uuid}        SubscriptionsController.unsubscribeFromUUID
 
 GET     /bootsubscription/new                   SubscriptionsController.createBootSubscriptions
 GET     /bootsubscription/delete                SubscriptionsController.deleteBoot
@@ -56,6 +59,9 @@ GET     /pattern/runtime                        PatternsController.listDeployed
 
 GET     /ec/list                                EventCloudController.list
 GET     /ec/info                                EventCloudController.ec
+
+# Websocket
+WS      /websocket/backgroundMessage            BackgroundTaskWebSocket.pushNewMessage
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

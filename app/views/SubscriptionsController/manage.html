@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{set title:'Manage Subscriptions' /}
+
+#{ifErrors}
+	<div class="alert-message error">
+        <a class="close" href="#">&times;</a>
+        <p><strong>Some values are invalid, please fix them...</strong></p>
+        <ul>
+         #{errors}
+       		<li>${error}</li>
+   		#{/errors}
+   		</ul>
+      </div>
+#{/ifErrors}
+
+<h3>Remove all from subscriber&nbsp;<small>Will unsubscribe from runtime(s) and unregister from registry</small></h3>
+<div class="well">
+#{form @SubscriptionsController.removeAllFromSubscriber()}
+		<fieldset>
+			<div class="clearfix">
+        			<label for="name">Subscriber Endpoint</label>
+        			<div class="input">
+        				<input type="text" name="url" id="url" class="xlarge" size="50" value="${flash.url}"/>
+        			</div>
+        		</div>
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Remove" />
+        		</div>
+        </fieldset>
+#{/form}
+</div>

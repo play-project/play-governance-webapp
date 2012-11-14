@@ -19,14 +19,20 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.ow2.play.governance.api.BootSubscriptionService;
+import models.Message;
+
 import org.ow2.play.governance.api.GovernanceExeption;
+import org.ow2.play.governance.api.SubscriptionManagement;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
 import org.ow2.play.governance.api.bean.Subscription;
 import org.ow2.play.governance.api.bean.Topic;
+import org.ow2.play.service.registry.api.Registry;
+
+import play.jobs.Job;
 
 import utils.Locator;
 
@@ -83,7 +89,7 @@ public class SubscriptionsController extends PlayController {
 		}
 		render(subscription);
 	}
-	
+
 	/**
 	 * Create page from null args
 	 * 
@@ -101,10 +107,12 @@ public class SubscriptionsController extends PlayController {
 	 * @param topicns
 	 * @param topicprefix
 	 */
-	public static void createFrom(String topicname, String topicns, String topicprefix) {
-		// flash parameters to inject them in the template (this flash stuff is also used when validating form data
+	public static void createFrom(String topicname, String topicns,
+			String topicprefix) {
+		// flash parameters to inject them in the template (this flash stuff is
+		// also used when validating form data
 		params.flash();
-		
+
 		renderTemplate("SubscriptionsController/create.html");
 	}
 
@@ -119,14 +127,18 @@ public class SubscriptionsController extends PlayController {
 	 */
 	public static void createNew(String consumer, String provider,
 			String topicname, String topicns, String topicprefix, boolean save) {
-		
+
 		validation.required(consumer);
 		validation.required(provider);
-		
+
 		// validation url does not allow IP address...
-		validation.isTrue(consumer != null && (consumer.startsWith("http://") || consumer.startsWith("https://")));
-		validation.isTrue(provider != null && (provider.startsWith("http://") || provider.startsWith("https://")));
-		
+		validation.isTrue(consumer != null
+				&& (consumer.startsWith("http://") || consumer
+						.startsWith("https://")));
+		validation.isTrue(provider != null
+				&& (provider.startsWith("http://") || provider
+						.startsWith("https://")));
+
 		validation.required(topicname);
 		validation.url(topicns);
 		validation.required(topicprefix);
@@ -136,7 +148,7 @@ public class SubscriptionsController extends PlayController {
 			validation.keep();
 			createFrom(topicname, topicns, topicprefix);
 		}
-		
+
 		try {
 			SubscriptionService client = Locator
 					.getSubscriptionService(getNode());
@@ -153,9 +165,10 @@ public class SubscriptionsController extends PlayController {
 			Subscription result = client.subscribe(subscription);
 
 			if (result != null) {
-				flash.success("Subscription has been created %s", result.toString());
+				flash.success("Subscription has been created %s",
+						result.toString());
 			}
-			
+
 			if (result != null && save) {
 				// register
 				SubscriptionRegistry registry = Locator
@@ -183,13 +196,185 @@ public class SubscriptionsController extends PlayController {
 		try {
 			SubscriptionRegistry client = Locator
 					.getSubscriptionRegistry(getNode());
-			
+
 			client.removeAll();
 			flash.success("Subscriptions have been removed");
-			
+
 		} catch (Exception e) {
 			handleException("Problem while getting client", e);
 		}
+		subscriptions();
+	}
+
+	public static void manage() {
+		render();
+	}
+
+	/**
+	 * POST Remove all teh subscriptions for the given subscriber. Will get the
+	 * list of all subscription with this ID and then call unsubscribe with the
+	 * subscripton ID.
+	 * 
+	 * @param subscriber
+	 */
+	public static void removeAllFromSubscriber(final String url) {
+		validation.required(url);
+
+		// validation url does not allow IP address...
+		validation.isTrue(url != null
+				&& (url.startsWith("http://") || url.startsWith("https://")));
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			manage();
+		}
+
+		SubscriptionManagement client = null;
+		try {
+			client = Locator.getSubscriptionManagement(getNode());
+		} catch (Exception e) {
+			handleException("Can not get subscription management client", e);
+		}
+
+		try {
+			final SubscriptionManagement c = client;
+			new Job() {
+				@Override
+				public void doJob() throws Exception {
+					List<Subscription> result = c
+							.unsubscribeAllForSubscriber(url);
+					System.out.println("Results from background task ...");
+					for (Subscription subscription : result) {
+						// TODO : Push to client with Web socket
+						System.out.println("Background result : "
+								+ subscription);
+						Message message = new Message();
+						message.title = "Unsubscribe All Result";
+						message.content = subscription.getStatus();
+						BackgroundTaskWebSocket.liveStream.publish(message);
+					}
+				}
+			}.now();
+		} catch (Exception e) {
+			e.printStackTrace();
+			flash.error("Unable to remove subscriptions '%s'", e.getMessage());
+		}
+		flash.success("Subscription(s) are removed in the background...", url);
+
+		manage();
+	}
+	
+	/**
+	 * Unsubscribe from a subscription UUID
+	 * 
+	 * @param uuid
+	 */
+	public static void unsubscribeFromUUID(final String uuid) {
+		validation.required(uuid);
+
+		// validation url does not allow IP address...
+		validation.isTrue(uuid != null && (uuid.length() > 0));
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			manage();
+		}
+
+		SubscriptionManagement client = null;
+		SubscriptionRegistry registry = null;
+		try {
+			registry = Locator.getSubscriptionRegistry(getNode());
+			client = Locator.getSubscriptionManagement(getNode());
+		} catch (Exception e) {
+			handleException("Can not get subscription management client", e);
+		}
+
+		try {
+			final SubscriptionManagement c = client;
+			final SubscriptionRegistry r = registry;
+			new Job() {
+				@Override
+				public void doJob() throws Exception {
+					
+					// get the subscription from the registry
+					Subscription filter = new Subscription();
+					filter.setId(uuid);
+					List<Subscription> list = r.getSubscriptions(filter);
+					
+					if (list == null || list.size() == 0) {
+						System.out.println("Subscription can not be found on regstry");
+						return;
+					}
+					
+					List<Subscription> result = c.unsubscribe(list);
+					System.out.println("Results from background task unsubscribe...");
+					for (Subscription subscription : result) {
+						// TODO : Push to client with Web socket
+						System.out.println("Background result : "
+								+ subscription);
+						Message message = new Message();
+						message.title = "Unsubscribe UUID Result";
+						message.content = subscription.getStatus();
+						BackgroundTaskWebSocket.liveStream.publish(message);
+					}
+				}
+			}.now();
+		} catch (Exception e) {
+			e.printStackTrace();
+			flash.error("Unable to remove subscription '%s'", e.getMessage());
+		}
+		flash.success("Subscription is removed in the background...");
+
+		manage();
+	}
+
+	/**
+	 * POST. Search subscriptions.
+	 * 
+	 * 
+	 * @param subscriber
+	 * @param producer
+	 * @param topicName
+	 * @param topicNS
+	 * @param topicPrefix
+	 */
+	public static void search(String consumer, String provider,
+			String topicname, String topicns, String topicprefix) {
+		try {
+			SubscriptionRegistry client = Locator
+					.getSubscriptionRegistry(getNode());
+
+			Subscription filter = new Subscription();
+			if (consumer != null && consumer.length() > 0) {
+				filter.setSubscriber(consumer);
+			}
+
+			if (provider != null && provider.length() > 0) {
+				filter.setProvider(provider);
+			}
+
+			Topic topic = new Topic();
+			if (topicname != null && topicname.length() > 0) {
+				topic.setName(topicname);
+				filter.setTopic(topic);
+			}
+
+			long start = System.currentTimeMillis();
+			List<Subscription> subscriptions = client.getSubscriptions(filter);
+			long stop = System.currentTimeMillis() - start;
+			if (subscriptions == null) {
+				flash.error("No result");
+			} else {
+				flash.success("Subscription search results : " + subscriptions.size() + " (took " + stop + " ms)");
+			}
+			render("SubscriptionsController/subscriptions.html", subscriptions);
+
+		} catch (Exception e) {
+			handleException("Problem while getting client", e);
+		}
+		flash.error("Can not find any subscription");
 		subscriptions();
 	}
 }

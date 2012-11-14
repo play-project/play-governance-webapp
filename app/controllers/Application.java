@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Message;
 import models.Node;
 
 import org.ow2.play.service.registry.api.Registry;
