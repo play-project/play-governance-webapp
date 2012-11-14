@@ -1,11 +1,11 @@
-#{extends 'main.html' /} #{set title:'Patterns' /}
+#{extends 'main.html' /} #{set title:'Runtime Patterns' /}
 
 <div class="page-header">
-	<h1>Registered Patterns</h1>
+	<h1>Deployed Patterns</h1>
 </div>
 
 <div class="well">
-	List of the patterns registered on the governance. 
+	List of the patterns deployed on the runtime.
 </div>
 
 <div class="accordion" id="accordion2">
@@ -15,16 +15,16 @@
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_${i}">
-        ${p.name} - Created on ${Long.parseLong(p.recordDate).asdate('dd MMMM yyyy hh:mm:ss')}
+        ${p.name} - ${p.id}
       </a>
     </div>
     <div id="collapse_${i}" class="accordion-body collapse">
       <div class="accordion-inner">
       	<p>
-        <a class="btn">Download</a>&nbsp;<a class="btn">Remove</a><br>
+        	<a class="btn">Download</a>&nbsp;<a class="btn">Undeploy</a><br>
         </p>
         <p>
-        <pre class=".pre-scrollable">${p.content}</pre>
+        	<pre class=".pre-scrollable">${p.content}</pre>
         </p>
       </div>
     </div>

@@ -52,6 +52,7 @@ POST    /bootstrap/createNew                    BootstrapController.createNewBoo
 GET     /monitoring/dsb                          MonitoringController.dsb
 
 GET     /pattern/list                           PatternsController.list
+GET     /pattern/runtime                        PatternsController.listDeployed
 
 GET     /ec/list                                EventCloudController.list
 GET     /ec/info                                EventCloudController.ec

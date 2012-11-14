@@ -22,6 +22,7 @@ package controllers;
 import java.util.List;
 
 import org.ow2.play.governance.api.PatternRegistry;
+import org.ow2.play.governance.api.SimplePatternService;
 import org.ow2.play.governance.api.bean.Pattern;
 
 import utils.Locator;
@@ -34,6 +35,10 @@ import utils.Locator;
  */
 public class PatternsController extends PlayController {
 
+	/**
+	 * List the patterns registered in the registry; This is an historical
+	 * registry and does not handle currently deployed patterns
+	 */
 	public static void list() {
 		PatternRegistry client = null;
 		try {
@@ -49,5 +54,34 @@ public class PatternsController extends PlayController {
 			handleException("Unable to get patterns", e);
 		}
 		render(list);
+	}
+	
+	/**
+	 * List the deployed patterns
+	 */
+	public static void listDeployed() {
+		SimplePatternService client = null;
+		try {
+			client = Locator.getSimplePatternService(getNode());
+		} catch (Exception e) {
+			handleException(null, e);
+		}
+
+		List<Pattern> list = null;
+		try {
+			list = client.getPatterns();
+		} catch (Exception e) {
+			handleException("Unable to get patterns from runtime", e);
+		}
+		render(list);
+	}
+	
+	/**
+	 * Undeploy a pattern from the runtime (DCEP)
+	 * 
+	 * @param id
+	 */
+	public static void undeployPatternFromRuntime(String id) {
+		
 	}
 }

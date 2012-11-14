@@ -10,6 +10,7 @@ import org.ow2.play.governance.api.BootSubscriptionService;
 import org.ow2.play.governance.api.EventCloudManagementService;
 import org.ow2.play.governance.api.EventGovernance;
 import org.ow2.play.governance.api.PatternRegistry;
+import org.ow2.play.governance.api.SimplePatternService;
 import org.ow2.play.governance.api.SubscriptionManagement;
 import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
@@ -49,7 +50,7 @@ public class Locator {
 
 		if (url == null) {
 			throw new Exception(
-					"Can not find the pattern endpoint in the registry");
+					"Can not find the pattern registry endpoint in the registry");
 		}
 
 		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
@@ -57,6 +58,22 @@ public class Locator {
 		factory.setServiceClass(PatternRegistry.class);
 		Object o = factory.create();
 		return PatternRegistry.class.cast(o);
+	}
+	
+	public static SimplePatternService getSimplePatternService(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.GOVERNANCE_PATTERN_SERVICE);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the pattern service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(SimplePatternService.class);
+		Object o = factory.create();
+		return SimplePatternService.class.cast(o);
 	}
 
 	public static MetadataService getMetaService(Node node) throws Exception {
