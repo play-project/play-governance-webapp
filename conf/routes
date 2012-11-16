@@ -57,8 +57,14 @@ GET     /monitoring/dsb                          MonitoringController.dsb
 GET     /pattern/list                           PatternsController.list
 GET     /pattern/runtime                        PatternsController.listDeployed
 
+# EC
+
 GET     /ec/list                                EventCloudController.list
 GET     /ec/info                                EventCloudController.ec
+
+# DSB
+GET     /dsb/topics                             DSBController.topics
+GET     /dsb/topic                              DSBController.topic
 
 # Websocket
 WS      /websocket/backgroundMessage            BackgroundTaskWebSocket.pushNewMessage

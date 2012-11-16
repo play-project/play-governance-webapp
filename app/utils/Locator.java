@@ -20,6 +20,7 @@ import org.ow2.play.metadata.api.service.MetadataService;
 import org.ow2.play.service.registry.api.Constants;
 import org.ow2.play.service.registry.api.Registry;
 import org.petalslink.dsb.jbi.se.wsn.api.StatsService;
+import org.petalslink.dsb.jbi.se.wsn.api.SubscriptionManagementService;
 
 /**
  * 
@@ -231,6 +232,31 @@ public class Locator {
 		factory.setServiceClass(StatsService.class);
 		Object o = factory.create();
 		return StatsService.class.cast(o);
+	}
+
+	/**
+	 * @param node
+	 * @return
+	 */
+	public static SubscriptionManagementService getSubscriptionManagementService(
+			Node node) throws Exception {
+		
+		Registry registry = getServiceRegistry(node);
+		
+		// TDOO : Add org.ow2.play.dsb.topic.business.subscriptionmanagement
+		
+		String url = registry.get("org.ow2.play.dsb.topic.business.subscriptionmanagement");
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the DSB Topic Stats service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(SubscriptionManagementService.class);
+		Object o = factory.create();
+		return SubscriptionManagementService.class.cast(o);
 	}
 	
 

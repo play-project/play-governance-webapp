@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{set title:'Topic details' /}
+
+<div class="page-header">
+    <h1>Topic details&nbsp;<small>{${topic.ns}}${topic.prefix}:${topic.name}</small></h1>
+</div>
+
+#{if subscriptions}
+	<table class="table table-striped">
+        <thead>
+          <tr>
+          	<th>#</th>
+            <th>UUID</th>
+            <th>Subscriber</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        %{int i = 0}%
+        #{list subscriptions, as : 's'}
+          <tr>
+          <td align="left">${i++}</td>
+            <td><b>${s.uuid}</b></td>
+            <td><a href="${s.subscriber}" target="_blank">${s.subscriber}</a></td>
+            <td><a href="#" class="btn">Remove</a>&nbsp;<a class="btn danger" href="#">Unsubscribe</a></td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}
+#{else}
+	<h3>No subscriptions for this topic</h3>
+#{/else}
