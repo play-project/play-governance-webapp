@@ -42,6 +42,7 @@ GET     /subscription/clear                     SubscriptionsController.removeAl
 GET     /subscription/manage                    SubscriptionsController.manage
 POST    /subscription/search                    SubscriptionsController.search
 GET     /subscription/unsubscribe/{uuid}        SubscriptionsController.unsubscribeFromUUID
+GET     /subscription/searchfortopic            SubscriptionsController.getSubscribersForTopic
 
 GET     /bootsubscription/new                   SubscriptionsController.createBootSubscriptions
 GET     /bootsubscription/delete                SubscriptionsController.deleteBoot

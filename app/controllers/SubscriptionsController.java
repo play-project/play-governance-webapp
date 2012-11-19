@@ -377,4 +377,34 @@ public class SubscriptionsController extends PlayController {
 		flash.error("Can not find any subscription");
 		subscriptions();
 	}
+	
+	public static void getSubscribersForTopic(String topicname, String topicns, String topicprefix) {
+		try {
+			SubscriptionRegistry client = Locator
+					.getSubscriptionRegistry(getNode());
+
+			Subscription filter = new Subscription();
+
+			Topic topic = new Topic();
+			if (topicname != null && topicname.length() > 0) {
+				topic.setName(topicname);
+				filter.setTopic(topic);
+			}
+
+			long start = System.currentTimeMillis();
+			List<Subscription> subscriptions = client.getSubscriptions(filter);
+			long stop = System.currentTimeMillis() - start;
+			if (subscriptions == null) {
+				flash.error("No result");
+			} else {
+				flash.success("Subscription search results : " + subscriptions.size() + " (took " + stop + " ms)");
+			}
+			render("SubscriptionsController/subscriptions.html", subscriptions);
+
+		} catch (Exception e) {
+			handleException("Problem while getting client", e);
+		}
+		flash.error("Can not find any subscription");
+		subscriptions();
+	}
 }

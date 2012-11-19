@@ -28,7 +28,7 @@
             <td><b>${t.name}</b></td>
             <td><a href="${t.ns}" target="_blank">${t.ns}</a></td>
             <td>${t.prefix}</td>
-            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a>&nbsp;<a href="@{SubscriptionsController.createFrom(t.name, t.ns, t.prefix)}" class="btn">Subscribe</a></td>
+            <td><a href="@{TopicsController.topic(t.name, t.ns, t.prefix)}" class="btn">Details</a>&nbsp;<a href="@{SubscriptionsController.createFrom(t.name, t.ns, t.prefix)}" class="btn">Subscribe</a>&nbsp;<a href="@{SubscriptionsController.getSubscribersForTopic(t.name, t.ns, t.prefix)}" class="btn">Subscribers</a></td>
           </tr>
         #{/list}
         </tbody>
