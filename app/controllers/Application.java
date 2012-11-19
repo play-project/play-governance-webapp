@@ -45,23 +45,7 @@ public class Application extends PlayController {
 	}
 	
 	public static void index() {
-		Registry registry = Locator.getServiceRegistry(getNode());
-		List<Node> services = new ArrayList<Node>();
-
-		try {
-			List<String> keys = registry.keys();
-			for (String key : keys) {
-				Node n = new Node();
-				n.name = key;
-				n.baseURL = registry.get(key);
-				registry.get(key);
-				services.add(n);
-			}
-		} catch (Exception e) {
-			flash.error("Got error while getting services");
-		}
-		render(services);
+		// redirect to topics
+		TopicsController.topics();
 	}
-
-
 }
