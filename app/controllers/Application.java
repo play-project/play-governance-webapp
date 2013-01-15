@@ -34,6 +34,12 @@ public class Application extends PlayController {
 		flash.success("Disconnected...");
 		Application.index();
 	}
+	
+	public static void disconnectAll() {
+		session.remove("node");
+		flash.success("Disconnected!");
+		Application.index();
+	}
 
 	private static String getURL() {
 		Node n = Node.getCurrentNode();
@@ -46,6 +52,7 @@ public class Application extends PlayController {
 	
 	public static void index() {
 		// redirect to topics
-		TopicsController.topics();
+		//TopicsController.topics();
+		render();
 	}
 }
