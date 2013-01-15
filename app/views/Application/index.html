@@ -1,28 +1,3 @@
 #{extends 'main.html' /} #{set title:'Home' /}
 
-#{if services}
-<h3>Current services</h3>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>Name</th>
-			<th>URL</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		%{int i = 0}% #{list services, as : 's'}
-		<tr>
-			<td align="left">${i++}</td>
-			<td><b>${s.name}</b></td>
-			<td><a href="${s.baseURL}" target="_blank">${s.baseURL}</a></td>
-			<td><a href="@{RegistryController.service(s.name)}" class="btn">Details</a></td>
-		</tr>
-		#{/list}
-	</tbody>
-</table>
-#{/if}
-#{else}
-<h3><a href="@{Application.connect()}">Please connect to a registry</a></h3>
-#{/else}
+<div class="well">Manage and Monitor the Play Platform...</div>
