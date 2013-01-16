@@ -23,9 +23,8 @@ import java.util.List;
 
 import models.EventCloud;
 
-import org.ow2.play.governance.api.EventCloudManagementService;
+import org.ow2.play.governance.api.EventCloudsManagementWs;
 import org.ow2.play.governance.api.GovernanceExeption;
-import org.ow2.play.governance.api.bean.Topic;
 
 import utils.Locator;
 
@@ -36,7 +35,7 @@ import utils.Locator;
 public class EventCloudController extends PlayController {
 
 	public static void list() {
-		EventCloudManagementService client = null;
+		EventCloudsManagementWs client = null;
 		try {
 			client = Locator.getEventCloudManagementService(getNode());
 		} catch (Exception e) {
@@ -53,7 +52,7 @@ public class EventCloudController extends PlayController {
 	}
 	
 	public static void ec(String id) {
-		EventCloudManagementService client = null;
+		EventCloudsManagementWs client = null;
 		try {
 			client = Locator.getEventCloudManagementService(getNode());
 		} catch (Exception e) {
@@ -62,9 +61,9 @@ public class EventCloudController extends PlayController {
 		
 		EventCloud ec = new EventCloud();
 		try {
-			ec.publish = client.getPublishProxyEndpointUrls(id);
-			ec.putget = client.getPutgetProxyEndpointUrls(id);
-			ec.subscribe = client.getSubscribeProxyEndpointUrls(id);
+			ec.publish = client.getPublishWsProxyEndpointUrls(id);
+			ec.putget = client.getPutGetWsProxyEndpointUrls(id);
+			ec.subscribe = client.getSubscribeWsProxyEndpointUrls(id);
 		} catch (GovernanceExeption e) {
 			flash.error("Error while getting information for %s : %s", id, e.getMessage());
 			list();
