@@ -67,6 +67,10 @@ GET     /ec/info                                EventCloudController.ec
 GET     /dsb/topics                             DSBController.topics
 GET     /dsb/topic                              DSBController.topic
 
+# LIFECYLCE
+GET     /lifecycle/                             LifeCycleController.index
+GET     /lifecycle/subscriptions                LifeCycleController.subscriptionsInit
+
 # Websocket
 WS      /websocket/backgroundMessage            BackgroundTaskWebSocket.pushNewMessage
 

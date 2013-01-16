@@ -259,5 +259,14 @@ public class Locator {
 		return SubscriptionManagementService.class.cast(o);
 	}
 	
+	public static String getBootstrapServiceREST(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String result = registry.get(Constants.GOVERNANCE_BOOTSTRAP_REST);
+		if (result == null) {
+			throw new Exception("Can not find the REST service in the registry");
+		}
+		return result;
+	}
+	
 
 }
