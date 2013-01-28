@@ -5,6 +5,10 @@
     <h1>Resource Details &nbsp;<small>${resource.url}#${resource.name}</small></h1>
 </div>
 
+<div class="well">
+	<a href="@{MetadataController.deleteResource(resource.name, resource.url)}" class="btn btn-danger">Delete!</a>&nbsp;
+</div>
+
 #{if meta}
 	<table class="table table-striped">
         <thead>

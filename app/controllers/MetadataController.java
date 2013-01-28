@@ -216,4 +216,31 @@ public class MetadataController extends PlayController {
 		list();
 	}
 
+	/**
+	 * GET
+	 * @param name
+	 * @param url
+	 */
+    public static void deleteResource(String name, String url) {
+        if (name == null || url == null) {
+            flash.error("Can not delete null resource");
+            list();
+        }
+
+        MetadataService client = null;
+        try {
+            client = Locator.getMetaService(getNode());
+        } catch (Exception e) {
+            handleException("Locator error", e);
+        }
+
+        try {
+            client.deleteResource(new Resource(name, url));
+            flash.success("Resource has been deleted!");
+        } catch (Exception e) {
+            flash.error(e.getMessage());
+        }
+        list();
+    }
+
 }

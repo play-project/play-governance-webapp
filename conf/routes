@@ -33,6 +33,7 @@ GET     /resource/meta/rm		                MetadataController.removeMeta
 POST    /resource/loadresources		            MetadataController.loadResources
 GET     /resource/loadresources		            MetadataController.loadResources
 GET     /resource/load		                  	MetadataController.load
+GET     /resource/rm		                  	MetadataController.deleteResource
 
 GET     /subscription/all                       SubscriptionsController.subscriptions
 GET     /subscription/create                    SubscriptionsController.create

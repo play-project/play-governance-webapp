@@ -18,8 +18,10 @@
 		<tr>
 			<td align="left">${i++}</td>
 			<td><a href="${r.resource.url}" target="_blank">${r.resource.url}#${r.resource.name}</a></td>
-			<td><a
-				href="@{MetadataController.resource(r.resource.name, r.resource.url)}" class="btn">Details</a></td>
+			<td>
+				<a href="@{MetadataController.resource(r.resource.name, r.resource.url)}" class="btn">Details</a>&nbsp;
+				<a href="@{MetadataController.deleteResource(r.resource.name, r.resource.url)}" class="btn btn-danger">Delete!</a>&nbsp;
+			</td>
 		</tr>
 		#{/list}
 	</tbody>

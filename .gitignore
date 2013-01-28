@@ -19,3 +19,6 @@ tmp/**/*
 
 lib/
 logs/
+
+.idea/
+*.iml
