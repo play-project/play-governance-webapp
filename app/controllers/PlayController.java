@@ -41,7 +41,7 @@ public abstract class PlayController extends Controller {
 		Node n = Node.getCurrentNode();
 		if (n == null) {
 			flash.success("Please connect!");
-			Application.connect();
+			NodeController.connect();
 		}
 		return n;
 	}

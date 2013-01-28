@@ -3,10 +3,15 @@
 <h3>Manage and Monitor the Play Platform...</h3>
 
 <div class="well">
-#{if currentNode}
-	<a href="@{Application.connect()}">Connected to <b>${currentNode?.name}</b></a>
+#{if session.get("username")}
+	#{if currentNode}
+		<a href="@{NodeController.connect()}">Connected to <b>${currentNode?.name}</b></a>
+	#{/if}
+	#{else}
+		<a href="@{NodeController.connect()}">Please connect to a registry...</a>
+	#{/else}
 #{/if}
 #{else}
-	<a href="@{Application.connect()}">Please connect to a registry...</a>
+	<a href="@{Secure.login()}">Please login</a>
 #{/else}
 </div>
