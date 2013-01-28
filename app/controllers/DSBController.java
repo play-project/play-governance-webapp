@@ -26,12 +26,14 @@ import org.ow2.play.governance.api.bean.Topic;
 import org.petalslink.dsb.jbi.se.wsn.api.Subscription;
 import org.petalslink.dsb.jbi.se.wsn.api.SubscriptionManagementService;
 
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class DSBController extends PlayController {
 
 	/**

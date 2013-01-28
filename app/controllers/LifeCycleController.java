@@ -20,13 +20,10 @@
 package controllers;
 
 import models.Message;
-
-import org.ow2.play.service.registry.api.Registry;
-
 import play.jobs.Job;
-import play.libs.F.Promise;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
+import play.mvc.With;
 import utils.Locator;
 
 /**
@@ -35,6 +32,7 @@ import utils.Locator;
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class LifeCycleController extends PlayController {
 	
 	public static void index() {

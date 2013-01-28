@@ -25,6 +25,7 @@ import org.ow2.play.governance.api.PatternRegistry;
 import org.ow2.play.governance.api.SimplePatternService;
 import org.ow2.play.governance.api.bean.Pattern;
 
+import play.mvc.With;
 import utils.Locator;
 
 /**
@@ -33,6 +34,7 @@ import utils.Locator;
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class PatternsController extends PlayController {
 
 	/**

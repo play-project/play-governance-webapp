@@ -22,16 +22,17 @@ package controllers;
 import java.util.List;
 
 import org.ow2.play.governance.api.EventGovernance;
-import org.ow2.play.governance.api.GovernanceExeption;
 import org.ow2.play.governance.api.TopicAware;
 import org.ow2.play.governance.api.bean.Topic;
 
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class TopicsController extends PlayController {
 
 	public static void topics() {

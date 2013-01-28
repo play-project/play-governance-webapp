@@ -26,12 +26,14 @@ import models.EventCloud;
 import org.ow2.play.governance.api.EventCloudsManagementWs;
 import org.ow2.play.governance.api.GovernanceExeption;
 
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class EventCloudController extends PlayController {
 
 	public static void list() {

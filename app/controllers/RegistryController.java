@@ -22,24 +22,22 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.JSONConfiguration;
 import models.Node;
 import models.RegistryConfiguration;
 
-import org.ow2.play.metadata.api.service.MetadataBootstrap;
-import org.ow2.play.service.registry.api.Constants;
 import org.ow2.play.service.registry.api.Registry;
 import org.ow2.play.service.registry.api.RegistryException;
 
 import play.data.validation.Required;
 import play.jobs.Job;
-
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class RegistryController extends PlayController {
 
 	/**

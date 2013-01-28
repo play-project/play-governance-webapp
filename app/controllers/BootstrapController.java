@@ -24,16 +24,17 @@ import java.util.List;
 import org.ow2.play.governance.api.BootSubscriptionService;
 import org.ow2.play.governance.api.GovernanceExeption;
 import org.ow2.play.governance.api.SubscriptionManagement;
-import org.ow2.play.governance.api.SubscriptionService;
 import org.ow2.play.governance.api.bean.Subscription;
 import org.ow2.play.governance.api.bean.Topic;
 
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class BootstrapController extends PlayController {
 	
 	/**

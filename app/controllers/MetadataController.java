@@ -24,7 +24,6 @@ import java.util.List;
 
 import models.JSONConfiguration;
 
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.ow2.play.metadata.api.Data;
 import org.ow2.play.metadata.api.MetaResource;
 import org.ow2.play.metadata.api.Metadata;
@@ -32,16 +31,17 @@ import org.ow2.play.metadata.api.MetadataException;
 import org.ow2.play.metadata.api.Resource;
 import org.ow2.play.metadata.api.service.MetadataBootstrap;
 import org.ow2.play.metadata.api.service.MetadataService;
-import org.ow2.play.service.registry.api.Registry;
 
 import play.data.validation.Required;
 import play.jobs.Job;
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class MetadataController extends PlayController {
 
 	/**

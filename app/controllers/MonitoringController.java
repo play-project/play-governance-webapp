@@ -23,12 +23,14 @@ import java.util.List;
 
 import org.petalslink.dsb.jbi.se.wsn.api.StatsService;
 
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class MonitoringController extends PlayController {
 
 	public static void dsb() {

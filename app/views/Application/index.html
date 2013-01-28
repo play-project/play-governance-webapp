@@ -1,3 +1,12 @@
 #{extends 'main.html' /} #{set title:'Home' /}
 
-<div class="well">Manage and Monitor the Play Platform...</div>
+<h3>Manage and Monitor the Play Platform...</h3>
+
+<div class="well">
+#{if currentNode}
+	<a href="@{Application.connect()}">Connected to <b>${currentNode?.name}</b></a>
+#{/if}
+#{else}
+	<a href="@{Application.connect()}">Please connect to a registry...</a>
+#{/else}
+</div>

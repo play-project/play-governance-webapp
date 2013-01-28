@@ -19,7 +19,6 @@
  */
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import models.Message;
@@ -30,16 +29,16 @@ import org.ow2.play.governance.api.SubscriptionRegistry;
 import org.ow2.play.governance.api.SubscriptionService;
 import org.ow2.play.governance.api.bean.Subscription;
 import org.ow2.play.governance.api.bean.Topic;
-import org.ow2.play.service.registry.api.Registry;
 
 import play.jobs.Job;
-
+import play.mvc.With;
 import utils.Locator;
 
 /**
  * @author chamerling
  * 
  */
+@With(Secure.class)
 public class SubscriptionsController extends PlayController {
 
 	/**
