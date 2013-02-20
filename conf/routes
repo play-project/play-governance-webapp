@@ -56,8 +56,11 @@ POST    /bootstrap/createNew                    BootstrapController.createNewBoo
 
 GET     /monitoring/dsb                          MonitoringController.dsb
 
+GET     /pattern/deploy                         PatternsController.deploy
+POST    /pattern/deployFrom                     PatternsController.deployFrom
 GET     /pattern/list                           PatternsController.list
 GET     /pattern/runtime                        PatternsController.listDeployed
+POST    /pattern/deployToRuntime                PatternsController.deployToRuntime
 
 # EC
 

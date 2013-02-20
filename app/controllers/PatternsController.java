@@ -36,6 +36,55 @@ import utils.Locator;
  */
 @With(Secure.class)
 public class PatternsController extends PlayController {
+	
+	/**
+	 * Create pattern page, provide deployment stuff from form
+	 */
+	public static void deploy() {
+		render();
+	}
+	
+	/**
+	 * Deploy from a pattern given as parameter
+	 * 
+	 * @param pattern
+	 */
+	public static void deployFrom(String pattern) {
+		flash.put("pattern", pattern);
+		flash.keep();
+		renderTemplate("PatternsController/deploy.html", pattern);
+	}
+	
+	/**
+	 * Form action: Deploy a pattern to the engine
+	 * @param pattern
+	 */
+	public static void deployToRuntime(String pattern) {
+		if (pattern == null) {
+			handleException("Pattern can not be null", new Exception(
+					"Null parameter"));
+		}
+		
+		System.out.println(pattern);
+		
+		deploy();
+		return;
+		/*
+		SimplePatternService client = null;
+		try {
+			client = Locator.getSimplePatternService(getNode());
+			String id = "...";
+			String result = client.deploy(id, pattern);
+			flash.success("Pattern has been deployed to runtime %s",
+					result.toString());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			handleException(null, e);
+		}
+		create();
+		*/
+	}
 
 	/**
 	 * List the patterns registered in the registry; This is an historical
@@ -59,7 +108,8 @@ public class PatternsController extends PlayController {
 	}
 	
 	/**
-	 * List the deployed patterns
+	 * List the deployed patterns. The client retrieve patterns from the DCEP
+	 * service through the governance.
 	 */
 	public static void listDeployed() {
 		SimplePatternService client = null;

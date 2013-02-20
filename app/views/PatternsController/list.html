@@ -17,8 +17,13 @@
     <div id="collapse_${i}" class="accordion-body collapse">
       <div class="accordion-inner">
       	<p>
-        <a class="btn">Download</a>&nbsp;<a class="btn">Remove</a><br>
+        	<a class="btn disabled">Download</a>&nbsp;<a class="btn btn-danger disabled">Remove</a>&nbsp;
         </p>
+        <p>
+		#{form @PatternsController.deployFrom()}
+			<input type="hidden" id="pattern" name="pattern" value="${p.content}"/>
+			<button type="submit" class="btn">Edit and Deploy</button>
+		#{/form}
         <p>
         <pre class=".pre-scrollable">${p.content}</pre>
         </p>

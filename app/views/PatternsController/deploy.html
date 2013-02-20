@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title:'Deploy Pattern' /}
+
+<div class="page-header">
+	<h1>Deploy new Pattern&nbsp;<small>into the CEP</small></h1>
+</div>
+
+#{ifErrors}
+	<div class="alert-message error">
+        <a class="close" href="#">&times;</a>
+        <p><strong>Some values are invalid, please fix them...</strong></p>
+        <ul>
+         #{errors}
+       		<li>${error}</li>
+   		#{/errors}
+   		</ul>
+      </div>
+#{/ifErrors}
+
+<div class="well">
+#{form @PatternsController.deployToRuntime()}
+		<fieldset>
+				<div class="clearfix">
+        			<label for="pattern">
+        				Pattern
+     				</label>
+        			<div class="input">
+        				<textarea rows="20" class="input-xxlarge" name="pattern" id="pattern" class="xlarge" size="50" value="${flash.pattern}">${flash.pattern}</textarea>
+        			</div>
+        		</div>
+				<div class="form-actions">
+				  <button type="submit" class="btn btn-primary">Deploy</button>
+				  <button type="button" class="btn">Cancel</button>
+				</div>
+        </fieldset>
+#{/form}
+</div>
