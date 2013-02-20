@@ -20,6 +20,7 @@
 package controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.ow2.play.governance.api.PatternRegistry;
 import org.ow2.play.governance.api.SimplePatternService;
@@ -65,15 +66,10 @@ public class PatternsController extends PlayController {
 					"Null parameter"));
 		}
 		
-		System.out.println(pattern);
-		
-		deploy();
-		return;
-		/*
 		SimplePatternService client = null;
+		String id = UUID.randomUUID().toString();
 		try {
 			client = Locator.getSimplePatternService(getNode());
-			String id = "...";
 			String result = client.deploy(id, pattern);
 			flash.success("Pattern has been deployed to runtime %s",
 					result.toString());
@@ -82,8 +78,8 @@ public class PatternsController extends PlayController {
 			e.printStackTrace();
 			handleException(null, e);
 		}
-		create();
-		*/
+		flash.success("Pattern '%s' has been deployed", id);
+		deploy();
 	}
 
 	/**
