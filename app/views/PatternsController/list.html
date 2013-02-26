@@ -16,16 +16,28 @@
     </div>
     <div id="collapse_${i}" class="accordion-body collapse">
       <div class="accordion-inner">
-      	<p>
-        	<a class="btn disabled">Download</a>&nbsp;<a class="btn btn-danger disabled">Remove</a>&nbsp;
+		<p>
+      		<h4>ID : ${p.name}<small>&nbsp;Created on ${Long.parseLong(p.recordDate).asdate('dd MMMM yyyy hh:mm:ss')}</small></h4>
+		</p>
+		<p>
+			<div class="row">
+	  			<div class="span1"><a class="btn btn-danger disabled">Remove</a></div>
+	  			<div class="span1">
+					#{form @PatternsController.deployFrom()}
+						<input type="hidden" id="pattern" name="pattern" value="${p.content}"/>
+						<button type="submit" class="btn">Deploy</button>
+					#{/form}
+				</div>
+	  			<div class="span1">
+	  				#{form @PatternsController.download(p.name)}
+						<input type="hidden" id="pattern" name="pattern" value="${p.content}"/>
+						<button type="submit" class="btn">Download</button>
+					#{/form}
+	  			</div>
+			</div>
         </p>
         <p>
-		#{form @PatternsController.deployFrom()}
-			<input type="hidden" id="pattern" name="pattern" value="${p.content}"/>
-			<button type="submit" class="btn">Edit and Deploy</button>
-		#{/form}
-        <p>
-        <pre class=".pre-scrollable">${p.content}</pre>
+	        <pre class=".pre-scrollable">${p.content}</pre>
         </p>
       </div>
     </div>

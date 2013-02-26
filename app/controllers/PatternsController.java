@@ -125,6 +125,15 @@ public class PatternsController extends PlayController {
 	}
 	
 	/**
+	 * 
+	 * @param id
+	 * @param data
+	 */
+	public static void download(String name, String pattern) {
+		renderText(pattern);
+	}
+	
+	/**
 	 * Undeploy a pattern from the runtime (DCEP)
 	 * 
 	 * @param id

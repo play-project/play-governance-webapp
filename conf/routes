@@ -61,6 +61,8 @@ POST    /pattern/deployFrom                     PatternsController.deployFrom
 GET     /pattern/list                           PatternsController.list
 GET     /pattern/runtime                        PatternsController.listDeployed
 POST    /pattern/deployToRuntime                PatternsController.deployToRuntime
+POST    /pattern/download                       PatternsController.download
+
 
 # EC
 
