@@ -1,6 +1,6 @@
 Node(LocalRegistry):
     name: LocalRegistry
-    baseURL: http://localhost:8080/registry/RegistryService
+    baseURL: http://localhost:8080/governance/RegistryService
     
 Node(RemoteRegistry):
     name: RemoteRegistry
@@ -8,7 +8,7 @@ Node(RemoteRegistry):
     
 Node(StableRegistry):
     name: StableRegistry
-    baseURL: http://46.105.181.221:8080/registry/RegistryService
+    baseURL: http://46.105.181.221:8080/governance/RegistryService
     
 RegistryConfiguration(LocalPlayConfiguration):
     name: Local Play Configuration
@@ -45,4 +45,8 @@ JSONConfiguration(Github):
 JSONConfiguration(LocalPlay):
     name: Local play!
     url: http://localhost:9000/public/resources/metadata.rdf.json
+
+JSONConfiguration(Groups):
+    name: Groups
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/governancemetadata/groups.rdf.json
     

@@ -1,0 +1,30 @@
+#{extends 'main.html' /} #{set title:'Group' /}
+
+<div class="page-header">
+	<h1>${group.name}</h1>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Value</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		%{int i = 0}% #{list group.metadata, as : 'meta'}
+		<tr>
+			<td align="left">${i++}</td>
+			<td>${meta.name}</td>
+			<td>${meta.type}</td>
+			<td>#{if meta.type == 'uri'}<a href="${meta.value}">${meta.value}</a>#{/if}#{else}${meta.value}#{/else}</td>
+			<td>
+				<a href="#" class="btn">Edit</a>&nbsp;
+			</td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>

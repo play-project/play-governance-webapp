@@ -63,6 +63,9 @@ GET     /pattern/runtime                        PatternsController.listDeployed
 POST    /pattern/deployToRuntime                PatternsController.deployToRuntime
 POST    /pattern/download                       PatternsController.download
 
+GET     /groups                                 GroupController.list
+GET     /groups/{name}                          GroupController.group
+
 
 # EC
 

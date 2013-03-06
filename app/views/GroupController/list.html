@@ -1,0 +1,29 @@
+#{extends 'main.html' /} #{set title:'Groups' /}
+
+<div class="page-header">
+	<h1>Groups</h1>
+</div>
+
+#{if list}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		%{int i = 0}% #{list list, as : 'group'}
+		<tr>
+			<td align="left">${i++}</td>
+			<td><a href="@{GroupController.group(group.name)}" target="_blank">${group.name}</a></td>
+			<td>
+				<a href="@{GroupController.group(group.name)}" class="btn">Details</a>&nbsp;
+				<a href="@{GroupController.group(group.name)}" class="btn">Details</a>&nbsp;
+			</td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>
+#{/if}

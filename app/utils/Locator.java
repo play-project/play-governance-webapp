@@ -9,6 +9,7 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.ow2.play.governance.api.BootSubscriptionService;
 import org.ow2.play.governance.api.EventCloudsManagementWs;
 import org.ow2.play.governance.api.EventGovernance;
+import org.ow2.play.governance.api.GroupService;
 import org.ow2.play.governance.api.PatternRegistry;
 import org.ow2.play.governance.api.SimplePatternService;
 import org.ow2.play.governance.api.SubscriptionManagement;
@@ -232,6 +233,22 @@ public class Locator {
 		factory.setServiceClass(StatsService.class);
 		Object o = factory.create();
 		return StatsService.class.cast(o);
+	}
+	
+	public static GroupService getGroupService(Node node) throws Exception {
+		Registry registry = getServiceRegistry(node);
+		String url = registry.get(Constants.GOVERNANCE_GROUP);
+
+		if (url == null) {
+			throw new Exception(
+					"Can not find the Group service endpoint in the registry");
+		}
+
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setAddress(url);
+		factory.setServiceClass(GroupService.class);
+		Object o = factory.create();
+		return GroupService.class.cast(o);
 	}
 
 	/**
