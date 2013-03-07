@@ -49,4 +49,7 @@ JSONConfiguration(LocalPlay):
 JSONConfiguration(Groups):
     name: Groups
     url: https://raw.github.com/play-project/play-configfiles/master/platformservices/governancemetadata/groups.rdf.json
-    
+
+JSONConfiguration(Permissions):
+    name: Permissions
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/governancemetadata/permission.json
