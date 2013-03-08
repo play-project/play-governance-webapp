@@ -1,0 +1,77 @@
+#{extends 'main.html' /} #{set title:'Create permission' /}
+
+<div class="page-header">
+	<h1>Create a new permission</h1>
+</div>
+<div class="well">
+	#{form @PermissionController.doCreate()}
+	<fieldset>
+		<div class="clearfix">
+			<label for="name">Name</label>
+			<div class="input">
+				<input type="text" name="name" id="name" class="input-xxlarge" size="60" />
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="access">Access To (Stream as CSV)</label>
+			<div class="input">
+				<input type="text" name="access" id="access" class="input-xxlarge"
+					size="60" />
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="agent">Agent (Groups as CSV)</label>
+			<div class="input">
+				<input type="text" name="agent" id="agent" class="input-xxlarge" size="60" />
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="mode">Mode</label>
+			<div class="input">
+				<label class="checkbox">
+  					<input type="checkbox" name="mode" value="read"/>Read Access
+  				</label>
+				<label class="checkbox">
+  					<input type="checkbox" name="mode" value="write">Write Access
+				</label>
+				<label class="checkbox">
+  					<input type="checkbox" name="mode" value="subcribe">Subscribe Access
+				</label>
+				<label class="checkbox">
+  					<input type="checkbox" name="mode" value="notify">Notify Access
+				</label>
+			</div>
+		</div>
+		<div class="actions">
+			<input class="btn primary" type="submit" value="Create" />
+		</div>
+	</fieldset>
+	#{/form}
+</div>
+
+<div class="well">
+	<h4>Access To</h4>
+	Defines the resources <span class="label">Stream</span>&nbsp;<span class="label">Topic</span> you want to restrict access to.<br><br>
+	For example :
+	<ul>
+		<li><a href="#">http://streams.event-processing.org/ids/MyPersonalStream</a></li>
+	</ul>
+
+	<h4>Agent</h4>
+	Defines the groups you want to create permission for i.e. only the
+	groups defined here will have access to resources defined in Access.<br><br>
+	For example:
+	
+	<ul>
+		<li><a href="#">http://groups.event-processing.org/id/MyGroupB#group</a></li>
+	</ul>
+
+	<h4>Mode</h4>
+	Defines the access mode (Read/Write/...).<br><br>
+	Possible values are:
+	<ul>
+		<li><a href="#">http://www.w3.org/ns/auth/acl#Write</a> : Write access to resource</li>
+		<li><a href="#">http://www.w3.org/ns/auth/acl#Read</a> : Read access to resource</li>
+	</ul>
+
+</div>

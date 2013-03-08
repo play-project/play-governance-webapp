@@ -51,22 +51,27 @@
 							</ul>
 						</li>
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">Services <b class="caret"></b></a>
-							<ul class="dropdown-menu" id="swatch-menu">
-				                  <li><a href="@{RegistryController.services()}">List</a></li>
-				                  <li><a href="@{RegistryController.load()}">Load</a></li>
-							</ul>
-						</li>
-						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Resources <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
-			                  <li><a href="@{MetadataController.list()}">List</a></li>
-			                  <li><a href="@{MetadataController.create()}">Create</a></li>
-			                  <li><a href="@{GroupController.list()}">Groups</a></li>
-			                  <li><a href="@{MetadataController.load()}">Load</a></li>
-			                  <li><a href="@{MetadataController.download()}" target="_blank">Download</a></li>
+								<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Services</a>
+    								<ul class="dropdown-menu">
+				                  		<li><a tabindex="-1" href="@{RegistryController.services()}">List</a></li>
+				                  		<li><a tabindex="-1" href="@{RegistryController.load()}">Load</a></li>
+								    </ul>
+  								</li>
+								<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Metadata</a>
+    								<ul class="dropdown-menu">
+				                  	 	<li><a href="@{MetadataController.list()}">List</a></li>
+			                  			<li><a href="@{MetadataController.create()}">Create</a></li>
+			                  			<li><a href="@{MetadataController.load()}">Load</a></li>
+			                  			<li><a href="@{MetadataController.download()}" target="_blank">Download</a></li>
+								    </ul>
+  								</li>
 							</ul>
 						</li>
+						
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Subscriptions <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
@@ -77,30 +82,54 @@
 			                  <li><a href="@{BootstrapController.subscriptions()}">Boot List</a></li>
 							</ul>
 						</li>
+						
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Monitoring <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
 			                	<li><a href="@{MonitoringController.dsb()}">DSB</a></li>
 							</ul>
 						</li>
+						
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">Patterns <b class="caret"></b></a>
+							data-toggle="dropdown" href="#">Components <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
-								<li><a href="@{PatternsController.deploy()}">Deploy</a></li>
-                  				<li><a href="@{PatternsController.list()}">Registered</a></li>
-                  				<li><a href="@{PatternsController.listDeployed()}">Runtime</a></li>
+								<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">DSB</a>
+    								<ul class="dropdown-menu">
+                  						<li><a tabindex="-1" href="@{DSBController.topics()}">Topics</a></li>
+								    </ul>
+  								</li>
+								<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">EventCloud</a>
+    								<ul class="dropdown-menu">
+				                  	 	<li><a tabindex="-1" href="@{EventCloudController.list()}">List</a></li>
+								    </ul>
+  								</li>
+  								<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">DCEP</a>
+    								<ul class="dropdown-menu">
+										<li><a href="@{PatternsController.deploy()}">Deploy Pattern</a></li>
+                  						<li><a href="@{PatternsController.list()}">Registered Patterns</a></li>
+                  						<li><a href="@{PatternsController.listDeployed()}">Runtime Patterns</a></li>								    </ul>
+  								</li>
 							</ul>
 						</li>
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">DSB <b class="caret"></b></a>
+							data-toggle="dropdown" href="#">User <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
-                  				<li><a href="@{DSBController.topics()}">Topics</a></li>
-							</ul>
-						</li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">EventCloud <b class="caret"></b></a>
-							<ul class="dropdown-menu" id="swatch-menu">
-                  				<li><a href="@{EventCloudController.list()}">List</a></li>
+							 	<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Groups</a>
+    								<ul class="dropdown-menu">
+										<li><a href="@{GroupController.list()}">List</a></li>
+									</ul>
+  								</li>
+							 	<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Permissions</a>
+    								<ul class="dropdown-menu">
+										<li><a href="@{PermissionController.index()}">List</a></li>
+										<li><a href="@{PermissionController.create()}">Create</a></li>
+									</ul>
+  								</li>
 							</ul>
 						</li>
 						<li class="dropdown"><a class="dropdown-toggle"

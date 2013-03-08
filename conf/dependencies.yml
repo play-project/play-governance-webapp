@@ -22,6 +22,7 @@ require:
         exclude:
             - org.slf4j -> *
     - org.ow2.petals.dsb -> dsb-wsn-jbise-wsapi 1.1-SNAPSHOT
+    - org.ow2.play -> governance-permission-api 1.0-SNAPSHOT
 
 repositories:
     - petalslinkrelease:

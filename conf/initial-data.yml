@@ -1,6 +1,6 @@
 Node(LocalRegistry):
     name: LocalRegistry
-    baseURL: http://localhost:8080/governance/RegistryService
+    baseURL: http://localhost:8080/play/registry/RegistryService
     
 Node(RemoteRegistry):
     name: RemoteRegistry
@@ -37,6 +37,10 @@ RegistryConfiguration(StableConfiguration):
 RegistryConfiguration(UnstableConfiguration):
     name: Local Github Configuration
     url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/unstable.properties
+    
+RegistryConfiguration(2013Configuration):
+    name: 2013 Configuration
+    url: https://raw.github.com/play-project/play-configfiles/master/platformservices/registry/2013-03.properties
 
 JSONConfiguration(Github):
     name: github

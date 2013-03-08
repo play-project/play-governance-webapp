@@ -66,6 +66,10 @@ POST    /pattern/download                       PatternsController.download
 GET     /groups                                 GroupController.list
 GET     /groups/{name}                          GroupController.group
 
+GET     /permissions                            PermissionController.index
+GET     /permissions/create                     PermissionController.create
+POST    /permissions                            PermissionController.doCreate
+GET     /permissions/{name}                     PermissionController.permission
 
 # EC
 

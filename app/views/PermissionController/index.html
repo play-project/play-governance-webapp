@@ -1,0 +1,36 @@
+#{extends 'main.html' /} #{set title:'Permissions' /}
+
+<div class="page-header">
+	<h1>Permissions</h1>
+</div>
+
+<div class="well">
+	&nbsp;<a href="@{PermissionController.create()}" class="btn">Create</a>
+	&nbsp;<a href="#" class="btn">Download</a>
+</div>
+
+#{if list}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		%{int i = 0}% #{list list, as : 'p'}
+		%{String name = org.ow2.play.metadata.api.Helper.getID(p.resource)}%
+		<tr>
+			<td align="left">#${i++}</td>
+			<td><a href="@{PermissionController.permission(name)}" target="_blank">${name}</a></td>
+			<td>
+				<a href="@{PermissionController.permission(name)}" class="btn">Details</a>&nbsp;
+				<a href="@{PermissionController.permission(name)}" class="btn">Edit</a>&nbsp;
+				<a href="@{PermissionController.permission(name)}" class="btn">Delete</a>&nbsp;
+			</td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>
+#{/if}

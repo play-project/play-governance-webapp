@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{set title:'Permission details' /}
+
+<div class="page-header">
+    <h1>Permission Details &nbsp;<small>${permission.resource}</small></h1>
+</div>
+
+<div class="well">
+	&nbsp;<a href="#" class="btn btn-info">Edit</a>
+	&nbsp;<a href="#" class="btn btn-danger">Delete</a>
+</div>
+
+#{if permission}
+	<table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        #{list permission.metadata, as : 'm'}
+          <tr>
+            <td><a target="_blank" href="${m.name}">${m.name}</a></td>
+            <td>${m.data}</td>
+			<td><a class="btn" href="#">Remove</a></td>
+          </tr>
+        #{/list}
+        </tbody>
+      </table>
+#{/if}
+</div>
