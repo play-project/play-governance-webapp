@@ -1,6 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'Permission details' /}
 
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="@{PermissionController.index()}">Permissions</a> <span class="divider">/</span></li>
+  <li class="active">${permission.resource}</li>
+</ul>
+
 <div class="page-header">
     <h1>Permission Details &nbsp;<small>${permission.resource}</small></h1>
 </div>
@@ -23,8 +29,14 @@
         #{list permission.metadata, as : 'm'}
           <tr>
             <td><a target="_blank" href="${m.name}">${m.name}</a></td>
-            <td>${m.data}</td>
-			<td><a class="btn" href="#">Remove</a></td>
+            <td>
+            	<ul>
+            	#{list m.data, as : 'data'}
+            		<li><a href="${data.value}">${data.value}</a></li>
+            	#{/list}
+            	</ul>
+            </td>
+			<td><a class="btn" href="#">Edit</a>&nbsp;<a class="btn" href="#">Remove</a></td>
           </tr>
         #{/list}
         </tbody>
