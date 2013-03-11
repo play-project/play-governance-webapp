@@ -63,8 +63,10 @@ GET     /pattern/runtime                        PatternsController.listDeployed
 POST    /pattern/deployToRuntime                PatternsController.deployToRuntime
 POST    /pattern/download                       PatternsController.download
 
-GET     /groups                                 GroupController.list
+GET     /groups                                 GroupController.index
+GET     /groups/create                          GroupController.create
 GET     /groups/{name}                          GroupController.group
+POST    /groups                                 GroupController.doCreate
 
 GET     /permissions                            PermissionController.index
 GET     /permissions/create                     PermissionController.create

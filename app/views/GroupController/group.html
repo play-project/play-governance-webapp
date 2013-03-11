@@ -1,7 +1,13 @@
 #{extends 'main.html' /} #{set title:'Group' /}
 
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="@{GroupController.index()}">Groups</a> <span class="divider">/</span></li>
+  <li class="active">${group.name}</li>
+</ul>
+
 <div class="page-header">
-	<h1>${group.name}</h1>
+	<h1>${group.name}&nbsp;<small>${group.resourceURI}</small></h1>
 </div>
 
 <table class="table table-striped">

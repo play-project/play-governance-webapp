@@ -1,7 +1,16 @@
 #{extends 'main.html' /} #{set title:'Groups' /}
 
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li class="active">Groups</li>
+</ul>
+
 <div class="page-header">
 	<h1>Groups</h1>
+</div>
+
+<div class="well">
+	&nbsp;<a href="@{GroupController.create()}" class="btn">Create</a>
 </div>
 
 #{if list}
@@ -10,6 +19,7 @@
 		<tr>
 			<th>#</th>
 			<th>Name</th>
+			<th>ID</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -18,8 +28,8 @@
 		<tr>
 			<td align="left">${i++}</td>
 			<td><a href="@{GroupController.group(group.name)}" target="_blank">${group.name}</a></td>
+			<td align="left">${group.resourceURI}</td>
 			<td>
-				<a href="@{GroupController.group(group.name)}" class="btn">Details</a>&nbsp;
 				<a href="@{GroupController.group(group.name)}" class="btn">Details</a>&nbsp;
 			</td>
 		</tr>
