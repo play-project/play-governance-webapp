@@ -39,6 +39,8 @@
 				</a>
 				<a class="brand" href="@{Application.index()}">PLAY.gov</a>
 				<div class="nav-collapse" id="main-menu">
+				#{if session.get("username")}
+				
 					<ul class="nav" id="main-menu-left">
 						<!-- <li><a id="swatch-link" href="">Cr&eacute;er</a></li>-->
 						<li class="dropdown"><a class="dropdown-toggle"
@@ -140,6 +142,8 @@
 							</ul>
 						</li>
 					</ul>
+					#{/if}
+					
 					<ul class="nav pull-right" id="main-menu-right">
 						<li class="dropdown" id="preview-menu">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Session <b class="caret"></b></a>
