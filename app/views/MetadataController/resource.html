@@ -7,22 +7,29 @@
 
 <div class="well">
 	<a href="@{MetadataController.deleteResource(resource.name, resource.url)}" class="btn btn-danger">Delete!</a>&nbsp;
+	<a href="#addmeta" class="btn btn-info">Add Metadata</a>&nbsp;
 </div>
 
 #{if meta}
 	<table class="table table-striped">
         <thead>
           <tr>
-            <th>Key</th>
-            <th>Value</th>
+            <th>Name</th>
+            <th>[Type - Value]</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
         #{list meta, as : 'm'}
           <tr>
-            <td>${m.name}</td>
-            <td>${m.data}</td>
+            <td><a target="_blank" href="${m.name}">${m.name}</a></td>
+            <td>
+           		<ul>
+            	#{list m.data, as : 'data'}
+            		<li><code>${data.type}</code>&nbsp;#{if data.type == 'uri'}<a target="_blank" href="${data.value}">${data.value}</a>#{/if}#{else}${data.value}#{/else}</li>
+            	#{/list}
+            	</ul>
+            </td>
 			<td><a class="btn" href="@{MetadataController.removeMeta()}">Remove</a></td>
           </tr>
         #{/list}
@@ -30,18 +37,18 @@
       </table>
 #{/if}
 
-<h2>Add Metadata</h2>
+<h2 id="addmeta">Add Metadata</h2>
 <div class="well">
 #{form @MetadataController.addMeta()}
 		<fieldset>
 				<div class="clearfix">
-        			<label for="mname">Name</label>
+        			<label for="mname">Name (Use URI)</label>
         			<div class="input">
         				<input type="text" name="mname" id="mname" class="xlarge" size="30"/>
         			</div>
         		</div>
         		<div class="clearfix">
-        			<label for="mtype">Type</label>
+        			<label for="mtype">Type (<code>uri</code> or <code>literal</code>)</label>
         			<div class="input">
         				<input type="text" name="mtype" id="mtype" class="xlarge" size="30"/>
         			</div>
