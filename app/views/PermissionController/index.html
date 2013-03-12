@@ -20,19 +20,20 @@
 		<tr>
 			<th>#</th>
 			<th>Name</th>
+			<th>ID</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		%{int i = 0}% #{list list, as : 'p'}
 		%{String name = org.ow2.play.metadata.api.Helper.getID(p.resource)}%
+		%{String uri = org.ow2.play.metadata.api.Helper.getURI(p.resource)}%
 		<tr>
 			<td align="left">#${i++}</td>
-			<td><a href="@{PermissionController.permission(name)}" target="_blank">${name}</a></td>
+			<td><a href="@{PermissionController.permission(name)}">${name}</a></td>
+			<td><a target="_blank" href="${uri}">${uri}</a></td>
 			<td>
 				<a href="@{PermissionController.permission(name)}" class="btn">Details</a>&nbsp;
-				<a href="@{PermissionController.permission(name)}" class="btn">Edit</a>&nbsp;
-				<a href="@{PermissionController.permission(name)}" class="btn">Delete</a>&nbsp;
 			</td>
 		</tr>
 		#{/list}
