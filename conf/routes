@@ -7,14 +7,14 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /topic/all                              TopicsController.topics
-GET     /topic/dsb                              TopicsController.dsb
-POST    /topic/dsb/create                       TopicsController.createDSB
-GET     /topic/dsb/delete                       TopicsController.deleteDSB
-GET     /topic/platform/subscriber              TopicsController.subscriber
-POST    /topic/platform/subscriber/create       TopicsController.createSubscriber
-GET     /topic/platform/consumer                TopicsController.consumer
-GET     /topic/platform/consumer/create         TopicsController.createConsumer
+GET     /topics                                 TopicsController.topics
+GET     /topics/dsb                             TopicsController.dsb
+POST    /topics/dsb/create                      TopicsController.createDSB
+GET     /topics/dsb/delete                      TopicsController.deleteDSB
+GET     /topics/platform/subscriber             TopicsController.subscriber
+POST    /topics/platform/subscriber/create      TopicsController.createSubscriber
+GET     /topics/platform/consumer               TopicsController.consumer
+GET     /topics/platform/consumer/create        TopicsController.createConsumer
 
 GET    /registry/all                            RegistryController.services
 GET    /registry/init                           RegistryController.initData
