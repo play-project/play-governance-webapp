@@ -37,15 +37,15 @@ GET     /resources/load		                  	MetadataController.load
 GET     /resources/rm		                  	MetadataController.deleteResource
 GET     /resources/download                  	MetadataController.download
 
-GET     /subscription/all                       SubscriptionsController.subscriptions
-GET     /subscription/create                    SubscriptionsController.create
-GET     /subscription/createfrom                SubscriptionsController.createFrom
-POST    /subscription/new                    	SubscriptionsController.new
-GET     /subscription/clear                     SubscriptionsController.removeAll
-GET     /subscription/manage                    SubscriptionsController.manage
-POST    /subscription/search                    SubscriptionsController.search
-GET     /subscription/unsubscribe/{uuid}        SubscriptionsController.unsubscribeFromUUID
-GET     /subscription/searchfortopic            SubscriptionsController.getSubscribersForTopic
+GET     /subscriptions                          SubscriptionsController.subscriptions
+GET     /subscriptions/create                   SubscriptionsController.create
+GET     /subscriptions/createfrom               SubscriptionsController.createFrom
+POST    /subscriptions/new                    	SubscriptionsController.new
+GET     /subscriptions/clear                    SubscriptionsController.removeAll
+GET     /subscriptions/manage                   SubscriptionsController.manage
+POST    /subscriptions/search                   SubscriptionsController.search
+GET     /subscriptions/unsubscribe/{uuid}       SubscriptionsController.unsubscribeFromUUID
+GET     /subscriptions/searchfortopic           SubscriptionsController.getSubscribersForTopic
 
 GET     /bootsubscription/new                   SubscriptionsController.createBootSubscriptions
 GET     /bootsubscription/delete                SubscriptionsController.deleteBoot
