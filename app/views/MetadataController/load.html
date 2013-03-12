@@ -1,8 +1,10 @@
 #{extends 'main.html' /} #{set title:'Load Resources' /}
 
-<div class="page-header">
-	<h1>Load Resources</h1>
-</div>
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="@{MetadataController.list()}">Resources</a> <span class="divider">/</span></li>
+  <li class="active">Load</li>
+</ul> 
 
 <div class="well">
 	#{form @MetadataController.loadResources()}

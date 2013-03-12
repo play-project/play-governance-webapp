@@ -1,6 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Create resource' /}
 
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="@{MetadataController.list()}">Resources</a> <span class="divider">/</span></li>
+  <li class="active">Create</li>
+</ul> 
+
+
 <div class="page-header">
 	<h1>Create a new resource</h1>
 </div>

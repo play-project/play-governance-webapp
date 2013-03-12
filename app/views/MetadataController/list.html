@@ -1,8 +1,9 @@
 #{extends 'main.html' /} #{set title:'Resources' /}
 
-<div class="page-header">
-	<h1>Resources</h1>
-</div>
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li class="active">Resources</li>
+</ul>
 
 #{if list}
 <table class="table table-striped">
@@ -16,7 +17,7 @@
 	<tbody>
 		%{int i = 0}% #{list list, as : 'r'}
 		<tr>
-			<td align="left">${i++}</td>
+			<td align="left"><a href="@{MetadataController.resource(r.resource.name, r.resource.url)}">${i++}</a></td>
 			<td><a href="${r.resource.url}" target="_blank">${r.resource.url}#${r.resource.name}</a></td>
 			<td>
 				<a href="@{MetadataController.resource(r.resource.name, r.resource.url)}" class="btn">Details</a>&nbsp;
