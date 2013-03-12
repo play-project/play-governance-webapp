@@ -24,7 +24,7 @@
 		%{int i = 0}% #{list group.metadata, as : 'meta'}
 		<tr>
 			<td align="left">${i++}</td>
-			<td>${meta.name}</td>
+			<td><a href="${meta.name}" target="_blank">${meta.name}</a></td>
 			<td>${meta.type}</td>
 			<td>#{if meta.type == 'uri'}<a href="${meta.value}">${meta.value}</a>#{/if}#{else}${meta.value}#{/else}</td>
 			<td>

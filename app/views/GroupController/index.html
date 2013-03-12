@@ -28,7 +28,7 @@
 		<tr>
 			<td align="left">${i++}</td>
 			<td><a href="@{GroupController.group(group.name)}" target="_blank">${group.name}</a></td>
-			<td align="left">${group.resourceURI}</td>
+			<td align="left"><a href="${group.resourceURI}" target="_blank">${group.resourceURI}</a></td>
 			<td>
 				<a href="@{GroupController.group(group.name)}" class="btn">Details</a>&nbsp;
 			</td>
