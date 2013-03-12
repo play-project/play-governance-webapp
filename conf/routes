@@ -25,15 +25,16 @@ GET    /registry/service                        RegistryController.service
 PORT   /registry/service/create                 RegistryController.create
 POST   /registry/update                         RegistryController.update
 
-GET     /resource/all                           MetadataController.list
-GET     /resource/                              MetadataController.resource
-POST    /resource/create                        MetadataController.createResource
-POST    /resource/meta/add                  	MetadataController.addMeta
-GET     /resource/meta/rm		                MetadataController.removeMeta
-POST    /resource/loadresources		            MetadataController.loadResources
-GET     /resource/loadresources		            MetadataController.loadResources
-GET     /resource/load		                  	MetadataController.load
-GET     /resource/rm		                  	MetadataController.deleteResource
+GET     /resources                           MetadataController.list
+GET     /resources/                              MetadataController.resource
+GET     /resources/create                        MetadataController.create
+POST    /resources/create                        MetadataController.createResource
+POST    /resources/meta/add                  	MetadataController.addMeta
+GET     /resources/meta/rm		                MetadataController.removeMeta
+POST    /resources/loadresources		            MetadataController.loadResources
+GET     /resources/loadresources		            MetadataController.loadResources
+GET     /resources/load		                  	MetadataController.load
+GET     /resources/rm		                  	MetadataController.deleteResource
 
 GET     /subscription/all                       SubscriptionsController.subscriptions
 GET     /subscription/create                    SubscriptionsController.create
