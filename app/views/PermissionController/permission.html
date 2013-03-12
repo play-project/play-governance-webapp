@@ -32,7 +32,7 @@
             <td>
             	<ul>
             	#{list m.data, as : 'data'}
-            		<li><a href="${data.value}">${data.value}</a></li>
+            		<li><code>${data.type}</code>&nbsp;<a href="${data.value}">${data.value}</a></li>
             	#{/list}
             	</ul>
             </td>
