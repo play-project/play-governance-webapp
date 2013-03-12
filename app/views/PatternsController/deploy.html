@@ -1,6 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'Deploy Pattern' /}
 
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="@{PatternsController.list()}">Patterns</a> <span class="divider">/</span></li>
+  <li class="active">Deploy</li>
+</ul>
+
 <div class="page-header">
 	<h1>Deploy new Pattern&nbsp;<small>into the CEP</small></h1>
 </div>

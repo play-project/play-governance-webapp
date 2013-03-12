@@ -1,8 +1,10 @@
 #{extends 'main.html' /} #{set title:'Runtime Patterns' /}
 
-<div class="page-header">
-	<h1>Deployed Patterns&nbsp;<small>in the runtime</small></h1>
-</div>
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="@{PatternsController.list()}">Patterns</a> <span class="divider">/</span></li>
+  <li class="active">Deployed</li>
+</ul>
 
 <div class="accordion" id="accordion2">
   %{int i = 0}%

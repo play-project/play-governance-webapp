@@ -58,12 +58,12 @@ POST    /bootstrap/createNew                    BootstrapController.createNewBoo
 
 GET     /monitoring/dsb                          MonitoringController.dsb
 
-GET     /pattern/deploy                         PatternsController.deploy
-POST    /pattern/deployFrom                     PatternsController.deployFrom
-GET     /pattern/list                           PatternsController.list
-GET     /pattern/runtime                        PatternsController.listDeployed
-POST    /pattern/deployToRuntime                PatternsController.deployToRuntime
-POST    /pattern/download                       PatternsController.download
+GET     /patterns/registered                    PatternsController.list
+GET     /patterns/deploy                        PatternsController.deploy
+POST    /patterns/deployFrom                    PatternsController.deployFrom
+GET     /patterns/runtime                       PatternsController.listDeployed
+POST    /patterns/deployToRuntime               PatternsController.deployToRuntime
+POST    /patterns/download                      PatternsController.download
 
 GET     /groups                                 GroupController.index
 GET     /groups/create                          GroupController.create
