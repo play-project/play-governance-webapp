@@ -29,7 +29,7 @@
 		%{String name = org.ow2.play.metadata.api.Helper.getID(p.resource)}%
 		%{String uri = org.ow2.play.metadata.api.Helper.getURI(p.resource)}%
 		<tr>
-			<td align="left">#${i++}</td>
+			<td align="left">${i++}</td>
 			<td><a href="@{PermissionController.permission(name)}">${name}</a></td>
 			<td><a target="_blank" href="${uri}">${uri}</a></td>
 			<td>

@@ -10,6 +10,12 @@
 	<h1>${group.name}&nbsp;<small>${group.resourceURI}</small></h1>
 </div>
 
+<div class="well">
+	<a class="btn" href="#">Add property</a>&nbsp;
+	<a class="btn" href="@{PermissionController.create()}?agent=${group.resourceURI}">Create permission</a>&nbsp;
+	<a class="btn btn-danger" href="#">Delete</a>
+</div>
+
 <table class="table table-striped">
 	<thead>
 		<tr>

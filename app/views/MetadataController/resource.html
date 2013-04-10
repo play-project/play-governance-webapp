@@ -8,9 +8,31 @@
 </ul>
 
 <div class="well">
+	<a href="#addmeta" class="btn">Add Metadata</a>&nbsp;
 	<a href="@{MetadataController.deleteResource(resource.name, resource.url)}" class="btn btn-danger">Delete!</a>&nbsp;
-	<a href="#addmeta" class="btn btn-info">Add Metadata</a>&nbsp;
 </div>
+
+#{if resource.name == 'stream'}
+<h5>Stream options</h5>
+<div class="well">
+	<a href="@{PermissionController.create()}?access=${resource.url}" class="btn">Create Permission</a>&nbsp;
+</div>
+#{/if}
+
+#{if resource.name == 'group'}
+<h5>Group options</h5>
+<div class="well">
+	<a href="@{PermissionController.create()}?agent=${resource.url}" class="btn">Create Permission</a>&nbsp;
+	<a href="@{GroupController.group(utils.ResourceHelper.getGroupName(metaresource))}" class="btn">Details</a>&nbsp;
+</div>
+#{/if}
+
+#{if resource.name == 'permission'}
+<h5>Permission options</h5>
+<div class="well">
+	<a href="@{PermissionController.permission(utils.ResourceHelper.getPermissionName(metaresource))}" class="btn">Details</a>&nbsp;
+</div>
+#{/if}
 
 #{if meta}
 	<table class="table table-striped">

@@ -22,13 +22,14 @@
 			<label for="access">Access To (Stream as CSV)</label>
 			<div class="input">
 				<input type="text" name="access" id="access" class="input-xxlarge"
-					size="60" />
+					size="60" value="${params?.access}#{if params.access}#stream#{/if}"/>
 			</div>
 		</div>
 		<div class="clearfix">
 			<label for="agent">Agent (Groups as CSV)</label>
 			<div class="input">
-				<input type="text" name="agent" id="agent" class="input-xxlarge" size="60" />
+				<input type="text" name="agent" id="agent" class="input-xxlarge"
+					size="60" value="${params?.agent}#{if params.agent}#group#{/if}"/>
 			</div>
 		</div>
 		<div class="clearfix">

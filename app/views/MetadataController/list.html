@@ -14,7 +14,8 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>Name</th>
+			<th>URI</th>
+			<th>Type</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -23,9 +24,31 @@
 		<tr>
 			<td align="left"><a href="@{MetadataController.resource(r.resource.name, r.resource.url)}">${i++}</a></td>
 			<td><a href="${r.resource.url}" target="_blank">${r.resource.url}#${r.resource.name}</a></td>
+			<td><span class="label">${r.resource.name}</span></td>
 			<td>
 				<a href="@{MetadataController.resource(r.resource.name, r.resource.url)}" class="btn">Details</a>&nbsp;
-				<a href="@{MetadataController.deleteResource(r.resource.name, r.resource.url)}" class="btn btn-danger">Delete!</a>&nbsp;
+				<div class="btn-group">
+	  				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	   					More
+	    				<span class="caret"></span>
+	  				</a>
+	  				<ul class="dropdown-menu">
+	  					<li class="disabled"><a tabindex="-1" href="#"><strong>${r.resource.name.capFirst()}</strong></a></li>
+		  				#{if r.resource.name == 'stream'}
+	    				<li><a href="@{PermissionController.create()}?access=${r.resource.url}">Create permission</a></li>
+	  					#{/if}
+	  					#{if r.resource.name == 'group'}
+	    				<li><a href="@{PermissionController.create()}?agent=${r.resource.url}">Create permission</a></li>
+	    				<li><a href="@{GroupController.group(utils.ResourceHelper.getGroupName(r))}">Details</a></li>
+	  					#{/if}
+	  					#{if r.resource.name == 'permission'}
+	    				<li><a href="@{PermissionController.permission(utils.ResourceHelper.getPermissionName(r))}">Details</a></li>
+	  					#{/if}
+	    				<li class="divider"></li>
+	    				<li><a href="@{MetadataController.resource(r.resource.name, r.resource.url)}#addmeta">Add metadata</a></li>
+	    				<li><a href="@{MetadataController.deleteResource(r.resource.name, r.resource.url)}">Delete!</a></li>
+	  				</ul>
+				</div>
 			</td>
 		</tr>
 		#{/list}

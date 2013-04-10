@@ -128,7 +128,8 @@ public class MetadataController extends PlayController {
 		} catch (MetadataException e) {
 			flash.error(e.getMessage());
 		}
-		render(resource, meta);
+		MetaResource metaresource = new MetaResource(resource, meta);
+		render(metaresource, resource, meta);
 	}
 
 	/**
