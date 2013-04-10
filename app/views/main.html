@@ -44,15 +44,6 @@
 					<ul class="nav" id="main-menu-left">
 						<!-- <li><a id="swatch-link" href="">Cr&eacute;er</a></li>-->
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">Topics <b class="caret"></b></a>
-							<ul class="dropdown-menu" id="swatch-menu">
-			                  <li><a href="@{TopicsController.topics()}">List</a></li>
-			                  <li><a href="@{TopicsController.dsb()}">DSB</a></li>
-			                  <li><a href="@{TopicsController.subscriber()}">Platform Subscriber</a></li>
-			                  <li><a href="@{TopicsController.publisher()}">Platform Publisher</a></li>  
-							</ul>
-						</li>
-						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Resources <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
 								<li class="dropdown-submenu">
@@ -73,7 +64,34 @@
   								</li>
 							</ul>
 						</li>
-						
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">User <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+							 	<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Groups</a>
+    								<ul class="dropdown-menu">
+										<li><a href="@{GroupController.index()}">List</a></li>
+										<li><a href="@{GroupController.create()}">Create</a></li>
+									</ul>
+  								</li>
+							 	<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Permissions</a>
+    								<ul class="dropdown-menu">
+										<li><a href="@{PermissionController.index()}">List</a></li>
+										<li><a href="@{PermissionController.create()}">Create</a></li>
+									</ul>
+  								</li>
+							</ul>
+						</li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Topics <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="swatch-menu">
+			                  <li><a href="@{TopicsController.topics()}">List</a></li>
+			                  <li><a href="@{TopicsController.dsb()}">DSB</a></li>
+			                  <li><a href="@{TopicsController.subscriber()}">Platform Subscriber</a></li>
+			                  <li><a href="@{TopicsController.publisher()}">Platform Publisher</a></li>  
+							</ul>
+						</li>						
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Subscriptions <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
@@ -113,25 +131,6 @@
                   						<li><a href="@{PatternsController.list()}">Registered Patterns</a></li>
 										<li><a href="@{PatternsController.deploy()}">Deploy Pattern</a></li>
                   						<li><a href="@{PatternsController.listDeployed()}">Runtime Patterns</a></li>								    </ul>
-  								</li>
-							</ul>
-						</li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">User <b class="caret"></b></a>
-							<ul class="dropdown-menu" id="swatch-menu">
-							 	<li class="dropdown-submenu">
-    								<a tabindex="-1" href="#">Groups</a>
-    								<ul class="dropdown-menu">
-										<li><a href="@{GroupController.index()}">List</a></li>
-										<li><a href="@{GroupController.create()}">Create</a></li>
-									</ul>
-  								</li>
-							 	<li class="dropdown-submenu">
-    								<a tabindex="-1" href="#">Permissions</a>
-    								<ul class="dropdown-menu">
-										<li><a href="@{PermissionController.index()}">List</a></li>
-										<li><a href="@{PermissionController.create()}">Create</a></li>
-									</ul>
   								</li>
 							</ul>
 						</li>
