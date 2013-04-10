@@ -56,19 +56,19 @@
 							data-toggle="dropdown" href="#">Resources <b class="caret"></b></a>
 							<ul class="dropdown-menu" id="swatch-menu">
 								<li class="dropdown-submenu">
-    								<a tabindex="-1" href="#">Services</a>
-    								<ul class="dropdown-menu">
-				                  		<li><a tabindex="-1" href="@{RegistryController.services()}">List</a></li>
-				                  		<li><a tabindex="-1" href="@{RegistryController.load()}">Load</a></li>
-								    </ul>
-  								</li>
-								<li class="dropdown-submenu">
     								<a tabindex="-1" href="#">Metadata</a>
     								<ul class="dropdown-menu">
 				                  	 	<li><a href="@{MetadataController.list()}">List</a></li>
 			                  			<li><a href="@{MetadataController.create()}">Create</a></li>
 			                  			<li><a href="@{MetadataController.load()}">Load</a></li>
 			                  			<li><a href="@{MetadataController.download()}" target="_blank">Download</a></li>
+								    </ul>
+  								</li>
+								<li class="dropdown-submenu">
+    								<a tabindex="-1" href="#">Services</a>
+    								<ul class="dropdown-menu">
+				                  		<li><a tabindex="-1" href="@{RegistryController.services()}">List</a></li>
+				                  		<li><a tabindex="-1" href="@{RegistryController.load()}">Load</a></li>
 								    </ul>
   								</li>
 							</ul>
