@@ -18,9 +18,11 @@
  *
  */
 import models.Node;
+import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
+import utils.Settings;
 
 /**
  * Bootstrap some init data to avoid some useless test for the application long
@@ -36,5 +38,10 @@ public class Bootstrap extends Job {
 		if (Node.count() == 0) {
 			Fixtures.load("initial-data.yml");
 		}
+		Node defaultNode = new Node();
+		defaultNode.name = Settings.DEFAULT_REGISTRY;
+		defaultNode.baseURL = Play.configuration
+				.getProperty(Settings.DEFAULT_REGISTRY);
+		defaultNode.save();
 	}
 }

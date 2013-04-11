@@ -4,12 +4,7 @@
 
 <div class="well">
 #{if session.get("username")}
-	#{if currentNode}
-		<a href="@{NodeController.connect()}">Connected to <b>${currentNode?.name}</b></a>
-	#{/if}
-	#{else}
-		<a href="@{NodeController.connect()}">Please connect to a registry...</a>
-	#{/else}
+...
 #{/if}
 #{else}
 	<a href="@{Secure.login()}">Please login</a>

@@ -1,3 +1,7 @@
+package utils;
+
+import play.mvc.Scope.Session;
+
 /**
  *
  * Copyright (c) 2013, Linagora
@@ -17,34 +21,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
  *
  */
-package controllers;
 
-import models.Node;
-import utils.Settings;
+/**
+ * @author chamerling
+ * 
+ */
+public class Settings {
 
-public class Application extends PlayController {
+	public static final String DEBUG = "org.ow2.play.debug";
 
-	private static String getURL() {
-		Node n = Node.getCurrentNode();
-		if (n == null) {
-			flash.success("Please connect!");
-			NodeController.connect();
+	public static final String DEFAULT_REGISTRY = "org.ow2.play.registry";
+
+	public static final boolean isDebug() {
+		return Session.current().get(DEBUG) != null
+				&& Session.current().get(DEBUG).equalsIgnoreCase("on");
+	}
+
+	public static final void switchDebug() {
+		if (isDebug()) {
+			Session.current().put(DEBUG, "off");
+		} else {
+			Session.current().put(DEBUG, "on");
 		}
-		return n.baseURL;
-	}
-	
-	public static void index() {
-		// redirect to topics
-		//TopicsController.topics();
-		render();
+		// remove registry from session to be sure to get the default one
+		Session.current().remove("node");
 	}
 
-	/**
-	 * 
-	 */
-	public static void switchDebugMode() {
-		Settings.switchDebug();
-		flash.success("Debug mode is %s", Settings.getDebugMode());
-		index();
+	public static final String getDebugMode() {
+		return (isDebug() ? "on" : "off");
 	}
+
 }

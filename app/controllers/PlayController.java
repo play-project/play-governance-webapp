@@ -22,6 +22,7 @@ package controllers;
 import models.Node;
 import play.mvc.Before;
 import play.mvc.Controller;
+import utils.Settings;
 
 /**
  * @author chamerling
@@ -29,6 +30,9 @@ import play.mvc.Controller;
  */
 public abstract class PlayController extends Controller {
 
+	/**
+	 * Push the current node in the context if any
+	 */
 	@Before
 	public static void init() {
 		Node n = Node.getCurrentNode();
@@ -37,13 +41,28 @@ public abstract class PlayController extends Controller {
 		}
 	}
 
+	/**
+	 * Get node is called by controllers when a governance client is needed. If
+	 * the node is not found, the default one is returned.
+	 * 
+	 * @return
+	 */
 	protected static Node getNode() {
-		Node n = Node.getCurrentNode();
-		if (n == null) {
-			flash.success("Please connect!");
-			NodeController.connect();
+		// not in debug mode means getting default registry
+		if (!Settings.isDebug()) {
+			System.out.println("Default registry");
+			return Node.getDefault();
+		} else {
+			Node n = Node.getCurrentNode();
+			if (n == null) {
+				flash.success("Please select a registry node!");
+				NodeController.connect();
+			} else {
+				return n;
+			}
 		}
-		return n;
+		System.out.println("Should not be here...");
+		return null;
 	}
 
 	protected static void handleException(String message, Exception e) {

@@ -23,6 +23,7 @@ import javax.persistence.Entity;
 
 import play.db.jpa.Model;
 import play.mvc.Scope.Session;
+import utils.Settings;
 
 /**
  * @author chamerling
@@ -44,8 +45,11 @@ public class Node extends Model {
 		if (nodeId == null) {
 			return null;
 		}
-		Node node = Node.findById(Long.valueOf(nodeId));
-		return node;
+		return Node.findById(Long.valueOf(nodeId));
+	}
+
+	public static Node getDefault() {
+		return Node.find("name", Settings.DEFAULT_REGISTRY).first();
 	}
 
 	@Override

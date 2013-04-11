@@ -60,5 +60,4 @@ public class NodeController extends PlayController {
 		flash.success("Disconnected!");
 		Application.index();
 	}
-
 }
