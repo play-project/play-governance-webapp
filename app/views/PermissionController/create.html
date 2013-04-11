@@ -6,30 +6,51 @@
   <li class="active">New</li>
 </ul>
 
-<div class="page-header">
-	<h1>Create a new permission</h1>
-</div>
+%{ selectedStream = params.access + "#stream" }%
+%{ selectedGroup = params.agent + "#group" }%
+
 <div class="well">
+  	<legend>Create a new Permission</legend>
 	#{form @PermissionController.doCreate()}
 	<fieldset>
 		<div class="clearfix">
 			<label for="name">Name</label>
 			<div class="input">
-				<input type="text" name="name" id="name" class="input-xxlarge" size="60" />
+				<input type="text" name="name" id="name" class="span8" />
 			</div>
 		</div>
 		<div class="clearfix">
-			<label for="access">Access To (Stream as CSV)</label>
+			<label class="control-label" for="access">
+				<a href="#" id="tooltip_access" rel="tooltip" data-original-title="You can select multiple Streams using CTRL/CMD + click">Access To (Streams)</a>
+			</label>
 			<div class="input">
-				<input type="text" name="access" id="access" class="input-xxlarge"
-					size="60" value="${params?.access}#{if params.access}#stream#{/if}"/>
+				<select multiple="multiple" class="span8" size="6" name="access" id="access">
+					#{list streams, as : 'stream'}
+					#{if stream == selectedStream}
+	  				<option selected="selected">${stream}</option>					
+					#{/if}
+					#{else}
+					<option>${stream}</option>					
+					#{/else}
+	  				#{/list}
+				</select>
 			</div>
 		</div>
 		<div class="clearfix">
-			<label for="agent">Agent (Groups as CSV)</label>
+			<label class="control-label" for="agent">
+				<a href="#" id="tooltip_agent" rel="tooltip" data-original-title="You can select multiple Groups using CTRL/CMD + click">Agent (Groups)</a>
+			</label>
 			<div class="input">
-				<input type="text" name="agent" id="agent" class="input-xxlarge"
-					size="60" value="${params?.agent}#{if params.agent}#group#{/if}"/>
+				<select multiple="multiple" class="span8" size="6" name="agent" id="agent">
+					#{list groups, as : 'group'}
+					#{if group == selectedGroup}
+	  				<option selected="selected">${group}</option>					
+					#{/if}
+					#{else}
+					<option>${group}</option>					
+					#{/else}
+					#{/list}
+				</select>
 			</div>
 		</div>
 		<div class="clearfix">
@@ -56,7 +77,7 @@
 	#{/form}
 </div>
 
-<div class="well">
+<div class="well" id="help">
 	<h4>Access To</h4>
 	Defines the resources <span class="label">Stream</span>&nbsp;<span class="label">Topic</span> you want to restrict access to.<br><br>
 	For example :
@@ -84,3 +105,10 @@
 	</ul>
 
 </div>
+
+#{set 'lastScripts'}
+	<script>
+	$('#tooltip_access').tooltip({placement : 'right'});
+	$('#tooltip_agent').tooltip({placement : 'right'});
+	</script>
+#{/set}

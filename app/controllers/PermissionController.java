@@ -19,17 +19,24 @@
  */
 package controllers;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import org.ow2.play.governance.permission.api.Constants;
 import org.ow2.play.governance.permission.api.Permission;
 import org.ow2.play.governance.permission.api.PermissionService;
 import org.ow2.play.metadata.api.MetaResource;
+import org.ow2.play.metadata.api.service.MetadataService;
 
 import play.data.validation.Required;
 import play.mvc.With;
 import utils.Locator;
-import utils.StringHelper;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.Lists;
 
 /**
  * @author chamerling
@@ -66,20 +73,63 @@ public class PermissionController extends PlayController {
 	}
 
 	public static void create() {
-		render();
+		// get all the stream and all the groups...
+
+		Set<String> streams = null;
+		Set<String> groups = null;
+		try {
+			MetadataService meta = Locator.getMetaService(getNode());
+			streams = ImmutableSortedSet
+					.orderedBy(new Comparator<String>() {
+						public int compare(String r1, String r2) {
+							return r1.compareToIgnoreCase(r2);
+						}
+					})
+					.addAll(Collections2.transform(
+							meta.listWhere("stream", null),
+							new Function<MetaResource, String>() {
+								public String apply(MetaResource input) {
+									return input.getResource().getUrl() + "#"
+											+ input.getResource().getName();
+								}
+							})).build();
+
+			groups = ImmutableSortedSet
+					.orderedBy(new Comparator<String>() {
+						public int compare(String r1, String r2) {
+							return r1.compareToIgnoreCase(r2);
+						}
+					})
+					.addAll(Collections2.transform(
+							meta.listWhere("group", null),
+							new Function<MetaResource, String>() {
+								public String apply(MetaResource input) {
+									return input.getResource().getUrl() + "#"
+											+ input.getResource().getName();
+								}
+							})).build();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			flash.error("Problem while getting data");
+			index();
+		}
+		render(groups, streams);
 	}
 
 	public static void doCreate(
 			@Required(message = "Name is required") String name,
-			@Required(message = "Access is required") String access,
-			@Required(message = "Agent is required") String agent,
+			@Required(message = "Access is required") String[] access,
+			@Required(message = "Agent is required") String[] agent,
 			@Required(message = "Mode is required") String[] mode) {
-		
+
 		validation.required(name);
+		validation.isTrue(access != null && access.length > 0);
+		validation.isTrue(agent != null && agent.length > 0);
 		validation.required(access);
 		validation.required(agent);
 		validation.required(mode);
-		
+
 		if (validation.hasErrors()) {
 			params.flash();
 			validation.keep();
@@ -92,11 +142,11 @@ public class PermissionController extends PlayController {
 			permission.name = name;
 
 			if (access != null) {
-				permission.accessTo.addAll(StringHelper.fromCSV(access));
+				permission.accessTo.addAll(Lists.newArrayList(access));
 			}
 
 			if (agent != null) {
-				permission.agent.addAll(StringHelper.fromCSV(agent));
+				permission.agent.addAll(Lists.newArrayList(agent));
 			}
 
 			if (mode != null) {
@@ -117,6 +167,7 @@ public class PermissionController extends PlayController {
 			}
 
 			String id = client.addPermission(permission);
+			flash.success("Permission has been creaed!");
 			permission(id);
 		} catch (Exception e) {
 			handleException(e.getMessage(), e);

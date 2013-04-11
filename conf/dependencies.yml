@@ -4,6 +4,7 @@ require:
     - play
     - play -> crud
     - play -> secure
+    - com.google.guava -> guava 14.0.1
     - org.ow2.petals.dsb -> dsb-cxfutils 1.0.0:
         exclude:
             - org.slf4j -> *
