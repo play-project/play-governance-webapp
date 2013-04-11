@@ -7,10 +7,6 @@
   <li class="active">Deploy</li>
 </ul>
 
-<div class="page-header">
-	<h1>Deploy new Pattern&nbsp;<small>into the CEP</small></h1>
-</div>
-
 #{ifErrors}
 	<div class="alert-message error">
         <a class="close" href="#">&times;</a>
@@ -25,6 +21,7 @@
 
 <div class="well">
 #{form @PatternsController.deployToRuntime()}
+<legend>Deploy a new Pattern in the CEP</legend>
 		<fieldset>
 				<div class="clearfix">
         			<label for="pattern">

@@ -1,9 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Topics' /}
 
-<div class="page-header">
-    <h1>Event Clouds</h1>
-</div>
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="#">Components</a> <span class="divider">/</span></li>
+  <li class="active">EventCloud</li>
+</ul>
 
 #{if list}
 	<table class="table table-striped">

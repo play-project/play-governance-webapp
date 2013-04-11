@@ -1,9 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'EventCloud details' /}
 
-<div class="page-header">
-    <h3>${ec.stream}</h3>
-</div>
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="#">Components</a> <span class="divider">/</span></li>
+  <li><a href="#">EventCloud</a> <span class="divider">/</span></li>
+  <li class="active">${ec.stream}</li>
+</ul>
 
 <h3>Subscribe Proxies</h3>
 <table class="table table-striped">

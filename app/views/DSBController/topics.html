@@ -1,9 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'DSB Topics' /}
 
-<div class="page-header">
-    <h1>DSB Topics</h1>
-</div>
+<ul class="breadcrumb">
+  <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+  <li><a href="#">Components</a> <span class="divider">/</span></li>
+  <li><a href="#">DSB</a> <span class="divider">/</span></li>
+  <li class="active">Topics</li>
+</ul>
+
 
 #{ifErrors}
 	<div class="alert-message error">
@@ -17,32 +21,14 @@
       </div>
 #{/ifErrors}
 
+<div class="alert alert-block">
+  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<h4>Info!</h4>
+	Streams/Topics currently available in the Distributed Service Bus.
+</div>
+
 <div class="well">
-#{form @TopicsController.createDSB()}
-		<fieldset>
-				<div class="clearfix">
-        			<label for="name">Topic Name</label>
-        			<div class="input">
-        				<input type="text" name="name" id="name" class="xlarge" size="50" value="${flash.name}"/>
-        			</div>
-        		</div>
-        		<div class="clearfix">
-        			<label for="ns">Topic NS</label>
-        			<div class="input">
-        				<input type="text" name="ns" id="ns" class="xlarge" size="50" value="${flash.ns}"/>
-        			</div>
-        		</div>
-        		<div class="clearfix">
-        			<label for="prefix">Topic Prefix</label>
-        			<div class="input">
-        				<input type="text" name="prefix" id="prefix" class="xlarge" size="50" value="${flash.prefix}"/>
-        			</div>
-        		</div>
-	    		<div class="actions">
-        			<input class="btn primary" type="submit" value="Create" />
-        		</div>
-        </fieldset>
-#{/form}
+	<a href="#create" class="btn">Create</a>
 </div>
 
 #{if topics}
@@ -73,3 +59,32 @@
 #{else}
 	<h3>No topics</h3>
 #{/else}
+
+<div class="well" id="create">
+#{form @TopicsController.createDSB()}
+	<legend>Create a new Topic</legend>
+		<fieldset>
+				<div class="clearfix">
+        			<label for="name">Topic Name</label>
+        			<div class="input">
+        				<input type="text" name="name" id="name" class="xlarge" size="50" value="${flash.name}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="ns">Topic NS</label>
+        			<div class="input">
+        				<input type="text" name="ns" id="ns" class="xlarge" size="50" value="${flash.ns}"/>
+        			</div>
+        		</div>
+        		<div class="clearfix">
+        			<label for="prefix">Topic Prefix</label>
+        			<div class="input">
+        				<input type="text" name="prefix" id="prefix" class="xlarge" size="50" value="${flash.prefix}"/>
+        			</div>
+        		</div>
+	    		<div class="actions">
+        			<input class="btn primary" type="submit" value="Create" />
+        		</div>
+        </fieldset>
+#{/form}
+</div>
