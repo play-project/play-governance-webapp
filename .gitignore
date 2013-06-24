@@ -23,3 +23,16 @@ logs/
 .idea/
 *.iml
 server.pid
+
+#Modules
+conf/crud
+public/crud
+crud
+
+conf/secure
+public/secure
+secure
+
+conf/securesocial-0.2.6
+public/securesocial-0.2.6
+securesocial-0.2.6
