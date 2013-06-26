@@ -54,7 +54,7 @@
             	#{/list}
             	</ul>
             </td>
-			<td><a class="btn" href="@{MetadataController.removeMeta()}">Remove</a></td>
+			<td><a class="btn" href="@{MetadataController.removeMeta(resource.name, resource.url, m.name)}">Remove</a></td>
           </tr>
         #{/list}
         </tbody>

@@ -212,9 +212,47 @@ public class MetadataController extends PlayController {
 		resource(name, url);
 	}
 
-	public static void removeMeta() {
-		flash.error("Remove is not implemented");
-		list();
+    /**
+     * Remove metadata value from its name
+     *
+     * @param name
+     * @param url
+     * @param meta
+     */
+	public static void removeMeta(String name, String url, String meta) {
+        if (name == null || url == null || meta == null
+                || name.length() == 0 || url.length() == 0
+                || meta.length() == 0) {
+            flash.error("Null values are not allowed");
+            resource(name, url);
+        }
+
+        MetadataService client = null;
+        try {
+            client = Locator.getMetaService(getNode());
+        } catch (Exception e) {
+            handleException("Locator error", e);
+        }
+
+        try {
+            // while not provided directly by the API, just get metadata from its name and call remove with the
+            // returned value
+
+            Metadata remove = client.getMetadataValue(new Resource(name, url), meta);
+            if (remove == null) {
+                flash.error("Can not find such resource");
+                resource(name, url);
+            }
+
+            // let's delete!
+            client.removeMetadata(new Resource(name, url), remove);
+            flash.success("Metadata '%s' removed from resource!", meta);
+        } catch (Exception e) {
+            flash.error(e.getMessage());
+        }
+        resource(name, url);
+        list();
+
 	}
 
 	/**
