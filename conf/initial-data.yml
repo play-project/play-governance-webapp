@@ -8,7 +8,7 @@ Node(RemoteRegistry):
     
 Node(StableRegistry):
     name: StableRegistry
-    baseURL: http://46.105.181.221:8080/governance/RegistryService
+    baseURL: http://46.105.181.221:8080/play/registry/RegistryService
     
 RegistryConfiguration(LocalPlayConfiguration):
     name: Local Play Configuration

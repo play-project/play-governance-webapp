@@ -184,6 +184,37 @@ public class RegistryController extends PlayController {
 		service(name);
 	}
 
+    /**
+     * Delete an entry
+     *
+     * @param name
+     */
+    public static void delete(String name) {
+        validation.required(name);
+        if (validation.hasErrors()) {
+            params.flash();
+            flash.error("Can not delete service from a null name");
+            services();
+        }
+
+        Registry client = null;
+        try {
+            client = Locator.getServiceRegistry(getNode());
+        } catch (Exception e) {
+            handleException("Locator error", e);
+        }
+
+        try {
+            client.delete(name);
+            flash.success("Service %s deleted", name);
+        } catch (RegistryException e) {
+            e.printStackTrace();
+            flash.error("Unable to delete service %s : '%s", name,
+                    e.getMessage());
+        }
+        services();
+    }
+
 	/**
 	 * @GET
 	 */

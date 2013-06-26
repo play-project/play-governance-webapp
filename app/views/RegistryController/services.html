@@ -1,9 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Topics' /}
 
-<div class="page-header">
-    <h1>Services</h1>
-</div>
+<ul class="breadcrumb">
+    <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+    <li class="active">Services</li>
+</ul>
 
 #{ifErrors}
 	<div class="alert-message error">
@@ -44,7 +45,20 @@
           <td align="left">${i++}</td>
             <td><b>${s.name}</b></td>
             <td><a href="${s.baseURL}" target="_blank">${s.baseURL}</a></td>
-            <td><a href="@{RegistryController.service(s.name)}" class="btn">Details</a></td>
+            <td>
+                <a href="@{RegistryController.service(s.name)}" class="btn">Details</a>&nbsp;
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        More
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@{RegistryController.service(s.name)}#edit">Edit</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@{RegistryController.delete(s.name)}">Delete!</a></li>
+                    </ul>
+                </div>
+              </td>
           </tr>
         #{/list}
         </tbody>

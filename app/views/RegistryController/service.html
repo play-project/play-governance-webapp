@@ -1,18 +1,42 @@
 #{extends 'main.html' /}
 #{set title:'Resource details' /}
 
-<div class="page-header">
-    <h1>Service Details &nbsp;<small>${name}</small></h1>
+<ul class="breadcrumb">
+    <li><a href="@{Application.index()}">Home</a> <span class="divider">/</span></li>
+    <li><a href="@{RegistryController.services()}">Services</a> <span class="divider">/</span></li>
+    <li class="active">${name}</li>
+</ul>
+
+<div class="well">
+    <a href="#edit" class="btn">Edit</a>&nbsp;
+    <a href="@{RegistryController.delete(name)}" class="btn btn-danger">Delete!</a>&nbsp;
 </div>
 
-<h2>Edit</h2>
-<div class="well">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><b>${name}</b></td>
+        <td><a href="${url}" target="_blank">${url}</a></td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody>
+</table>
+
+<h4>Edit</h4>
+<div id="edit" class="well">
 #{form @RegistryController.update()}
 		<fieldset>
         		<div class="clearfix">
         			<label for="mvalue">URL</label>
         			<div class="input">
-        				<input type="text" name="url" id="url" class="xlarge" value="${url}" size="100"/>
+        				<input type="text" name="url" id="url" class="input-xxlarge" value="${url}" size="100"/>
         			</div>
         		</div>
    				<input type="hidden" name="name" id="name" value="${name}"/>
