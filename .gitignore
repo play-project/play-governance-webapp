@@ -17,6 +17,9 @@ tmp/**/*
 .settings/
 .loadpath
 
+*.ipr
+*.iml
+
 lib/
 logs/
 
