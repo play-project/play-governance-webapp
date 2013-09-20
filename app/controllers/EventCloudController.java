@@ -65,7 +65,7 @@ public class EventCloudController extends PlayController {
 		try {
 			ec.publish = client.getPublishWsnServiceEndpointUrls(id);
 			ec.putget = client.getPutGetWsProxyEndpointUrls(id);
-			ec.subscribe = client.getSubscribeWsnProxyEndpointUrls(id);
+			ec.subscribe = client.getSubscribeWsnServiceEndpointUrls(id);
 		} catch (GovernanceExeption e) {
 			flash.error("Error while getting information for %s : %s", id, e.getMessage());
 			list();
