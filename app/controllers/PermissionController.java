@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
 package controllers;
@@ -81,6 +81,7 @@ public class PermissionController extends PlayController {
 			MetadataService meta = Locator.getMetaService(getNode());
 			streams = ImmutableSortedSet
 					.orderedBy(new Comparator<String>() {
+						@Override
 						public int compare(String r1, String r2) {
 							return r1.compareToIgnoreCase(r2);
 						}
@@ -88,6 +89,7 @@ public class PermissionController extends PlayController {
 					.addAll(Collections2.transform(
 							meta.listWhere("stream", null),
 							new Function<MetaResource, String>() {
+								@Override
 								public String apply(MetaResource input) {
 									return input.getResource().getUrl() + "#"
 											+ input.getResource().getName();
@@ -96,6 +98,7 @@ public class PermissionController extends PlayController {
 
 			groups = ImmutableSortedSet
 					.orderedBy(new Comparator<String>() {
+						@Override
 						public int compare(String r1, String r2) {
 							return r1.compareToIgnoreCase(r2);
 						}
@@ -103,6 +106,7 @@ public class PermissionController extends PlayController {
 					.addAll(Collections2.transform(
 							meta.listWhere("group", null),
 							new Function<MetaResource, String>() {
+								@Override
 								public String apply(MetaResource input) {
 									return input.getResource().getUrl() + "#"
 											+ input.getResource().getName();
@@ -167,7 +171,7 @@ public class PermissionController extends PlayController {
 			}
 
 			String id = client.addPermission(permission);
-			flash.success("Permission has been creaed!");
+			flash.success("Permission has been created!");
 			permission(id);
 		} catch (Exception e) {
 			handleException(e.getMessage(), e);
