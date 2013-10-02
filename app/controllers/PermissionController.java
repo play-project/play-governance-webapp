@@ -161,7 +161,10 @@ public class PermissionController extends PlayController {
 					if (string.equalsIgnoreCase("write")) {
 						permission.mode.add(Constants.WRITE);
 					}
-					if (string.equalsIgnoreCase("subcribe")) {
+					if (string.equalsIgnoreCase("subscribe")) {
+						permission.mode.add(Constants.SUBSCRIBE);
+					}
+					if (string.equalsIgnoreCase("subcribe")) { // compensate for typos elsewhere
 						permission.mode.add(Constants.SUBSCRIBE);
 					}
 					if (string.equalsIgnoreCase("notify")) {
