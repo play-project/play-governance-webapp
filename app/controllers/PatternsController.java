@@ -139,6 +139,20 @@ public class PatternsController extends PlayController {
 	 * @param id
 	 */
 	public static void undeployPatternFromRuntime(String id) {
-		
+		SimplePatternService client = null;
+		try {
+			client = Locator.getSimplePatternService(getNode());
+		} catch (Exception e) {
+			handleException(null, e);
+		}
+
+		try {
+			String result = client.undeploy(id);
+			flash.success("Pattern has been undeployed from runtime %s",
+					result);
+		} catch (Exception e) {
+			handleException("Unable to undeploy pattern from runtime", e);
+		}
+		listDeployed();
 	}
 }

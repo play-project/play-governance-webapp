@@ -19,15 +19,20 @@
     <div id="collapse_${i}" class="accordion-body collapse">
       <div class="accordion-inner">
 		<p>
-      		<h4>ID : ${p.name} - ${p.id}</h4>
+      		<h4>ID : ${p.id}</h4>
 		</p>
 		<p>
 			<div class="row">
-	  			<div class="span1"><a class="btn btn-danger disabled">Remove</a></div>
+	  			<div class="span1">
+					#{form @PatternsController.undeployPatternFromRuntime()}
+						<input type="hidden" id="id" name="id" value="${p.id}"/>
+						<button type="submit" class="btn btn-danger">Remove</button>
+					#{/form}
+	  			</div>
 	  			<div class="span1">
 					#{form @PatternsController.deployFrom()}
 						<input type="hidden" id="pattern" name="pattern" value="${p.content}"/>
-						<button type="submit" class="btn">Deploy</button>
+						<button type="submit" class="btn">Deploy...</button>
 					#{/form}
 				</div>
 	  			<div class="span1">
